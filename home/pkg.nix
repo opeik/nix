@@ -8,12 +8,7 @@ let
 
     # Languages
     ## Rust
-    (with fenix;
-    combine [
-      stable.defaultToolchain
-      (stable.withComponents [ "rust-src" ])
-      rust-analyzer
-    ]) # Rust stable toolchain and source code.
+    fenix.rust-analyzer # Rust language server.
 
     ## Nix
     rnix-lsp # Nix language server
