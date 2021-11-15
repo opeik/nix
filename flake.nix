@@ -20,13 +20,24 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixos";
     };
+    vscode-server = {
+      url = "github:yaxitech/vscode-server-fixup";
+      inputs.nixpkgs.follows = "nixos";
+    };
   };
 
-  outputs = { self, nix, nixos, macos, home, nur, fenix, ... }:
+  outputs = { self, nix, nixos, macos, home, nur, fenix, vscode-server, ... }:
     let
       overlays = { nixpkgs.overlays = [ nix.overlay nur.overlay fenix.overlay ]; };
       sharedModules = [ ./modules overlays ];
-      nixosModules = [ ./modules/nixos home.nixosModules.home-manager ];
+      nixosModules = [
+        ./modules/nixos
+        home.nixosModules.home-manager
+        vscode-server.nixosModules.system
+        {
+          home-manager.sharedModules = [ vscode-server.nixosModules.home ];
+        }
+      ];
       macosModules = [
         ./modules/macos
         home.darwinModules.home-manager
