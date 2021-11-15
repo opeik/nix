@@ -1,11 +1,9 @@
 { pkgs, ... }: {
+  users.users.gdm.extraGroups = [ "proc" ];
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
-    displayManager.gdm = {
-      enable = true;
-      nvidiaWayland = true;
-    };
+    displayManager.gdm.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

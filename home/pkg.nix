@@ -7,9 +7,6 @@ let
     docker-compose # Container orchestration for Docker.
 
     # Languages
-    ## Rust
-    fenix.rust-analyzer # Rust language server.
-
     ## Nix
     rnix-lsp # Nix language server
 

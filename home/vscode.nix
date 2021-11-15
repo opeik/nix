@@ -38,12 +38,6 @@
         sha256 = "sha256-DnaIXJ27bcpOrIp1hm7DcrlIzGSjo4RTJ9fD72ukKlc=";
       }
       {
-        name = "rust-analyzer";
-        publisher = "matklad";
-        version = "0.2.792";
-        sha256 = "1m4g6nf5yhfjrjja0x8pfp79v04lxp5lfm6z91y0iilmqbb9kx1q";
-      }
-      {
         name = "theme-monokai-pro-vscode";
         publisher = "monokai";
         version = "1.1.19";
