@@ -1,4 +1,4 @@
-# Dell Precision 7550.
+# Dell Precision 7550 (2020).
 # In the BIOS, enable "Video > Switchable Graphics".
 { ... }: {
   imports = [ ./hardware.nix ];

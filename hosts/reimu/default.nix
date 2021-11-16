@@ -1,4 +1,4 @@
-# Mac mini (M1, 2020).
+# Mac mini M1 (2020).
 { ... }: {
   networking.hostName = "reimu";
 }

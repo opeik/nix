@@ -149,8 +149,8 @@
         "cSpell.spellCheckDelayMs" = 1000;
 
         # Git
-        "gitlens.codeLens.enabled" = false;
-        "gitlens.currentLine.enabled" = false;
+        "gitlens.codeLens.enabled" = false; # Disables code block blame.
+        "gitlens.currentLine.enabled" = false; # Disables current line blame.
 
         # Languages
         ## Rust
@@ -161,6 +161,7 @@
 
         ## Nix
         "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp";
         "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
         "[nix]" = { "editor.tabSize" = 2; };
 
@@ -169,7 +170,7 @@
       }
       (lib.mkIf (pkgs.stdenv.isLinux) {
         # Native window decorations don't work yet.
-        # See: https://github.com/microsoft/vscode/issues/124202
+        # See: `https://github.com/microsoft/vscode/issues/124202`.
         # "window.titleBarStyle" = "custom";
       })
     ];

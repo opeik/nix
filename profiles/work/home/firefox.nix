@@ -1,4 +1,5 @@
-# Annoying hack, see: https://github.com/NixOS/nixpkgs/issues/87895#issuecomment-898191204.
+# Hack, the existing `firefox-wayland` package is subtly broken.
+# See: `https://github.com/NixOS/nixpkgs/issues/87895#issuecomment-898191204`.
 { pkgs, lib, ... }:
 let
   myFirefox = (pkgs.firefox.overrideAttrs (_: {
@@ -33,8 +34,7 @@ in
       multi-account-containers
     ];
     profiles.opeik.settings = {
-      # Restore last session on startup.
-      "browser.startup.page" = 3;
+      "browser.startup.page" = 3; # Restore last session on startup.
     };
   };
 }

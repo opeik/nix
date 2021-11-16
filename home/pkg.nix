@@ -1,17 +1,17 @@
 { pkgs, lib, system, ... }:
 let
   packages = with pkgs; [
-    # Dev tools
-    git # Version control
-    vim # Command line text editor
-    docker-compose # Container orchestration for Docker.
-
-    # Languages
-    ## Nix
-    rnix-lsp # Nix language server
+    # Development tools
+    ## Version control systems
+    git
+    ## Text editors
+    vim
+    ## Container orchestration
+    docker-compose
 
     # Utilities
     htop # Interactive proccess viewer
+    powertop # Interactive power consumption viewer
     wally-cli # Firmware flasher for ZSA keyboards
   ];
   macosPackages = with pkgs; [ ];

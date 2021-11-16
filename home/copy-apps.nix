@@ -1,6 +1,6 @@
 { pkgs, lib, ... }: {
-  # Awful hack since `home-manager` isn't symliking apps properly on macOS.
-  # See: https://github.com/nix-community/home-manager/issues/1341.
+  # Hack since `home-manager` isn't symliking apps properly on macOS.
+  # See: `https://github.com/nix-community/home-manager/issues/1341`.
   home.activation = {
     copyApplications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       appsSrc="$newGenPath/home-path/Applications/"
