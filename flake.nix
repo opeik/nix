@@ -26,14 +26,18 @@
       url = "github:yaxitech/vscode-server-fixup";
       inputs.nixpkgs.follows = "nixos";
     };
+    cachix = {
+      url = "github:jonascarpay/declarative-cachix";
+      inputs.nixpkgs.follows = "nixos";
+    };
   };
 
-  outputs = { self, nix, nixos, macos, home, nur, vscode-server, ... }:
+  outputs = { self, nix, nixos, macos, home, nur, vscode-server, cachix, ... }:
     let
       # Package overlays.
       overlays = { nixpkgs.overlays = [ nix.overlay nur.overlay ]; };
       # Shared modules.
-      sharedModules = [ ./modules overlays ];
+      sharedModules = [ ./modules overlays cachix.nixosModules.declarative-cachix ];
       # nixOS specific modules.
       nixosModules = [
         ./modules/nixos

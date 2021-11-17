@@ -115,6 +115,8 @@
         "terminal.integrated.fontSize" = 12;
         "terminal.integrated.allowChords" = false;
         "terminal.integrated.gpuAcceleration" = "on";
+        "terminal.integrated.cursorStyle" = "line";
+        "terminal.integrated.cursorBlinking" = true;
 
         # Files
         "files.autoSave" = "afterDelay";

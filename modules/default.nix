@@ -1,5 +1,8 @@
 { pkgs, lib, system, ... }: {
-  imports = [ ./user.nix ];
+  imports = [
+    ./cachix.nix
+    ./user.nix
+  ];
 
   nix = {
     # Use flakes for **maximum hermeticism**.
