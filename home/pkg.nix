@@ -11,7 +11,6 @@ let
 
     # Utilities
     htop # Interactive proccess viewer
-    powertop # Interactive power consumption viewer
     wally-cli # Firmware flasher for ZSA keyboards
   ];
   macosPackages = with pkgs; [ ];
