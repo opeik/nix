@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  users.users.gdm.extraGroups = [ "proc" ];
+  # Use the `gnome` desktop environment.
   services.xserver = {
     enable = true;
     desktopManager.gnome.enable = true;
@@ -7,6 +7,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnomeExtensions.dash-to-dock # Makes gnome *usable*
+    gnomeExtensions.dash-to-dock # Makes the dock usable. Enable in the extensions app.
   ];
 }

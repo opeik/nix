@@ -1,10 +1,12 @@
 { pkgs, lib, config, ... }: {
   imports = [
+    ./direnv.nix
     ./fish.nix
+    ./font.nix
     ./git.nix
     ./pkg.nix
+    ./starship.nix
     ./vscode.nix
-    ./font.nix
   ];
 
   home.stateVersion = "21.05";

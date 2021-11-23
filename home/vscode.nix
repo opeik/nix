@@ -2,11 +2,13 @@
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      # Prefer the packaged version for extensions which require additional binaries.
+      # Prefer the packaged version for extensions which require binaries,
+      # such as language servers.
       vadimcn.vscode-lldb
       matklad.rust-analyzer
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      # To fetch new extension versions, run `./fetch-vscode-ext`.
+      # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
+      # you remove the pre-packaged extensions listed above from the list.
       {
         name = "shell-format";
         publisher = "foxundermoon";
@@ -170,11 +172,6 @@
         ## Shell
         "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
       }
-      (lib.mkIf (pkgs.stdenv.isLinux) {
-        # Native window decorations don't work yet.
-        # See: `https://github.com/microsoft/vscode/issues/124202`.
-        # "window.titleBarStyle" = "custom";
-      })
     ];
   };
 }

@@ -1,29 +1,10 @@
 { ... }: {
-  programs = {
-    fish = {
-      enable = true;
-      # Disable welcome message.
-      interactiveShellInit = "set fish_greeting; fish_vi_key_bindings";
-    };
-
-    # Enable the `starship` prompt.
-    starship = {
-      enable = true;
-      enableFishIntegration = true;
-      settings = {
-        battery.disabled = true;
-        nix_shell = {
-          symbol = "⛄ ";
-          format = ''via [$symbol$state( $name)]($style) '';
-        };
-      };
-    };
-
-    # Enables per-directory run-command files.
-    direnv = {
-      enable = true;
-      enableFishIntegration = true;
-      nix-direnv.enable = true;
-    };
+  # Install fish, the user friendly shell.
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting;   # Disable welcome message
+      fish_vi_key_bindings # Enable vim key bindings
+    '';
   };
 }
