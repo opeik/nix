@@ -10,6 +10,12 @@
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the pre-packaged extensions listed above from the list.
       {
+        name = "git-graph";
+        publisher = "mhutchie";
+        version = "1.30.0";
+        sha256 = "sHeaMMr5hmQ0kAFZxxMiRk6f0mfjkg2XMnA4Gf+DHwA=";
+      }
+      {
         name = "shell-format";
         publisher = "foxundermoon";
         version = "7.1.1";
