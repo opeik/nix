@@ -147,9 +147,7 @@
         };
 
         # Telemetry
-        "githubPullRequests.telemetry.enabled" = false;
-        "telemetry.enableCrashReporter" = false;
-        "telemetry.enableTelemetry" = false;
+        "telemetry.telemetryLevel" = "off";
 
         # Updates
         "update.mode" = "none";
@@ -174,6 +172,9 @@
         "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp";
         "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
         "[nix]" = { "editor.tabSize" = 2; };
+
+        ## JSON
+        "[json]" = { "editor.tabSize" = 2; };
 
         ## Shell
         "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
