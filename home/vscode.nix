@@ -6,7 +6,6 @@
       # such as language servers.
       vadimcn.vscode-lldb
       matklad.rust-analyzer
-      ms-vscode.cpptools
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the packaged extensions listed above from the list.
