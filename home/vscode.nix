@@ -10,28 +10,28 @@
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the packaged extensions listed above from the list.
       {
-        name = "git-graph";
-        publisher = "mhutchie";
-        version = "1.30.0";
-        sha256 = "sHeaMMr5hmQ0kAFZxxMiRk6f0mfjkg2XMnA4Gf+DHwA=";
-      }
-      {
-        name = "shell-format";
-        publisher = "foxundermoon";
-        version = "7.1.1";
-        sha256 = "Vp+w/b2jpzS0F9lkPKrakpJiUbxjjlYMecyrl0I6OK0=";
+        name = "nix-env-selector";
+        publisher = "arrterian";
+        version = "1.0.7";
+        sha256 = "0mralimyzhyp4x9q98x3ck64ifbjqdp8cxcami7clvdvkmf8hxhf";
       }
       {
         name = "gitlens";
         publisher = "eamodio";
-        version = "11.6.1";
-        sha256 = "0nghanaxa5db7lxfi4nly45iaps560zkwsfhmzhiiaan0hj0qmcs";
+        version = "11.7.0";
+        sha256 = "0apjjlfdwljqih394ggz2d8m599pyyjrb0b4cfcz83601b7hk3x6";
+      }
+      {
+        name = "shell-format";
+        publisher = "foxundermoon";
+        version = "7.2.2";
+        sha256 = "00wc0y2wpdjs2pbxm6wj9ghhfsvxyzhw1vjvrnn1jfyl4wh3krvi";
       }
       {
         name = "vscode-pull-request-github";
         publisher = "GitHub";
-        version = "0.31.1";
-        sha256 = "17az74in63xy460g8m1wsyj0i4gza6rw42fwi1i0l0afl5a8nc2s";
+        version = "0.33.2021120110";
+        sha256 = "1rpqw7295xpfr1l6b4x62gqp8x8qgsb32gjdycsbjkqnkbvi4kph";
       }
       {
         name = "nix-ide";
@@ -40,10 +40,10 @@
         sha256 = "1v3j67j8bydyqba20b2wzsfximjnbhknk260zkc0fid1xzzb2sbn";
       }
       {
-        name = "nix-env-selector";
-        publisher = "arrterian";
-        version = "1.0.7";
-        sha256 = "sha256-DnaIXJ27bcpOrIp1hm7DcrlIzGSjo4RTJ9fD72ukKlc=";
+        name = "git-graph";
+        publisher = "mhutchie";
+        version = "1.30.0";
+        sha256 = "000zhgzijf3h6abhv4p3cz99ykj6489wfn81j0s691prr8q9lxxh";
       }
       {
         name = "theme-monokai-pro-vscode";
@@ -54,14 +54,14 @@
       {
         name = "vscode-docker";
         publisher = "ms-azuretools";
-        version = "1.17.0";
-        sha256 = "01na7j64mavn2zqfxkly9n6fpr6bs3vyiipy09jkmr5m86fq0cdx";
+        version = "1.18.0";
+        sha256 = "0hhlhx3xy7x31xx2v3srvk67immajs6dm9h0wi49ii1rwx61zxah";
       }
       {
         name = "remote-ssh";
         publisher = "ms-vscode-remote";
-        version = "0.65.8";
-        sha256 = "0csi4mj2j00irjaw6vjmyadfbpmxxcx73idlhab6d9y0042mpr0g";
+        version = "0.66.1";
+        sha256 = "0qj2ihl74bk1fbixv0g1qzdvaxh4skqww22dyaf17rs6cjf19zps";
       }
       {
         name = "crates";
@@ -72,8 +72,8 @@
       {
         name = "code-spell-checker";
         publisher = "streetsidesoftware";
-        version = "2.0.10";
-        sha256 = "05jgq7yci2c09msz3bbbdfjkh61jx7ga3sjpb5hh7wgzp9pfi8yn";
+        version = "2.0.13";
+        sha256 = "0r5l8fi68j3i2qy453lwxf7z8f476pvcps1pn6aaz50yc71bv3cq";
       }
       {
         name = "even-better-toml";
@@ -82,16 +82,16 @@
         sha256 = "17djwa2bnjfga21nvyz8wwmgnjllr4a7nvrsqvzm02hzlpwaskcl";
       }
       {
+        name = "errorlens";
+        publisher = "usernamehw";
+        version = "3.4.1";
+        sha256 = "1mr8si7jglpjw8qzl4af1k7r68vz03fpal1dr8i0iy4ly26pz7bh";
+      }
+      {
         name = "vim";
         publisher = "vscodevim";
         version = "1.21.10";
         sha256 = "0c9m7mc2kmfzj3hkwq3d4hj43qha8a75q5r1rdf1xfx8wi5hhb1n";
-      }
-      {
-        name = "errorlens";
-        publisher = "usernamehw";
-        version = "3.4.0";
-        sha256 = "qBqQGv0BmTFK/y8hprplCVr5aZr3z9jM5a2Eu6CfOfU=";
       }
     ];
 
