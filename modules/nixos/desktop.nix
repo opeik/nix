@@ -8,5 +8,6 @@
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.dash-to-dock # Makes the dock usable. Enable in the extensions app.
+    gnome.gnome-tweaks # Extra settings to fiddle with.
   ];
 }

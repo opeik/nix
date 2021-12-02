@@ -7,10 +7,9 @@
       vadimcn.vscode-lldb
       matklad.rust-analyzer
       ms-vscode.cpptools
-      vadimcn.vscode-lldb
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
-      # you remove the pre-packaged extensions listed above from the list.
+      # you remove the packaged extensions listed above from the list.
       {
         name = "git-graph";
         publisher = "mhutchie";
@@ -175,11 +174,17 @@
         "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
         "[nix]" = { "editor.tabSize" = 2; };
 
+        ## C/C++
+        "C_Cpp.clang_format_fallbackStyle" = "LLVM";
+
         ## JSON
         "[json]" = { "editor.tabSize" = 2; };
 
         ## Shell
         "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
+
+        ## Markdown
+        "markdown.preview.doubleClickToSwitchToEditor" = false;
       }
     ];
   };

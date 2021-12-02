@@ -3,7 +3,7 @@
 
   inputs = {
     # Nix package manager.
-    nix.url = "github:nixos/nix/2.4";
+    nix.url = "github:nixos/nix/latest-release";
     # nixOS support.
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     # macOS support.
@@ -22,14 +22,9 @@
       inputs.nixpkgs.follows = "nixos";
     };
     # Fixes VSCode remote server on nixOS.
-    vscode-server = {
-      url = "github:yaxitech/vscode-server-fixup";
-      inputs.nixpkgs.follows = "nixos";
-    };
-    cachix = {
-      url = "github:jonascarpay/declarative-cachix";
-      inputs.nixpkgs.follows = "nixos";
-    };
+    vscode-server.url = "github:yaxitech/vscode-server-fixup";
+    # Nix cache configurator.
+    cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
   outputs = { self, nix, nixos, macos, home, nur, vscode-server, cachix, ... }:
