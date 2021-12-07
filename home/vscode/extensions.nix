@@ -9,12 +9,6 @@
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the packaged extensions listed above from the list.
       {
-        name = "toggle-excluded-files";
-        publisher = "amodio";
-        version = "1.7.0";
-        sha256 = "oH7mxJ5bNbLCWQj49FCo5KGE71VXXNfarEKAUE0roRw=";
-      }
-      {
         name = "nix-env-selector";
         publisher = "arrterian";
         version = "1.0.7";
