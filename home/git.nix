@@ -6,11 +6,6 @@
     # Global file ignores.
     ignores = [ ".DS_Store" ];
     extraConfig = {
-      # Automatically track remote branches.
-      branch = {
-        autosetupmerge = "always";
-        autosetuprebase = "always";
-      };
       core = {
         # Always use Unix line endings.
         eol = "lf";

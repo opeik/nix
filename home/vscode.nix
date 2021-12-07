@@ -155,15 +155,17 @@
         # Spelling
         "cSpell.allowCompoundWords" = true;
         "cSpell.spellCheckDelayMs" = 1000;
+        "cSpell.showStatus" = false;
 
         # Git
+        "git.enableStatusBarSync" = false;
+        "git-graph.showStatusBarItem" = false;
         "gitlens.codeLens.enabled" = false; # Disables code block blame.
         "gitlens.currentLine.enabled" = false; # Disables current line blame.
 
         # Languages
         ## Rust
         "crates.listPreReleases" = true;
-        "rust-analyzer.completion.postfix.enable" = false;
         "rust-analyzer.experimental.procAttrMacros" = true;
         "rust-analyzer.checkOnSave.command" = "clippy";
 
