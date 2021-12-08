@@ -23,6 +23,7 @@
       "editor.rulers" = [ 80 ];
       "editor.smoothScrolling" = true;
       "editor.stickyTabStops" = true;
+      "editor.suggest.preview" = true;
 
       # Terminal
       "terminal.integrated.fontSize" = 12;
