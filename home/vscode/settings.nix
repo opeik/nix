@@ -5,6 +5,15 @@
       # Workbench
       "workbench.colorTheme" = "Monokai Pro";
       "workbench.iconTheme" = "Monokai Pro Icons";
+      "workbench.colorCustomizations" = {
+        "editorBracketHighlight.foreground1" = "#EF6E89";
+        "editorBracketHighlight.foreground2" = "#EF9E6D";
+        "editorBracketHighlight.foreground3" = "#F8DA71";
+        "editorBracketHighlight.foreground4" = "#B0DA7D";
+        "editorBracketHighlight.foreground5" = "#AC9EEF";
+        "editorBracketHighlight.foreground6" = "#8FD9E7";
+        "editorBracketHighlight.unexpectedBracket.foreground" = "#65CBDE";
+      };
 
       # Editor
       "editor.acceptSuggestionOnEnter" = "off";
@@ -24,6 +33,7 @@
       "editor.smoothScrolling" = true;
       "editor.stickyTabStops" = true;
       "editor.suggest.preview" = true;
+      "editor.guides.bracketPairs" = "active";
 
       # Terminal
       "terminal.integrated.fontSize" = 12;
