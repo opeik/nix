@@ -49,9 +49,6 @@
         "**/.direnv" = true; # Direnv cache
         "**/.DS_Store" = true; # macOS Finder metadata
         "**/.git" = true; # Git data
-        "**/.github" = true; # GitHub config
-        "**/.gitignore" = true; # Git ignore file
-        "**/.vscode" = true; # VSCode config
         "**/result" = true; # Rust build artifacts
         "**/target" = true; # Nix build artifacts
       };
