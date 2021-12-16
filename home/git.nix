@@ -1,10 +1,16 @@
-{ ... }: {
+{ lib, ... }:
+let
+  gitTownAliases = lib.genAttrs
+    [ "append" "hack" "kill" "new-pull-request" "prune-branch" "repo" "ship" "sync" ]
+    (name: "town ${name}");
+in
+{
   # Install `git`, the stupid content tracker.
   programs.git = {
     enable = true;
     userName = "Sandro Stikić";
-    # Global file ignores.
     ignores = [ ".DS_Store" ];
+    aliases = gitTownAliases;
     extraConfig = {
       core = {
         # Always use Unix line endings.

@@ -12,6 +12,8 @@ let
     # Utilities
     htop # Interactive proccess viewer
     wally-cli # Firmware flasher for ZSA keyboards
+    jq # JSON processor
+    git-town # Git workflow helper
   ];
   macosPackages = with pkgs; [ ];
   nixosPackages = with pkgs; [
