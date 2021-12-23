@@ -9,6 +9,12 @@
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the packaged extensions listed above from the list.
       {
+        name = "vscode-yaml";
+        publisher = "redhat";
+        version = "1.2.2";
+        sha256 = "pjNe+0mppY+ionTHDP9lVVllWx6zyaStjxXTkXF3xBo=";
+      }
+      {
         name = "nix-env-selector";
         publisher = "arrterian";
         version = "1.0.7";

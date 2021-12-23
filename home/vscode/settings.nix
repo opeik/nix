@@ -33,7 +33,7 @@
       "editor.smoothScrolling" = true;
       "editor.stickyTabStops" = true;
       "editor.suggest.preview" = true;
-      "editor.guides.bracketPairs" = "active";
+      "editor.guides.bracketPairs" = true;
 
       # Terminal
       "terminal.integrated.fontSize" = 12;
@@ -64,6 +64,7 @@
 
       # Telemetry
       "telemetry.telemetryLevel" = "off";
+      "redhat.telemetry.enabled" = false;
 
       # Updates
       "update.mode" = "none";
