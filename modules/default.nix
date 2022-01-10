@@ -1,6 +1,7 @@
 { pkgs, lib, system, ... }: {
   imports = [
     ./cachix.nix
+    ./switch.nix
     ./user.nix
   ];
 
