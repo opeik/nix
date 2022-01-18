@@ -51,6 +51,8 @@
         "**/.git" = true; # Git data
         "**/result" = true; # Rust build artifacts
         "**/target" = true; # Nix build artifacts
+        "**/node_modules" = true;
+        "**/public/build" = true;
       };
       "files.insertFinalNewline" = true;
       "files.trimFinalNewlines" = true;
@@ -91,21 +93,20 @@
 
       ## Nix
       "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp";
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "[nix]" = { "editor.tabSize" = 2; };
 
       ## C/C++
       "C_Cpp.clang_format_fallbackStyle" = "LLVM";
 
-      ## JSON
-      "[json]" = { "editor.tabSize" = 2; };
-
-      ## Shell
-      "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
-
       ## Markdown
       "markdown.preview.doubleClickToSwitchToEditor" = false;
+
+      ## Webshit
+      "[json]" = { "editor.tabSize" = 2; };
+      "[html]" = { "editor.tabSize" = 2; };
+      "[js]" = { "editor.tabSize" = 2; };
+      "[css]" = { "editor.tabSize" = 2; };
     };
   };
 }
