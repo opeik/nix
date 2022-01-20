@@ -29,7 +29,7 @@
       "editor.formatOnSave" = true;
       "editor.formatOnType" = true;
       "editor.renderFinalNewline" = false;
-      "editor.rulers" = [ 80 ];
+      "editor.rulers" = [ 100 ];
       "editor.smoothScrolling" = true;
       "editor.stickyTabStops" = true;
       "editor.suggest.preview" = true;
@@ -51,8 +51,6 @@
         "**/.git" = true; # Git data
         "**/result" = true; # Rust build artifacts
         "**/target" = true; # Nix build artifacts
-        "**/node_modules" = true;
-        "**/public/build" = true;
       };
       "files.insertFinalNewline" = true;
       "files.trimFinalNewlines" = true;
