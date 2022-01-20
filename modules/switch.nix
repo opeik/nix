@@ -25,6 +25,7 @@ let
     main() {
         printf "$(green info:) switching host \`''${host}\`...\n"
         run cd '${flakePath}'
+        run git pull --quiet
 
         case "$OSTYPE" in
         "darwin"*)
