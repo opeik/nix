@@ -71,7 +71,7 @@
 
       # Spelling
       "cSpell.allowCompoundWords" = true;
-      "cSpell.spellCheckDelayMs" = 1000;
+      "cSpell.spellCheckDelayMs" = 100;
       "cSpell.showStatus" = false;
 
       # Git
@@ -91,6 +91,7 @@
 
       ## Nix
       "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp";
       "nixEnvSelector.nixFile" = "\${workspaceRoot}/shell.nix";
       "[nix]" = { "editor.tabSize" = 2; };
 
@@ -99,6 +100,9 @@
 
       ## Markdown
       "markdown.preview.doubleClickToSwitchToEditor" = false;
+
+      ## Shell
+      "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
 
       ## Webshit
       "[json]" = { "editor.tabSize" = 2; };

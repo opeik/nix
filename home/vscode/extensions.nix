@@ -9,12 +9,6 @@
       # To fetch new extension versions, run `./fetch-vscode-ext.sh`. Make sure
       # you remove the packaged extensions listed above from the list.
       {
-        name = "vscode-yaml";
-        publisher = "redhat";
-        version = "1.2.2";
-        sha256 = "pjNe+0mppY+ionTHDP9lVVllWx6zyaStjxXTkXF3xBo=";
-      }
-      {
         name = "nix-env-selector";
         publisher = "arrterian";
         version = "1.0.7";
@@ -35,14 +29,14 @@
       {
         name = "vscode-pull-request-github";
         publisher = "GitHub";
-        version = "0.33.2021120110";
-        sha256 = "1rpqw7295xpfr1l6b4x62gqp8x8qgsb32gjdycsbjkqnkbvi4kph";
+        version = "0.35.2022012009";
+        sha256 = "0rbky4cy6r0nw32pqfjj854nj9kf3f5dc6v38mf4wvzmxd5nb6bj";
       }
       {
         name = "nix-ide";
         publisher = "jnoortheen";
-        version = "0.1.18";
-        sha256 = "1v3j67j8bydyqba20b2wzsfximjnbhknk260zkc0fid1xzzb2sbn";
+        version = "0.1.19";
+        sha256 = "1ms96ij6z4bysdhqgdaxx2znvczyhzx57iifbqws50m1c3m7pkx7";
       }
       {
         name = "git-graph";
@@ -53,20 +47,26 @@
       {
         name = "theme-monokai-pro-vscode";
         publisher = "monokai";
-        version = "1.1.19";
-        sha256 = "0skzydg68bkwwwfnn2cwybpmv82wmfkbv66f54vl51a0hifv3845";
+        version = "1.1.20";
+        sha256 = "0ddwqsvsqdjblmb0xlad17czy2837g27ymwvzissz4b9r111xyhx";
       }
       {
         name = "vscode-docker";
         publisher = "ms-azuretools";
-        version = "1.18.0";
-        sha256 = "0hhlhx3xy7x31xx2v3srvk67immajs6dm9h0wi49ii1rwx61zxah";
+        version = "1.19.0";
+        sha256 = "0qg4k5ivwa54i9f5ls1a0wl7blpymaq03dakdvvzallarip01qkf";
       }
       {
         name = "remote-ssh";
         publisher = "ms-vscode-remote";
-        version = "0.66.1";
-        sha256 = "0qj2ihl74bk1fbixv0g1qzdvaxh4skqww22dyaf17rs6cjf19zps";
+        version = "0.71.2021121615";
+        sha256 = "1lh08157z7lialb0dxls9fhahmf5l9wz6x2anwrnycvs512lpr1p";
+      }
+      {
+        name = "vscode-yaml";
+        publisher = "redhat";
+        version = "1.3.0";
+        sha256 = "1b9kl8ziz299451bsmn1crj8j1n2r611lcw2f7y3j0alq0nrngjg";
       }
       {
         name = "crates";
@@ -77,8 +77,8 @@
       {
         name = "code-spell-checker";
         publisher = "streetsidesoftware";
-        version = "2.0.13";
-        sha256 = "0r5l8fi68j3i2qy453lwxf7z8f476pvcps1pn6aaz50yc71bv3cq";
+        version = "2.1.4";
+        sha256 = "1y0gfdr8kw3rjp47p9lxnylpwl1pd5wfr2zvl7i3hws39gya1jsp";
       }
       {
         name = "even-better-toml";
