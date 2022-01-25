@@ -26,6 +26,8 @@ let
         printf "$(green info:) switching host \`''${host}\`...\n"
         run cd '${flakePath}'
         run git pull --quiet
+        printf "$(green info:) updating vscode extensions...\n"
+        ./get-vscode-extensions.sh vadimcn.vscode-lldb matklad.rust-analyzer > home/vscode/extensions.nix
 
         case "$OSTYPE" in
         "darwin"*)
