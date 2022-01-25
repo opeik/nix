@@ -3,8 +3,6 @@
 # shellcheck shell=bash
 set -eu -o pipefail
 
-ARGS="$@"
-
 # Helper to just fail with a message and non-zero exit code.
 function fail() {
     echo "$1" >&2
@@ -18,20 +16,13 @@ function clean_up() {
     rm -Rf "$TDIR/vscode_exts_*"
 }
 
-function contains() {
-    local e match="$1"
-    shift
-    for e; do echo "$e" "$match"; done
-    for e; do [[ "$e" == "$match" ]] && return 0; done
-    return 1
-}
-
 function get_vsixpkg() {
     local owner=$(echo "$1" | cut -d. -f1)
     local ext=$(echo "$1" | cut -d. -f2)
     local n="$owner.$ext"
     local args="${@:2}"
 
+    # Skip extensions matching an argument.
     for arg in $args; do
         if [ "$n" = "$arg" ]; then
             exit
@@ -64,13 +55,13 @@ function get_vsixpkg() {
 EOF
 }
 
-export -f contains get_vsixpkg
+export -f get_vsixpkg
 
 # Try to be a good citizen and clean up after ourselves if we're killed.
 trap clean_up SIGINT
 
 # Note that we are only looking to update extensions that are already installed.
 printf '{\n  extensions = [\n'
-#parallel -k -j16 get_vsixpkg ::: $(code --list-extensions)
-parallel -k -j16 get_vsixpkg ::: $(code --list-extensions) ::: "$ARGS"
+ARGS="$@"
+parallel -k get_vsixpkg ::: $(code --list-extensions) ::: "$ARGS"
 printf '  ];\n}\n'
