@@ -63,8 +63,8 @@
     {
       name = "crates";
       publisher = "serayuzgur";
-      version = "";
-      sha256 = "";
+      version = "0.5.10";
+      sha256 = "1dbhd6xbawbnf9p090lpmn8i5gg1f7y8xk2whc9zhg4432kdv3vd";
     }
     {
       name = "code-spell-checker";
