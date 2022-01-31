@@ -104,7 +104,7 @@ let
         trap clean_up SIGINT
 
         printf '{\n  extensions = [\n'
-        ${parallel}/bin/parallel -k get_vsixpkg ::: $(cd ~/.vscode/extensions && find * -maxdepth 1 -print0 | sort -z | xargs -r0 echo) ::: "$ARGS"
+        ${parallel}/bin/parallel -k get_vsixpkg ::: $(${coreutils}/bin/ls -1 -v ~/.vscode/extensions) ::: "$ARGS"
         printf '  ];\n}\n'
     }
 
