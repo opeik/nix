@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   imports = [
     ./desktop.nix
-    ./docker.nix
     ./mdns.nix
     ./printer.nix
+    ./virtualization.nix
   ];
 
   # nixOS version.

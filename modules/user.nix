@@ -10,7 +10,7 @@
     (lib.mkIf pkgs.stdenv.isLinux {
       home = "/home/opeik";
       isNormalUser = true;
-      extraGroups = [ "wheel" "dialout" "networkmanager" "docker" ];
+      extraGroups = [ "wheel" "dialout" "networkmanager" "docker" "libvirtd" ];
     })
   ];
 }
