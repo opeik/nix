@@ -8,13 +8,6 @@ let
 
     host="''${1-$(hostname)}"
 
-    # Prints a command prior to execution.
-    run() {
-        CMD="''${@}"
-        printf "$(green info:) running: \`''${CMD}\`\n"
-        ''${@}
-    }
-
     # Prints the specified string in green.
     green() {
         GREEN='\033[1;32m'
@@ -23,19 +16,21 @@ let
     }
 
     main() {
-        printf "$(green info:) switching host \`''${host}\`...\n"
-        run cd '${flakePath}'
-        run ${git}/bin/git pull --quiet
+        cd '${flakePath}'
+        printf "$(green info:) updating git repository...\n"
+        ${git}/bin/git pull --quiet
+
         printf "$(green info:) updating vscode extensions...\n"
         local exts="$(${vscode-update-exts}/bin/vscode-update-exts vadimcn.vscode-lldb matklad.rust-analyzer)"
         echo "$exts" > home/vscode/extensions.nix
 
+        printf "$(green info:) switching host \`''${host}\`...\n"
         case "$OSTYPE" in
         "darwin"*)
-            run sudo darwin-rebuild switch --flake ".#''${host}"
+            sudo darwin-rebuild switch --flake ".#''${host}"
             ;;
         "linux-gnu"*)
-            run sudo nixos-rebuild switch --flake ".#''${host}"
+            sudo nixos-rebuild switch --flake ".#''${host}"
             ;;
         *)
             printf "unsupported os"
@@ -109,7 +104,7 @@ let
         trap clean_up SIGINT
 
         printf '{\n  extensions = [\n'
-        ${parallel}/bin/parallel -k get_vsixpkg ::: $(find ~/.vscode/extensions -mindepth 1 -printf '%P\n') ::: "$ARGS"
+        ${parallel}/bin/parallel -k get_vsixpkg ::: $(cd ~/.vscode/extensions && find * -maxdepth 1 -print0 | sort -z | xargs -r0 echo) ::: "$ARGS"
         printf '  ];\n}\n'
     }
 
