@@ -3,7 +3,8 @@
 
   inputs = {
     # nixOS support.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs-channels/nixos-unstable";
     # macOS support.
     macos = {
       url = "github:lnl7/nix-darwin";
@@ -25,10 +26,13 @@
     cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = { self, nixpkgs, macos, home, nur, vscode-server, cachix, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, macos, home, nur, vscode-server, cachix, ... }:
     let
       # Package overlays.
-      overlays = { nixpkgs.overlays = [ nur.overlay ]; };
+      unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+      };
+      overlays = { nixpkgs.overlays = [ unstable nur.overlay ]; };
       # Shared modules.
       sharedModules = [ ./modules overlays cachix.nixosModules.declarative-cachix ];
       # nixOS specific modules.
