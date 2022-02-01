@@ -1,25 +1,23 @@
 {
-  description = "opeik's nixOS and macOS configuration";
+  description = "opeik's nixpkgs and macOS configuration";
 
   inputs = {
-    # Nix package manager.
-    nix.url = "github:nixos/nix/latest-release";
     # nixOS support.
-    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # macOS support.
     macos = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # Manages user home directories declaratively.
     home = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # Nix user repository.
     nur = {
       url = github:nix-community/NUR;
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # Fixes VSCode remote server on nixOS.
     vscode-server.url = "github:yaxitech/vscode-server-fixup";
@@ -27,10 +25,10 @@
     cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = { self, nix, nixos, macos, home, nur, vscode-server, cachix, ... }:
+  outputs = { self, nixpkgs, macos, home, nur, vscode-server, cachix, ... }:
     let
       # Package overlays.
-      overlays = { nixpkgs.overlays = [ nix.overlay nur.overlay ]; };
+      overlays = { nixpkgs.overlays = [ nur.overlay ]; };
       # Shared modules.
       sharedModules = [ ./modules overlays cachix.nixosModules.declarative-cachix ];
       # nixOS specific modules.
@@ -53,7 +51,7 @@
 
       # Creates a nixOS system configuration.
       nixosConfig = { system, modules }:
-        nixos.lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           inherit system;
           modules = modules ++ nixosModules ++ sharedModules;
         };

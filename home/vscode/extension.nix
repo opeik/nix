@@ -5,6 +5,7 @@
       # such as language servers.
       vadimcn.vscode-lldb
       matklad.rust-analyzer
+      ms-vscode-remote.remote-ssh
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace (import ./extensions.nix).extensions;
   };
 }

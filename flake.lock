@@ -33,15 +33,15 @@
     "home": {
       "inputs": {
         "nixpkgs": [
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1642882610,
-        "narHash": "sha256-pmdgeJ9v6y+T0UfNQ/Z+Hdv5tPshFFra5JLF/byUA/Y=",
+        "lastModified": 1643567433,
+        "narHash": "sha256-tyFgodcZRlt0ZshbgyLf4m/Sd/ys9p0AHfeVZQ50WKU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c47c350f6518ed39c2a16e4fadf9137b6c559ddc",
+        "rev": "95d39e13a4a7a818c87f2701b59820d3ac0e674c",
         "type": "github"
       },
       "original": {
@@ -68,26 +68,10 @@
         "type": "github"
       }
     },
-    "lowdown-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1633514407,
-        "narHash": "sha256-Dw32tiMjdK9t3ETl5fzGrutQTzh2rufgZV4A/BbxuD4=",
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "rev": "d2c2b44ff6c27b936ec27358a2653caaef8f73b8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kristapsdz",
-        "repo": "lowdown",
-        "type": "github"
-      }
-    },
     "macos": {
       "inputs": {
         "nixpkgs": [
-          "nixos"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -104,33 +88,13 @@
         "type": "github"
       }
     },
-    "nix": {
-      "inputs": {
-        "lowdown-src": "lowdown-src",
-        "nixpkgs": "nixpkgs"
-      },
+    "nixpkgs": {
       "locked": {
-        "lastModified": 1639739069,
-        "narHash": "sha256-GOsiqy9EaTwDn2PLZ4eFj1VkXcBUbqrqHehRE9GuGdU=",
-        "owner": "nixos",
-        "repo": "nix",
-        "rev": "b4f250417ab64f237c8b51439fe1f427193ab23b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "latest-release",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
-    "nixos": {
-      "locked": {
-        "lastModified": 1642903813,
-        "narHash": "sha256-0lNfGW8sNfyTrixoQhVG00Drl/ECaf5GbfKAQ1ZDoyE=",
+        "lastModified": 1643524588,
+        "narHash": "sha256-Qh5AazxdOQRORbGkkvpKoovDl6ej/4PhDabFsqnueqw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "689b76bcf36055afdeb2e9852f5ecdd2bf483f87",
+        "rev": "efeefb2af1469a5d1f0ae7ca8f0dfd9bb87d5cfb",
         "type": "github"
       },
       "original": {
@@ -138,21 +102,6 @@
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1632864508,
-        "narHash": "sha256-d127FIvGR41XbVRDPVvozUPQ/uRHbHwvfyKHwEt5xFM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "82891b5e2c2359d7e58d08849e4c89511ab94234",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-21.05-small",
-        "type": "indirect"
       }
     },
     "nixpkgs-nixos-test": {
@@ -173,11 +122,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1642940213,
-        "narHash": "sha256-LXGwfPrtbhix9IRUT2phtbJsur41lkTsrKcTcS0lzIc=",
+        "lastModified": 1643381941,
+        "narHash": "sha256-pHTwvnN4tTsEKkWlXQ8JMY423epos8wUOhthpwJjtpc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8ca77a63599ed951d6a2d244c1d62092776a3fe1",
+        "rev": "5efc8ca954272c4376ac929f4c5ffefcc20551d5",
         "type": "github"
       },
       "original": {
@@ -203,11 +152,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1642997357,
-        "narHash": "sha256-NSVAUag8k3Kfkmd+XsJjnXExXVgVRQiClNQRcWNt+74=",
+        "lastModified": 1643688518,
+        "narHash": "sha256-pCweyaUzHGzavQRJkNvQ2H3M9h/ZmYp4L8SoZKIITvs=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3c43a5096b0fc211031b455ac0166b5abbdaf77f",
+        "rev": "0b021b6c4dc2707411e7922aa4608e2ef7965268",
         "type": "github"
       },
       "original": {
@@ -221,8 +170,7 @@
         "cachix": "cachix",
         "home": "home",
         "macos": "macos",
-        "nix": "nix",
-        "nixos": "nixos",
+        "nixpkgs": "nixpkgs",
         "nur": "nur",
         "vscode-server": "vscode-server"
       }

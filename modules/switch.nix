@@ -3,7 +3,6 @@ let
   # Script to quickly update the system configuration.
   flakePath = if pkgs.stdenv.isDarwin then "/Users/opeik/dev/nix" else "/home/opeik/dev/nix";
   nix-switch = with pkgs; pkgs.writeShellScriptBin "nix-switch" ''
-    #! /usr/bin/env nix-shell
     set -euo pipefail
 
     host="''${1-$(hostname)}"
@@ -19,10 +18,6 @@ let
         cd '${flakePath}'
         printf "$(green info:) updating git repository...\n"
         ${git}/bin/git pull --quiet
-
-        printf "$(green info:) updating vscode extensions...\n"
-        local exts="$(${vscode-update-exts}/bin/vscode-update-exts vadimcn.vscode-lldb matklad.rust-analyzer)"
-        echo "$exts" > home/vscode/extensions.nix
 
         printf "$(green info:) switching host \`''${host}\`...\n"
         case "$OSTYPE" in
@@ -44,13 +39,14 @@ let
     main
   '';
 
-  vscode-update-exts = with pkgs; writeShellScriptBin "vscode-update-exts" ''
+  code-update = with pkgs; writeShellScriptBin "code-update" ''
     set -eu -o pipefail
 
-    # Helper to just fail with a message and non-zero exit code.
-    function fail() {
-        echo "$1" >&2
-        exit 1
+    # Prints the specified string in green.
+    green() {
+        GREEN='\033[1;32m'
+        CLEAR='\033[0m'
+        printf "''${GREEN}''${1}''${CLEAR}"
     }
 
     # Helper to clean up after ourselves if we're killed by SIGINT.
@@ -65,14 +61,6 @@ let
         local owner=$(echo "$1" | cut --delimiter . --fields 1)
         local ext=$(echo "$1" | cut --delimiter . --fields 2)
         local id="$owner.$ext"
-        local exts_to_skip="''${@:2}"
-
-        # Skip extensions matching an argument.
-        for i in $exts_to_skip; do
-            if [ "$id" = "$i" ]; then
-                exit
-            fi
-        done
 
         # Create a tempdir for the extension download.
         local ext_dir=$(mktemp --directory -t vscode_exts_XXXXXXXX)
@@ -91,28 +79,46 @@ let
 
         cat <<-EOF
         {
-            name = "$ext";
-            publisher = "$owner";
-            version = "$version";
-            sha256 = "$sha";
+          name = "$ext";
+          publisher = "$owner";
+          version = "$version";
+          sha256 = "$sha";
         }
     EOF
     }
 
     function main() {
-        # Try to be a good citizen and clean up after ourselves if we're killed.
         trap clean_up SIGINT
+        # Non-packaged vscode extensions to install.
+        local exts=(
+            "GitHub.vscode-pull-request-github"
+            "arrterian.nix-env-selector"
+            "eamodio.gitlens"
+            "foxundermoon.shell-format"
+            "jnoortheen.nix-ide"
+            "mhutchie.git-graph"
+            "monokai.theme-monokai-pro-vscode"
+            "ms-azuretools.vscode-docker"
+            "redhat.vscode-yaml"
+            "serayuzgur.crates"
+            "streetsidesoftware.code-spell-checker"
+            "tamasfe.even-better-toml"
+            "usernamehw.errorlens"
+            "vscodevim.vim"
+        )
 
-        printf '{\n  extensions = [\n'
-        ${parallel}/bin/parallel -k get_vsixpkg ::: $(${coreutils}/bin/ls -1 -v ~/.vscode/extensions) ::: "$ARGS"
-        printf '  ];\n}\n'
+        printf "$(green info:) updating vscode extensions...\n"
+        cd '${flakePath}'
+        local exts_nix=$(printf '{\n  extensions = [\n' && \
+            ${parallel}/bin/parallel -k get_vsixpkg ::: "''${exts[@]}" && \
+            printf '  ];\n}\n')
+        echo "$exts_nix" > home/vscode/extensions.nix
     }
 
     export -f get_vsixpkg
-    ARGS="$@"
     main
   '';
 in
 {
-  environment.systemPackages = [ nix-switch ];
+  environment.systemPackages = [ nix-switch code-update ];
 }
