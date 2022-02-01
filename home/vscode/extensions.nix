@@ -84,5 +84,11 @@
       version = "1.21.10";
       sha256 = "0c9m7mc2kmfzj3hkwq3d4hj43qha8a75q5r1rdf1xfx8wi5hhb1n";
     }
+    {
+      name = "hcl";
+      publisher = "wholroyd";
+      version = "0.0.5";
+      sha256 = "12lx9gjizy4m6lqjv9c10kmncdbbw7mrq69a5qisr69g9w9h6hwp";
+    }
   ];
 }

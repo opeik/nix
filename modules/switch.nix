@@ -105,6 +105,7 @@ let
             "tamasfe.even-better-toml"
             "usernamehw.errorlens"
             "vscodevim.vim"
+            "wholroyd.hcl"
         )
 
         printf "$(green info:) updating vscode extensions...\n"
