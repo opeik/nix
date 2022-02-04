@@ -19,7 +19,9 @@
   # Allow proprietary packages.
   nixpkgs.config.allowUnfree = true;
   # System-wide packages.
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [
+    killall
+  ];
 
   # Setup `home-manager`.
   home-manager = {
