@@ -49,7 +49,7 @@
         ./modules/macos
         home.darwinModules.home-manager
         {
-          home-manager.sharedModules = [ ./home/copy-apps.nix ];
+          home-manager.sharedModules = [ ];
         }
       ];
 

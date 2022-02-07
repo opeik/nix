@@ -22,7 +22,7 @@ let
         printf "$(green info:) switching host \`''${host}\`...\n"
         case "$OSTYPE" in
         "darwin"*)
-            sudo darwin-rebuild switch --flake ".#''${host}"
+            darwin-rebuild switch --flake ".#''${host}"
             ;;
         "linux-gnu"*)
             sudo nixos-rebuild switch --flake ".#''${host}"

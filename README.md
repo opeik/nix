@@ -10,32 +10,39 @@ The initial structure was inspired by
 
 ### macOS
 
-1. Install [Nix unstable](https://github.com/numtide/nix-unstable-installer)
+1. Install Nix
 
-   ```sh
-   curl -s https://api.github.com/repos/numtide/nix-unstable-installer/releases/latest |
-      grep 'browser_download_url' |
-      grep '/install' |
-      cut -d '"' -f 4 |
-      xargs curl --silent --location |
-      sh -s -- --daemon --darwin-use-unencrypted-nix-store-volume
-   ```
+```sh
+sh <(curl -L https://nixos.org/nix/install
+```
 
-2. Install [nix-darwin](https://github.com/LnL7/nix-darwin)
+2. Install nix-darwin
 
-   ```sh
-   nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer && \
-   ./result/bin/darwin-installer
-   ```
+```sh
+nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+./result/bin/darwin-installer
+```
 
-3. Bootstrap
+3. Enable flakes
 
-   ```sh
-   # For configuration `foobar`.
-   config='foobar'
-   nix build ".#darwinConfigurations.${config}.system"
-   ./result/sw/bin/darwin-rebuild switch --flake ".#${config}"
-   ```
+```sh
+nix-env -iA nixpkgs.nix_2_4
+mkdir -p ~/.config/nix
+echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+```
+
+4. Build
+
+```sh
+nix build ".#darwinConfigurations.$host.system"
+./result/sw/bin/darwin-rebuild switch --flake .#$host
+```
+
+5. Update default shell
+
+```sh
+chsh -s /run/current-system/sw/bin/fish
+```
 
 ### nixOS
 
@@ -43,7 +50,7 @@ The initial structure was inspired by
 
    ```nix
    {
-     package = pkgs.nixUnstable;
+     package = pkgs.nix_2_4;
      extraOptions = "experimental-features = nix-command flakes";
    }
    ```
@@ -51,7 +58,7 @@ The initial structure was inspired by
 2. Bootstrap
 
    ```sh
-   nixos-rebuild switch
+   nixos-rebuild switch --flake .#$host
    ```
 
 ## Switching
@@ -68,7 +75,7 @@ The initial structure was inspired by
   ./switch.sh foobar
   ```
 
-## Update
+## Update nixpkgs
 
 To update nixpkgs defined in [flake.nix](./flake.nix), run
 
@@ -77,3 +84,11 @@ nix flake update
 ```
 
 If there are updates, they should be reflected in [flake.lock](./flake.lock).
+
+## Switching
+
+To quickly switch Nix generations, run:
+
+```sh
+nix-switch
+```
