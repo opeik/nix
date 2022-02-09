@@ -20,13 +20,11 @@
       url = github:nix-community/NUR;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Fixes VSCode remote server on nixOS.
-    vscode-server.url = "github:yaxitech/vscode-server-fixup";
     # Nix cache configurator.
     cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, macos, home, nur, vscode-server, cachix, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, macos, home, nur, cachix, ... }:
     let
       # Package overlays.
       unstable = final: prev: {
@@ -39,18 +37,13 @@
       nixosModules = [
         ./modules/nixos
         home.nixosModules.home-manager
-        vscode-server.nixosModules.system
-        {
-          home-manager.sharedModules = [ vscode-server.nixosModules.home ];
-        }
+        { home-manager.sharedModules = [ ]; }
       ];
       # macOS specific modules.
       macosModules = [
         ./modules/macos
         home.darwinModules.home-manager
-        {
-          home-manager.sharedModules = [ ];
-        }
+        { home-manager.sharedModules = [ ]; }
       ];
 
       # Creates a nixOS system configuration.
@@ -69,25 +62,21 @@
     in
     {
       # nixOS hosts.
-      nixosConfigurations = {
-        # Work laptop, Dell Precision 7550 (2020).
-        marisa = nixosConfig {
-          system = "x86_64-linux";
-          modules = [ ./hosts/marisa ./profiles/work ];
-        };
-      };
+      nixosConfigurations = { };
 
       # macOS hosts.
       darwinConfigurations = {
-        # Personal desktop, Mac mini M1 (2020).
         reimu = macosConfig {
           system = "aarch64-darwin";
           modules = [ ./hosts/reimu ./profiles/personal ];
         };
-        # Duplicate of `reimu` except x86_64 for CI use.
         reimu-ci = macosConfig {
           system = "x86_64-darwin";
           modules = [ ./hosts/reimu ./profiles/personal ];
+        };
+        marisa = macosConfig {
+          system = "aarch64-darwin";
+          modules = [ ./hosts/marisa ./profiles/work ];
         };
       };
     };

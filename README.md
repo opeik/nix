@@ -10,38 +10,10 @@ The initial structure was inspired by
 
 ### macOS
 
-1. Install Nix
+Run:
 
 ```sh
-sh <(curl -L https://nixos.org/nix/install
-```
-
-2. Install nix-darwin
-
-```sh
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
-```
-
-3. Enable flakes
-
-```sh
-nix-env -iA nixpkgs.nix_2_4
-mkdir -p ~/.config/nix
-echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
-```
-
-4. Build
-
-```sh
-nix build ".#darwinConfigurations.$host.system"
-./result/sw/bin/darwin-rebuild switch --flake .#$host
-```
-
-5. Update default shell
-
-```sh
-chsh -s /run/current-system/sw/bin/fish
+curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/opeik/nix/main/install | bash
 ```
 
 ### nixOS
@@ -66,13 +38,13 @@ chsh -s /run/current-system/sw/bin/fish
 - Switch the current configuration
 
   ```sh
-  ./switch.sh
+  nix-switch
   ```
 
 - Switch to the configuration `foobar`
 
   ```sh
-  ./switch.sh foobar
+  nix-switch foobar
   ```
 
 ## Update nixpkgs
@@ -84,11 +56,3 @@ nix flake update
 ```
 
 If there are updates, they should be reflected in [flake.lock](./flake.lock).
-
-## Switching
-
-To quickly switch Nix generations, run:
-
-```sh
-nix-switch
-```

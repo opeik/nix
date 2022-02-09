@@ -1,14 +1,6 @@
 { pkgs, ... }: {
-  imports = [
-    ./desktop.nix
-    ./docker.nix
-    ./mdns.nix
-    ./nomad.nix
-    ./printer.nix
-  ];
-
   # nixOS version.
-  system.stateVersion = "21.05";
+  system.stateVersion = "21.11";
   # Automatically optimize the Nix store.
   nix.autoOptimiseStore = true;
 

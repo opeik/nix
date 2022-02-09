@@ -34,7 +34,7 @@
       "editor.stickyTabStops" = true;
       "editor.suggest.preview" = true;
       "editor.guides.bracketPairs" = true;
-      "editor.accessibilitySupport" = "on";
+      "editor.accessibilitySupport" = "off";
 
       # Terminal
       "terminal.integrated.fontSize" = 12;
