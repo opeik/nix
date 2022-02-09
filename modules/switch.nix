@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   # Script to quickly update the system configuration.
-  flakePath = if pkgs.stdenv.isDarwin then "/Users/opeik/dev/nix" else "/home/opeik/dev/nix";
+  flakePath = if pkgs.stdenv.isDarwin then "/Users/opeik/Development/nix" else "/home/opeik/Development/nix";
   nix-switch = with pkgs; pkgs.writeShellScriptBin "nix-switch" ''
     set -euo pipefail
 
