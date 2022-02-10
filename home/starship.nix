@@ -4,6 +4,7 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
+      hostname.ssh_only = false;
       battery.disabled = true;
       nix_shell = {
         symbol = "⛄ ";

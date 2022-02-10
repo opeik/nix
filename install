@@ -1,31 +1,36 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
+trap 'error_handler $?' EXIT
+ARGS="$*"
 
-help() {
-    printf "%s\n" \
-        "Nix flake installer for macOS" \
-        "" \
-        "USAGE:" \
-        "    install [OPTIONS] [HOST]" \
-        "" \
-        "OPTIONS:" \
-        "    -h, --help             Print help information" \
-        "    -v, --verbose          Enable command output"
-}
-
-info() {
-    local green='\033[1;32m'
-    local clear='\033[0m'
-    echo -e "${green}info:${clear} ${1}"
-}
-
-verbose() {
-    local blue='\033[1;36m'
-    local clear='\033[0m'
-    if $VERBOSE; then
-        echo -e "${blue}verbose:${clear} ${1}"
+error_handler() {
+    if [ "$1" != "0" ]; then
+        error "command failed with exit status $1, aborting"
     fi
+}
+
+log() {
+    local clear='\033[0m'
+    local level="$1"
+    local color
+
+    case "$level" in
+    info) color="\033[1;32m" ;;
+    verbose) color="\033[1;36m" ;;
+    error) color="\033[1;31m" ;;
+    *) echo "invalid level" && exit ;;
+    esac
+
+    echo -e "$color$level:$clear ${*:2}"
+}
+
+info() { log info "$@"; }
+verbose() { if $VERBOSE; then log verbose "$@"; fi; }
+error() { log error "$@"; }
+
+bail() {
+    log error "$@"
+    exit
 }
 
 run() {
@@ -38,6 +43,50 @@ run() {
 
 reload_shell() {
     exec bash
+}
+
+help() {
+    printf "%s\n" \
+        "Nix flake installer for macOS" \
+        "" \
+        "USAGE:" \
+        "    install [OPTIONS] CONFIGURATION" \
+        "" \
+        "OPTIONS:" \
+        "    -h, --help             Print help information" \
+        "    -v, --verbose          Enable verbose logging"
+}
+
+parse_args() {
+    VERBOSE=false
+    local positional_args=()
+
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+        -h | --help)
+            help
+            exit
+            ;;
+        -v | --verbose)
+            VERBOSE=true
+            shift
+            ;;
+        --* | -*)
+            echo "unknown option '$1'"
+            exit 1
+            ;;
+        *)
+            positional_args+=("$1")
+            shift
+            ;;
+        esac
+    done
+
+    CONFIG="${positional_args[0]:-}"
+
+    if [ -z "$CONFIG" ]; then
+        bail "expected configuration name as parameter"
+    fi
 }
 
 install_xcode_cli_tools() {
@@ -81,23 +130,27 @@ install_nix_darwin() {
     reload_shell
 }
 
-install_system_flake() {
-    local host="$1"
-    local nix_dir="$HOME/Development/nix"
+bootstrap_system() {
+    local config="$1"
+    local dev_dir="$HOME/Development"
+    local nix_dir="$dev_dir/nix"
 
-    mkdir -p "$nix_dir"
-
-    if ! [ -d "$nix_dir" ]; then
-        info "fetching system flake repo..."
-        git clone --quiet https://github.com/opeik/nix.git "$nix_dir"
-    else
-        info "updating system flake repo..."
-        git -C "$nix_dir" pull --quiet
+    if [ "$(hostname)" == "$config" ]; then
+        info "system already bootstrapped, skipping"
+        return
     fi
 
-    info "building system configuration '$host'..."
+    if ! [ -d "$nix_dir" ]; then
+        info "fetching system flake..."
+        mkdir -p "$dev_dir"
+        git clone --quiet https://github.com/opeik/nix.git "$nix_dir"
+    else
+        info "system flake exists, skipping"
+    fi
+
+    info "building system configuration '$config'..."
     cd "$nix_dir"
-    nix build ".#darwinConfigurations.$host.system" --extra-experimental-features "nix-command flakes"
+    nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
 
     local files=(/etc/shells /etc/nix/nix.conf)
     for file in "${files[@]}"; do
@@ -107,8 +160,8 @@ install_system_flake() {
         fi
     done
 
-    info "switching to system configuration '$host'..."
-    run ./result/sw/bin/darwin-rebuild switch --flake ".#$host"
+    info "bootstrapping system configuration '$config'..."
+    run ./result/sw/bin/darwin-rebuild switch --flake ".#$config"
 }
 
 switch_shell() {
@@ -125,39 +178,15 @@ switch_shell() {
     sudo chsh -s "$shell" "$USER"
 }
 
-# Parse command line arguments.
-POSITIONAL_ARGS=()
-
-while [[ $# -gt 0 ]]; do
-    case $1 in
-    -h | --help)
-        help
-        exit
-        ;;
-    -v | --verbose)
-        VERBOSE=true
-        shift
-        ;;
-    -* | --*)
-        echo "unknown option '$1'"
-        exit 1
-        ;;
-    *)
-        POSITIONAL_ARGS+=("$1")
-        shift
-        ;;
-    esac
-done
-
-VERBOSE=false
-HOST="${POSITIONAL_ARGS[0]:-reimu}"
-
 main() {
+    parse_args "$ARGS"
+    info "installing nix for macOS..."
     install_xcode_cli_tools
     install_nix
     install_nix_darwin
-    install_system_flake "$HOST"
+    bootstrap_system "$CONFIG"
     switch_shell fish
+    info "done!"
 }
 
 main

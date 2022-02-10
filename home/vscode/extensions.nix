@@ -3,8 +3,8 @@
     {
       name = "vscode-pull-request-github";
       publisher = "GitHub";
-      version = "0.35.2022012714";
-      sha256 = "1ylbwvs8cg1f7j0wrad6wcgdg2k0b1bxxcxvqb83jvp3f1syz6fs";
+      version = "0.37.2022020910";
+      sha256 = "0lqnadmhg7kzzsxld8vqz1lay9d40im0r513jancgfywyglrvc7n";
     }
     {
       name = "nix-env-selector";
@@ -51,8 +51,8 @@
     {
       name = "vscode-yaml";
       publisher = "redhat";
-      version = "1.3.0";
-      sha256 = "1b9kl8ziz299451bsmn1crj8j1n2r611lcw2f7y3j0alq0nrngjg";
+      version = "1.4.0";
+      sha256 = "19a7ii4zrwcqb331jx78h7qpz8a4ar1w77k7nw43mcczx9gkb7sa";
     }
     {
       name = "crates";
@@ -63,8 +63,8 @@
     {
       name = "code-spell-checker";
       publisher = "streetsidesoftware";
-      version = "2.1.4";
-      sha256 = "1y0gfdr8kw3rjp47p9lxnylpwl1pd5wfr2zvl7i3hws39gya1jsp";
+      version = "2.1.6";
+      sha256 = "15ycxgah3pqar2ngbpz2sq9a0fz7hzabyslzc37dm3s40mxzsnwk";
     }
     {
       name = "even-better-toml";
@@ -81,8 +81,8 @@
     {
       name = "vim";
       publisher = "vscodevim";
-      version = "1.21.10";
-      sha256 = "0c9m7mc2kmfzj3hkwq3d4hj43qha8a75q5r1rdf1xfx8wi5hhb1n";
+      version = "1.22.1";
+      sha256 = "0hp2qw9qpp70pqblpybgpngisz98q6jk8zsabxlxy25j3hgzbhc3";
     }
     {
       name = "hcl";
