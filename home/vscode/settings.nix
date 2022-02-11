@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   programs.vscode = {
     enable = true;
+    # package = pkgs.unstable.vscode;
     userSettings = {
       # Workbench
       "workbench.colorTheme" = "Monokai Pro";
@@ -47,11 +48,8 @@
       "files.autoSave" = "afterDelay";
       "files.eol" = "\n";
       "files.exclude" = {
-        "**/.direnv" = true; # Direnv cache
         "**/.DS_Store" = true; # macOS Finder metadata
         "**/.git" = true; # Git data
-        "**/result" = true; # Rust build artifacts
-        "**/target" = true; # Nix build artifacts
       };
       "files.insertFinalNewline" = true;
       "files.trimFinalNewlines" = true;
@@ -106,10 +104,10 @@
       "shellformat.path" = "${pkgs.shfmt}/bin/shfmt";
 
       ## Webshit
-      "[json]" = { "editor.tabSize" = 2; };
+      "[css]" = { "editor.tabSize" = 2; };
       "[html]" = { "editor.tabSize" = 2; };
       "[js]" = { "editor.tabSize" = 2; };
-      "[css]" = { "editor.tabSize" = 2; };
+      "[json]" = { "editor.tabSize" = 2; };
     };
   };
 }

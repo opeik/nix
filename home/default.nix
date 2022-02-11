@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, darwinConfig, ... }: {
   imports = [
     ./direnv.nix
     ./fish.nix
@@ -9,6 +9,10 @@
     ./vscode
   ];
 
-  home.stateVersion = "21.11";
   programs.home-manager.enable = true;
+  home = {
+    stateVersion = "21.11";
+    username = darwinConfig.flake.user;
+    homeDirectory = darwinConfig.flake.home;
+  };
 }

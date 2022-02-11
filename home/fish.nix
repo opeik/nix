@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ pkgs, lib, ... }: {
   # Install fish, the user friendly shell.
   programs.fish = {
     enable = true;

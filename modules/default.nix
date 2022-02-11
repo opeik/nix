@@ -1,13 +1,14 @@
-{ pkgs, lib, system, ... }: {
+{ pkgs, config, ... }: {
   imports = [
     ./cachix.nix
+    ./options.nix
     ./scripts.nix
     ./user.nix
   ];
 
+  # Use Nix flakes for **maximum hermeticism**.
   nix = {
-    # Use flakes for **maximum hermeticism**.
-    package = pkgs.nix_2_4;
+    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
       # Uses more disk space but speeds up nix-direnv.
@@ -19,19 +20,18 @@
   # Allow proprietary packages.
   nixpkgs.config.allowUnfree = true;
   # System-wide packages.
-  environment.systemPackages = with pkgs; [
-    killall
-  ];
+  environment.systemPackages = with pkgs; [ ];
+
+  # Integrate with shells.
+  programs = {
+    fish.enable = true;
+    zsh.enable = true;
+  };
 
   # Setup `home-manager`.
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.opeik.imports = [ ../home ];
-  };
-
-  # Integrate with shells.
-  programs = {
-    fish.enable = true;
+    users.${config.flake.user} = import ../home;
   };
 }

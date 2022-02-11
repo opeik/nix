@@ -143,20 +143,20 @@ bootstrap_system() {
     if ! [ -d "$nix_dir" ]; then
         info "fetching system flake..."
         mkdir -p "$dev_dir"
-        git clone --quiet https://github.com/opeik/nix.git "$nix_dir"
+        run git clone https://github.com/opeik/nix.git "$nix_dir"
     else
         info "system flake exists, skipping"
     fi
 
     info "building system configuration '$config'..."
     cd "$nix_dir"
-    nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
+    run nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
 
     local files=(/etc/shells /etc/nix/nix.conf)
     for file in "${files[@]}"; do
         if ! [ -L "$file" ]; then
             info "deleting non-symlinked system file '$file'"
-            sudo rm "$file"
+            run sudo rm "$file"
         fi
     done
 
@@ -170,17 +170,16 @@ switch_shell() {
     current_shell="$(dscl . -read ~/ UserShell | sed 's/UserShell: //')"
 
     if [ "$current_shell" = "$shell" ]; then
-        info "shell already set to '$1', skipping"
+        info "shell already set, skipping"
         return
     fi
 
     info "setting shell to '$1'..."
-    sudo chsh -s "$shell" "$USER"
+    run sudo chsh -s "$shell" "$USER"
 }
 
 main() {
     parse_args "$ARGS"
-    info "installing nix for macOS..."
     install_xcode_cli_tools
     install_nix
     install_nix_darwin

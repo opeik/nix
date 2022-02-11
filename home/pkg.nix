@@ -1,4 +1,4 @@
-{ pkgs, lib, system, ... }:
+{ pkgs, lib, ... }:
 let
   packages = with pkgs; [
     # Development tools

@@ -1,82 +1,63 @@
 {
-  description = "opeik's nixpkgs and macOS configuration";
-
   inputs = {
-    # nixOS support.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs-channels/nixos-unstable";
-    # macOS support.
+    unstable.url = "github:nixos/nixpkgs-channels/nixos-unstable";
+    cachix.url = "github:jonascarpay/declarative-cachix";
     macos = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Manages user home directories declaratively.
     home = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Nix user repository.
-    nur = {
-      url = github:nix-community/NUR;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # Nix cache configurator.
-    cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, macos, home, nur, cachix, ... }:
+  outputs = { self, nixpkgs, unstable, macos, home, cachix, ... }:
     let
-      # Package overlays.
-      unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+      config.flake = {
+        user = "opeik";
       };
-      overlays = { nixpkgs.overlays = [ unstable nur.overlay ]; };
-      # Shared modules.
-      sharedModules = [ ./modules overlays cachix.nixosModules.declarative-cachix ];
-      # nixOS specific modules.
-      nixosModules = [
-        ./modules/nixos
-        home.nixosModules.home-manager
-        { home-manager.sharedModules = [ ]; }
-      ];
-      # macOS specific modules.
-      macosModules = [
-        ./modules/macos
-        home.darwinModules.home-manager
-        { home-manager.sharedModules = [ ]; }
-      ];
 
-      # Creates a nixOS system configuration.
-      nixosConfig = { system, modules }:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = modules ++ nixosModules ++ sharedModules;
-        };
+      sharedModules = [ ./modules config overlays cachix.nixosModules.declarative-cachix ];
+      macosModules = [ ./modules/macos.nix home.darwinModules.home-manager ];
+      overlays = {
+        nixpkgs.overlays = [
+          (final: prev: {
+            unstable = import unstable {
+              system = prev.system;
+              config.allowUnfree = true;
+            };
+          })
+        ];
+      };
 
-      # Creates a macOS system configuration.
-      macosConfig = { system, modules }:
+      macosConfig = { host, system, modules }:
         macos.lib.darwinSystem {
           inherit system;
-          modules = modules ++ macosModules ++ sharedModules;
+          modules = modules ++ macosModules ++ sharedModules ++ [ config ] ++ [{
+            networking.hostName = host;
+          }];
         };
     in
     {
-      # nixOS hosts.
-      nixosConfigurations = { };
-
-      # macOS hosts.
       darwinConfigurations = {
         reimu = macosConfig {
+          host = "reimu";
           system = "aarch64-darwin";
-          modules = [ ./hosts/reimu ./profiles/personal ];
+          modules = [ ./hosts/reimu.nix ./profiles/personal ];
         };
+
         reimu-ci = macosConfig {
+          host = "reimu-ci";
           system = "x86_64-darwin";
-          modules = [ ./hosts/reimu ./profiles/personal ];
+          modules = [ ./hosts/reimu.nix ./profiles/personal ];
         };
+
         marisa = macosConfig {
+          host = "marisa";
           system = "aarch64-darwin";
-          modules = [ ./hosts/marisa ./profiles/work ];
+          modules = [ ./hosts/marisa.nix ./profiles/work ];
         };
       };
     };
