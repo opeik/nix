@@ -1,7 +1,5 @@
 { ... }: {
   # Enable the `starship` prompt.
-  xdg.enable = true;
-
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
@@ -9,7 +7,7 @@
       hostname.ssh_only = false;
       battery.disabled = true;
       nix_shell = {
-        symbol = "⛄ foo";
+        symbol = "⛄ ";
         format = ''via [$symbol$state( $name)]($style) '';
       };
     };

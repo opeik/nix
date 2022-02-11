@@ -1,5 +1,5 @@
 { ... }: {
-  # Install `direnv` which allows the shell to integrate with `nix develop`.
+  # Install direnv, allowing shells to integrate with Nix devshells.
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

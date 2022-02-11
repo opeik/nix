@@ -6,10 +6,5 @@
       set fish_greeting;   # Disable welcome message
       fish_vi_key_bindings # Enable vim key bindings
     '';
-    shellAliases = lib.mkMerge [{ }
-      (lib.mkIf pkgs.stdenv.isLinux {
-        # Mimick the `open` command on macOS.
-        "open" = "xdg-open";
-      })];
   };
 }

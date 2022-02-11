@@ -5,7 +5,7 @@ let
     (name: "town ${name}");
 in
 {
-  # Install `git`, the stupid content tracker.
+  # Install git, the stupid content tracker.
   programs.git = {
     enable = true;
     userName = "Sandro Stikić";

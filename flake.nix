@@ -21,18 +21,16 @@
 
       sharedModules = [ ./modules config overlays cachix.nixosModules.declarative-cachix ];
       macosModules = [ ./modules/macos.nix home.darwinModules.home-manager ];
-      overlays = {
-        nixpkgs.overlays = [
-          (final: prev: {
-            unstable = import unstable {
-              system = prev.system;
-              config.allowUnfree = true;
-            };
-          })
-        ];
-      };
+      overlays.nixpkgs.overlays = [
+        (final: prev: {
+          unstable = import unstable {
+            system = prev.system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
 
-      macosConfig = { host, system, modules }:
+      makeMacosConfig = { host, system, modules }:
         macos.lib.darwinSystem {
           inherit system;
           modules = modules ++ macosModules ++ sharedModules ++ [ config ] ++ [{
@@ -42,22 +40,22 @@
     in
     {
       darwinConfigurations = {
-        reimu = macosConfig {
+        reimu = makeMacosConfig {
           host = "reimu";
           system = "aarch64-darwin";
-          modules = [ ./hosts/reimu.nix ./profiles/personal ];
+          modules = [ ./profiles/personal ];
         };
 
-        reimu-ci = macosConfig {
+        reimu-ci = makeMacosConfig {
           host = "reimu-ci";
           system = "x86_64-darwin";
-          modules = [ ./hosts/reimu.nix ./profiles/personal ];
+          modules = [ ./profiles/personal ];
         };
 
-        marisa = macosConfig {
+        marisa = makeMacosConfig {
           host = "marisa";
           system = "aarch64-darwin";
-          modules = [ ./hosts/marisa.nix ./profiles/work ];
+          modules = [ ./profiles/work ];
         };
       };
     };
