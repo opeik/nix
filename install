@@ -154,8 +154,14 @@ bootstrap_system() {
     run nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
 
     if ! [ -L "/etc/nix/nix.conf" ]; then
-        info "moving existing nix config from \`/etc/nix/nix.conf\` to \`/etc/nix/nix.conf.old\`"
+        info "moving nix config from \`/etc/nix/nix.conf\` to \`/etc/nix/nix.conf.old\`"
         run sudo mv -n "/etc/nix/nix.conf" "/etc/nix/nix.conf.old"
+    fi
+
+    if ! [ -d "$HOME/Applications" ]; then
+        info "moving user Applications from \`~/Applications\` to \`~/Applications.old\`"
+        run mv -n "$HOME/Applications" "$HOME/Applications.old"
+        mkdir -p "$HOME/Applications"
     fi
 
     info "bootstrapping system '$config'..."
