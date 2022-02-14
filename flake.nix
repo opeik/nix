@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
-    unstable.url = "github:nixos/nixpkgs-channels/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     cachix.url = "github:jonascarpay/declarative-cachix";
     macos = {
       url = "github:lnl7/nix-darwin";

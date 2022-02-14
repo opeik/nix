@@ -1,4 +1,7 @@
 {
+    "files.exclude": {
+        "result": true
+    },
     "cSpell.words": [
         "cachix",
         "nixos",

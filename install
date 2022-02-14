@@ -18,7 +18,7 @@ log() {
     info) color="\033[1;32m" ;;
     verbose) color="\033[1;36m" ;;
     error) color="\033[1;31m" ;;
-    *) echo "invalid level" && exit ;;
+    *) echo "invalid log level" && exit ;;
     esac
 
     echo -e "$color$level:$clear ${*:2}"
@@ -130,35 +130,37 @@ install_nix_darwin() {
     reload_shell
 }
 
+download_system_flake() {
+    local dev_dir="$HOME/Development"
+    local nix_dir="$dev_dir/nix"
+
+    if ! [ -d "$nix_dir" ]; then
+        info "downloading system flake..."
+        mkdir -p "$dev_dir"
+        run git clone https://github.com/opeik/nix.git "$nix_dir"
+    else
+        info "system flake already downloaded, skipping"
+    fi
+}
+
 bootstrap_system() {
     local config="$1"
     local dev_dir="$HOME/Development"
     local nix_dir="$dev_dir/nix"
 
-    if [ "$(hostname)" == "$config" ]; then
+    if [ -d "/etc/profiles/per-user/$USER" ]; then
         info "system already bootstrapped, skipping"
         return
-    fi
-
-    if ! [ -d "$nix_dir" ]; then
-        info "fetching system flake..."
-        mkdir -p "$dev_dir"
-        run git clone https://github.com/opeik/nix.git "$nix_dir"
-    else
-        info "system flake exists, skipping"
     fi
 
     info "building system configuration '$config'..."
     cd "$nix_dir"
     run nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
 
-    local files=(/etc/shells /etc/nix/nix.conf)
-    for file in "${files[@]}"; do
-        if ! [ -L "$file" ]; then
-            info "deleting non-symlinked system file '$file'"
-            run sudo rm "$file"
-        fi
-    done
+    if ! [ -L "/etc/nix/nix.conf" ]; then
+        info "moving old nix configuration to \`/etc/nix/nix.conf.old\`"
+        run sudo mv -n "/etc/nix/nix.conf" "/etc/nix/nix.conf.old"
+    fi
 
     info "bootstrapping system configuration '$config'..."
     run ./result/sw/bin/darwin-rebuild switch --flake ".#$config"
@@ -183,6 +185,7 @@ main() {
     install_xcode_cli_tools
     install_nix
     install_nix_darwin
+    download_system_flake
     bootstrap_system "$CONFIG"
     switch_shell fish
     info "done!"
