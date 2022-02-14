@@ -201,7 +201,7 @@ enable_touch_id_sudo() {
     fi
 
     info "enabling touch id sudo..."
-    sed -i '' '2s/^/auth       sufficient     pam_tid.so\'$'\n/' /etc/pam.d/sudo
+    run sudo sed -i '' '2s/^/auth       sufficient     pam_tid.so\'$'\n/' /etc/pam.d/sudo
 }
 
 main() {
