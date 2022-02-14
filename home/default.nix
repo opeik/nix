@@ -1,5 +1,6 @@
-{ pkgs, darwinConfig, ... }: {
+{ lib, config, pkgs, darwinConfig, ... }: {
   imports = [
+    ./app.nix
     ./direnv.nix
     ./fish.nix
     ./font.nix

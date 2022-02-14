@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.vscode = {
     enable = true;
-    # package = pkgs.unstable.vscode;
+    package = pkgs.unstable.vscode;
     userSettings = {
       # Workbench
       "workbench.colorTheme" = "Monokai Pro";

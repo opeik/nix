@@ -162,7 +162,7 @@ bootstrap_system() {
     run ./result/sw/bin/darwin-rebuild switch --flake ".#$config"
 }
 
-switch_shell() {
+set_shell() {
     local current_shell
     local shell="/run/current-system/sw/bin/${1}"
     current_shell="$(dscl . -read ~/ UserShell | sed 's/UserShell: //')"
@@ -176,6 +176,28 @@ switch_shell() {
     run sudo chsh -s "$shell" "$USER"
 }
 
+set_terminal_font() {
+    info "setting terminal font to 'Fira Code'..."
+    osascript -e '
+    tell application "Terminal"
+        set profiles to name of every settings set
+        repeat with profile in profiles
+            set font name of settings set profile to "FiraCode Nerd Font"
+        end repeat
+    end tell'
+}
+
+enable_touch_id_sudo() {
+    if grep --extended-regexp --line-regexp --quiet \
+        '^auth\s+sufficient\s+pam_tid\.so$' /etc/pam.d/sudo; then
+        info "touch id sudo already enabled, skipping"
+        return
+    fi
+
+    info "enabling touch id sudo..."
+    sed -i '' '2s/^/auth       sufficient     pam_tid.so\'$'\n/' /etc/pam.d/sudo
+}
+
 main() {
     parse_args "$ARGS"
     install_xcode_cli_tools
@@ -183,7 +205,9 @@ main() {
     install_nix_darwin
     download_system_flake
     bootstrap_system "$CONFIG"
-    switch_shell fish
+    enable_touch_id_sudo
+    set_shell fish
+    set_terminal_font
     info "done!"
 }
 

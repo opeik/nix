@@ -11,7 +11,7 @@ let
 
     CONFIG="''${1-$(hostname)}"
     run cd '${path}'
-    run ${git}/bin/git add . && run ${git}/bin/git pull --quiet
+    run ${git}/bin/git add flake.lock '*.nix' && run ${git}/bin/git pull --quiet
     run nix build ".#darwinConfigurations.$CONFIG.config.system.build.toplevel"
     run ./result/sw/bin/darwin-rebuild switch --flake ".#$CONFIG"
   '';
