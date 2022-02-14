@@ -2,57 +2,40 @@
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-This repo contains the nix config which I use on my macOS and nixOS machines.
+This repo contains the nix config which I use on my macOS machines.
 The initial structure was inspired by
 [davegallant/nixos-config](https://github.com/davegallant/nix-config).
 
-## Bootstrapping
+## Installing
 
-### macOS
-
-Run:
+To install, run:
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/opeik/nix/main/install | bash
 ```
 
-### nixOS
+## Rebuilding
 
-1. Enable Flakes by adding the following to `/etc/nixos/configuration.nix`
+To rebuild the system, run:
 
-   ```nix
-   {
-     package = pkgs.nix_2_4;
-     extraOptions = "experimental-features = nix-command flakes";
-   }
-   ```
+```sh
+rebuild [config]
+```
 
-2. Bootstrap
+By default, your hostname will be used as the config. This script is a handy shortcut for:
 
-   ```sh
-   nixos-rebuild switch --flake .#$host
-   ```
+```sh
+nix bulid ".#darwinConfigurations.$config.config.system.build.toplevel"
+./result/sw/bin/darwin-rebuild switch --flake ".#$config"
+```
 
-## Switching
 
-- Switch the current configuration
+## Updating
 
-  ```sh
-  nix-switch
-  ```
-
-- Switch to the configuration `foobar`
-
-  ```sh
-  nix-switch foobar
-  ```
-
-## Update nixpkgs
-
-To update nixpkgs defined in [flake.nix](./flake.nix), run
+To update flake inputs, including nixpkgs, run:
 
 ```sh
 nix flake update
 ```
 
-If there are updates, they should be reflected in [flake.lock](./flake.lock).
+If there are updates they will be reflected in [`flake.lock`](./flake.lock).

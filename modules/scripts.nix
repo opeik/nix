@@ -2,70 +2,27 @@
 let
   path = "${config.users.users.${config.flake.user}.home}/Development/nix";
 
-  nix-switch = with pkgs; writeShellScriptBin "nix-switch" ''
+  rebuild = with pkgs; writeShellScriptBin "rebuild" ''
     set -euo pipefail
-    trap 'error_handler $?' EXIT
-    host="''${1-$(hostname)}"
 
-    error_handler() {
-      if [ "$1" != "0" ]; then
-        error "command failed with exit status $1, aborting"
-      fi
+    run() {
+      echo -e "\033[1;32minfo:\033[0m running \`''${@:1}\`" && "''${@:1}"
     }
 
-    info() {
-      local green='\033[1;32m'
-      local clear='\033[0m'
-      echo -e "''${green}info:''${clear} $1"
-    }
-
-    main() {
-      local current_dir="$PWD"
-      cd '${path}'
-      info "updating git repository..."
-      ${git}/bin/git add .
-      ${git}/bin/git pull --quiet
-
-      info "switching host \`$host\`..."
-      case "$OSTYPE" in
-      "darwin"*)
-        darwin-rebuild switch --flake ".#$host"
-        ;;
-      "linux-gnu"*)
-        sudo nixos-rebuild switch --flake ".#$host"
-        ;;
-      *)
-        printf "unsupported os"
-        exit 1
-        ;;
-      esac
-
-      info "done!"
-    }
-
-    main
+    CONFIG="''${1-$(hostname)}"
+    run cd '${path}'
+    run ${git}/bin/git add . && run ${git}/bin/git pull --quiet
+    run nix build ".#darwinConfigurations.$CONFIG.config.system.build.toplevel"
+    run ./result/sw/bin/darwin-rebuild switch --flake ".#$CONFIG"
   '';
 
   code-update = with pkgs; pkgs.writeShellScriptBin "code-update" ''
     set -euo pipefail
-    trap 'error_handler $?' EXIT
     trap clean_up SIGINT
-
-    error_handler() {
-      if [ "$1" != "0" ]; then
-        error "command failed with exit status $1, aborting"
-      fi
-    }
-
-    info() {
-      local green='\033[1;32m'
-      local clear='\033[0m'
-      echo -e "''${green}info:''${clear} $1"
-    }
 
     clean_up() {
       local tmp_dir="''${TMPDIR:-/tmp}"
-      echo "killed, cleaning up tmpdirs: '$tmp_dir/vscode_exts_*'" >&2
+      echo "killed, cleaning up tmpdirs: \`$tmp_dir/vscode_exts_*\`" >&2
       rm --recursive --force "$tmp_dir/vscode_exts_*"
     }
 
@@ -113,7 +70,6 @@ let
         "wholroyd.hcl"
       )
 
-      info "updating vscode extensions..."
       cd '${path}'
       local exts_nix=$(printf '{\n  extensions = [\n' &&
         ${parallel}/bin/parallel --will-cite -k get_vsixpkg ::: "''${exts[@]}" &&
@@ -126,5 +82,5 @@ let
   '';
 in
 {
-  environment.systemPackages = [ nix-switch code-update ];
+  environment.systemPackages = [ rebuild code-update ];
 }

@@ -3,10 +3,16 @@ set -euo pipefail
 trap 'error_handler $?' EXIT
 ARGS="$*"
 
-error_handler() {
-    if [ "$1" != "0" ]; then
-        error "command failed with exit status $1, aborting"
-    fi
+help() {
+    printf "%s\n" \
+        "Nix flake installer for macOS" \
+        "" \
+        "USAGE:" \
+        "    install [OPTIONS] CONFIGURATION" \
+        "" \
+        "OPTIONS:" \
+        "    -h, --help             Print help information" \
+        "    -v, --verbose          Enable verbose logging"
 }
 
 log() {
@@ -27,10 +33,12 @@ log() {
 info() { log info "$@"; }
 verbose() { if $VERBOSE; then log verbose "$@"; fi; }
 error() { log error "$@"; }
+bail() { log error "$@" && exit; }
 
-bail() {
-    log error "$@"
-    exit
+error_handler() {
+    if [ "$1" != "0" ]; then
+        error "command failed with exit status $1, aborting"
+    fi
 }
 
 run() {
@@ -43,18 +51,6 @@ run() {
 
 reload_shell() {
     exec bash
-}
-
-help() {
-    printf "%s\n" \
-        "Nix flake installer for macOS" \
-        "" \
-        "USAGE:" \
-        "    install [OPTIONS] CONFIGURATION" \
-        "" \
-        "OPTIONS:" \
-        "    -h, --help             Print help information" \
-        "    -v, --verbose          Enable verbose logging"
 }
 
 parse_args() {
@@ -153,16 +149,16 @@ bootstrap_system() {
         return
     fi
 
-    info "building system configuration '$config'..."
+    info "building system '$config'..."
     cd "$nix_dir"
     run nix build ".#darwinConfigurations.$config.system" --extra-experimental-features "nix-command flakes"
 
     if ! [ -L "/etc/nix/nix.conf" ]; then
-        info "moving old nix configuration to \`/etc/nix/nix.conf.old\`"
+        info "moving existing nix config from \`/etc/nix/nix.conf\` to \`/etc/nix/nix.conf.old\`"
         run sudo mv -n "/etc/nix/nix.conf" "/etc/nix/nix.conf.old"
     fi
 
-    info "bootstrapping system configuration '$config'..."
+    info "bootstrapping system '$config'..."
     run ./result/sw/bin/darwin-rebuild switch --flake ".#$config"
 }
 
