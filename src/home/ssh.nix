@@ -1,16 +1,7 @@
 # ssh configuration, see: <https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable>
-{ osConfig, ... }: {
+{ pkgs, osConfig, ... }: {
   programs = {
-    ssh = {
-      enable = true; # Enable ssh, the secure remote shell
-      # Setup per-host ssh keys
-      matchBlocks = {
-        "github.com" = {
-          hostname = "github.com";
-          identityFile = "${osConfig.user.home}/.ssh/keys/github.com";
-        };
-      };
-    };
+    ssh.enable = true; # Enable ssh, the secure remote shell
 
     # Setup ssh-agent.
     fish.interactiveShellInit = ''
@@ -25,14 +16,14 @@
           return 1
         end
 
-        ssh-add -l > /dev/null 2>&1
+        ${pkgs.openssh}/bin/ssh-add -l > /dev/null 2>&1
         if test $status -eq 2
           return 1
         end
       end
 
       function __ssh_agent_start
-        ssh-agent -c | head -n 2 > $SSH_ENV
+        ${pkgs.openssh}/bin/ssh-agent -c | head -n 2 > $SSH_ENV
         chmod 600 $SSH_ENV
         source $SSH_ENV > /dev/null
       end
