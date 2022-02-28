@@ -1,0 +1,7 @@
+# User configuration
+[user]
+username = "opeik"          # Your user name
+home = "/Users/opeik"       # Your home path
+name = "Sandro Stikić"      # Your name
+email = "sandro@stikic.com" # Your email
+useVim = true               # Whether to enable vim mode

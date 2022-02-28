@@ -11,24 +11,9 @@ The initial structure was inspired by
 To install, run:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/opeik/nix/main/install | bash
+git clone https://github.com/opeik/nix && cd nix
+./install.sh --email <email>
 ```
-
-## Rebuilding
-
-To rebuild the system, run:
-
-```sh
-rebuild [config]
-```
-
-By default, your hostname will be used as the config. This script is a handy shortcut for:
-
-```sh
-nix bulid ".#darwinConfigurations.$config.config.system.build.toplevel"
-./result/sw/bin/darwin-rebuild switch --flake ".#$config"
-```
-
 
 ## Updating
 
