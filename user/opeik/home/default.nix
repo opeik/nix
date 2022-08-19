@@ -1,0 +1,32 @@
+# home-manager extra configuration, see: <https://nix-community.github.io/home-manager/options>
+{ pkgs, lib, osConfig, root, ... }: {
+  # Import home-manager modules
+  imports = [
+    ./direnv.nix
+    ./fish.nix
+    ./git.nix
+    ./starship.nix
+    ./vscode.nix
+  ];
+
+  vim.enable = osConfig.vim.enable; # Enable vim mode if applicable
+
+  # Install packages
+  home.packages = with pkgs; [
+    docker # Docker container cli tools
+    docker-compose # Docker container orchestrator
+    git-town # Git workflow automation
+    iosevka-bin # Pretty font
+  ] ++ (with pkgs.macos-apps; [
+    docker-desktop # Docker macOS host
+    mos # Mouse tweaks
+    rectangle # Window snapping
+    yubico-authenticator # Yubikey TOTP generator
+  ]);
+
+  macos = lib.mkIf pkgs.stdenv.isDarwin {
+    shell = "/etc/profiles/per-user/${osConfig.username}/bin/fish"; # Set the user shell to fish
+    aliasApps.enabled = true; # Alias .app bundles to ~/Applications
+    terminal.font = "FiraCode Nerd Font"; # Set the macOS Terminal.app font to Fira Code
+  };
+}

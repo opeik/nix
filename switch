@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2016,SC2120 source=/dev/null
+
+# Enable "strict mode". See: <http://redsymbol.net/articles/unofficial-bash-strict-mode>
+set -euo pipefail
+# Load logging library
+source ./lib/log.sh
+# Command line arguments
+readonly ARGS=("${@:-}")
+
+# Displays the help for this program
+help() {
+    printf '%s\n' \
+        'Rebuild and switch Nix system configuration' \
+        '' \
+        'USAGE:' \
+        '    switch [OPTIONS]' \
+        '' \
+        'OPTIONS:' \
+        '    -h, --help                Print help information' \
+        '    -l, --log <LEVEL>         Set the log level: none, error, info, debug, trace [default: info]' \
+        '    -q, --quiet               Disable non-error logs; alias of `--log error`' \
+        '    -s, --silent              Disable all logs; alias of `--log none`' \
+        '    -v, --verbose             Enable all logs; alias of `--log trace`' \
+        '    -c, --config              Config to switch to [default: $user-$arch]' \
+        '    -u, --update              Update the repository before switching'
+}
+
+cpu_arch() {
+    local arch
+    arch="$(uname -m)"
+
+    case "$arch" in
+        arm64) arch="aarch64" ;;
+    esac
+
+    echo "$arch"
+}
+
+# Initialize the program options
+init_options() {
+    CONFIG="$USER-$(cpu_arch)"
+    DO_UPDATE=false
+}
+
+# Parses the command line arguments
+parse_args() {
+    local positional_args=()
+
+    # shellcheck disable=SC2034
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+        -h | --help)
+            help && exit
+            ;;
+        -l | --log)
+            if [ -z "${2:-}" ]; then error "expected log level" && exit "$NO_PANIC"; fi
+            local level
+            { level=$(log_value "$2" | tee /dev/fd/3); } 3>&1
+            LOG="$level"
+            shift && shift
+            ;;
+        -v | --verbose)
+            LOG="$LOG_TRACE" && shift
+            ;;
+        -q | --quiet)
+            LOG="$LOG_ERROR" && shift
+            ;;
+        -s | --silent)
+            LOG="$LOG_NONE" && shift
+            ;;
+        -c | --config)
+            if [ -z "${2:-}" ]; then error "expected config" && exit "$NO_PANIC"; fi
+            CONFIG="$2" && shift && shift
+            ;;
+        -u | --update)
+            DO_UPDATE=true && shift
+            ;;
+        --* | -*)
+            error "unknown option '$1'" && help && exit "$NO_PANIC"
+            ;;
+        *)
+            positional_args+=("$1") && shift
+            ;;
+        esac
+    done
+
+    debug "parsed command line arguments"
+    trace "config='$CONFIG'"
+}
+
+# Checks the execution requirements are met
+check_requirements() {
+    local os
+    local arch
+    os="$(uname -s)"
+    arch="$(cpu_arch)"
+
+    if ! command -v nix &>/dev/null; then
+        error 'nix is not installed, run `./install`' && exit "$NO_PANIC"
+        return
+    elif ! command -v darwin-rebuild &>/dev/null; then
+        error 'nix-darwin is not installed, run `./install`' && exit "$NO_PANIC"
+        return
+    fi
+
+    case "$os" in
+    Darwin) ;;
+    *) error "unsupported operating system '$os'" && exit "$NO_PANIC" ;;
+    esac
+
+    case "$arch" in
+    aarch64 | x86_64) ;;
+    *) error "unsupported cpu architecture '$arch'" && exit "$NO_PANIC" ;;
+    esac
+
+    debug "os='$os', cpu_arch='$arch'"
+}
+
+# Bootstraps the system
+switch_config() {
+    local config="$1";
+    local annoyances=(
+        '/(Git tree .+ is dirty)|'
+        '(literalExample is deprecated)|'
+        'Expecting a LaunchDaemons|'
+        'is a recommended alternative'
+    )
+    local regex="${annoyances[*]}/d";
+
+    if $DO_UPDATE; then
+        info "updating repository"
+        git pull origin main --quiet
+    fi
+
+    info "switching to config '$config'"
+    info "running \`nix build .#darwinConfigurations.$config.system\`"
+    nix build ".#darwinConfigurations.$config.system" 2>&1 | sed -E "$regex"
+    info "running \`./result/sw/bin/darwin-rebuild switch --flake .#$config\`"
+    ./result/sw/bin/darwin-rebuild switch --flake ".#$config" 2>&1 | sed -E "$regex"
+    run 'rm -f result'
+}
+
+main() {
+    init_options
+    parse_args "${ARGS[@]}"
+    check_requirements
+    switch_config "$CONFIG"
+    info "done!"
+}
+
+main
