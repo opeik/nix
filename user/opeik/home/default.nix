@@ -11,18 +11,25 @@
 
   vim.enable = osConfig.vim.enable; # Enable vim mode if applicable
 
-  # Install packages
-  home.packages = with pkgs; [
-    docker # Docker container cli tools
-    docker-compose # Docker container orchestrator
-    git-town # Git workflow automation
-    iosevka-bin # Pretty font
-  ] ++ (with pkgs.macos-apps; [
-    docker-desktop # Docker macOS host
-    mos # Mouse tweaks
-    rectangle # Window snapping
-    yubico-authenticator # Yubikey TOTP generator
-  ]);
+  home = {
+    # Install packages
+    packages = with pkgs; [
+      docker # Docker container cli tools
+      docker-compose # Docker container orchestrator
+      git-town # Git workflow automation
+      iosevka-bin # Pretty font
+    ] ++ (with pkgs.macos-apps; [
+      docker-desktop # Docker macOS host
+      mos # Mouse tweaks
+      rectangle # Window snapping
+      yubico-authenticator # Yubikey TOTP generator
+    ]);
+
+    file = {
+      ".hammerspoon/init.lua".source = "${root}/user/opeik/hammerspoon.lua";
+    };
+  };
+
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
     shell = "/etc/profiles/per-user/${osConfig.username}/bin/fish"; # Set the user shell to fish

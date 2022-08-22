@@ -1,4 +1,4 @@
-username = "opeik"          # Your username
-name = "Sandro Stikić"      # Your name
-email = "sandro@stikic.com" # Your email
-vim.enable = true           # Use vim style modal editing
+username = "opeik" # Your username
+name = "Sandro Stikić" # Your name
+email = "sandro@stikić.com" # Your email
+vim.enable = true # Use vim style modal editing

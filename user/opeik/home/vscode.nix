@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true; # Install VSCode, a cross platform text editor
     package = pkgs.unstable.vscode; # Use the latest version of VSCode
-    mutableExtensionsDir = false; # Make the extensions dir immutable, fixing weird eval behavior
+    # mutableExtensionsDir = true; # Make the extensions dir immutable, fixing weird eval behavior
 
     # Install extensions, see: <https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions>
     extensions = with pkgs.unstable.vscode-extensions; [
@@ -33,6 +33,13 @@
         version = "1.1.20";
         sha256 = "0ddwqsvsqdjblmb0xlad17czy2837g27ymwvzissz4b9r111xyhx";
       }
+      # Lua support
+      # {
+      #   name = "lua";
+      #   publisher = "sumneko";
+      #   version = "3.5.3";
+      #   sha256 = "toMcBXpKa/ik4TOy8st53k7B6RD2R7Zf4Ukvc3VULS4=";
+      # }
     ];
 
     # VScode settings, see: <https://code.visualstudio.com/docs/getstarted/settings#_default-settings>
@@ -56,7 +63,7 @@
       "extensions.ignoreRecommendations" = true; # Silence recommended extension notifications
       "files.autoSave" = "afterDelay"; # Automatically save files after a delay
       "files.eol" = "\n"; # Always use Unix newline characters
-      "files.exclude" = { "**/.DS_Store" = true; "**/.git" = true; }; # Ignore metadata files
+      "files.exclude" = { "**/.DS_Store" = true; "**/.git" = true; ".direnv" = true; }; # Ignore metadata files
       "files.insertFinalNewline" = true; # Ensure files end with a newline
       "files.trimFinalNewlines" = true; # Trim extraneous newlines at the end of files
       "files.trimTrailingWhitespace" = true; # Trim trailing whitespace
@@ -91,6 +98,8 @@
       "redhat.telemetry.enabled" = false; # Disable telemetry
       "rust-analyzer.checkOnSave.command" = "clippy"; # Run clippy on save
       "vim.sneak" = true; # Enable sneak feature
+      "Lua.hint.enable" = true; # Enable Lua type inlays
+      "Lua.telemetry.enable" = false;
     };
   };
 }
