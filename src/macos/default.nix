@@ -2,5 +2,6 @@
 { pkgs, lib, root, ... }: {
   macos = {
     enableSudoTouchIdAuth = true; # Enable sudo TouchID auth
+    enableSudoWatchAuth = true; # Enable sudo Apple Watch auth
   };
 }
