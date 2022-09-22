@@ -1,7 +1,8 @@
 # git configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.git.enable>
-{ lib, osConfig, ... }: {
+{ pkgs, lib, osConfig, ... }: {
   programs.git = {
     enable = true; # Enable git, the stupid content tracker
+    package = pkgs.unstable.git; # Use the latest git version.
     userName = osConfig.name; # Set the git user name
     userEmail = osConfig.email; # Set the git user email
     ignores = [ ".DS_Store" ]; # Global file ignore list
@@ -14,12 +15,17 @@
         editor = "code --wait"; # Use VSCode as the commit message editor
       };
 
+      # Use the same branch names locally and remotely
+      push = {
+        default = "current";
+        autoSetupRemote = true;
+      };
+
       merge.tool = "vscode"; # Use VSCode as the merge tool
       diff.tool = "vscode"; # Use VSCode as the diff tool
       difftool.vscode.cmd = "code --wait --diff $LOCAL $REMOTE"; # Setup VSCode diffing
       init.defaultBranch = "main"; # Use `main` as the default branch name
       pull.rebase = true; # Always rebase instead of merge
-      push.default = "current"; # Use the same branch names locally and remotely
       rebase.autoStash = true; # Automatically stash unstaged changes then reapply after an action
     };
 
