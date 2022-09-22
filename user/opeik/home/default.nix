@@ -34,6 +34,5 @@
   macos = lib.mkIf pkgs.stdenv.isDarwin {
     shell = "/etc/profiles/per-user/${osConfig.username}/bin/fish"; # Set the user shell to fish
     aliasApps.enabled = true; # Alias .app bundles to ~/Applications
-    terminal.font = "FiraCode Nerd Font"; # Set the macOS Terminal.app font to Fira Code
   };
 }

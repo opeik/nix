@@ -60,6 +60,8 @@
       "editor.rulers" = [ 100 ]; # Render a vertical guide at 100 characters
       "editor.stickyTabStops" = true; # Make spaces behave like tabs
       "editor.suggest.preview" = true; # Preview suggestion outcomes in the editor
+      "explorer.fileNesting.enabled" = true; # Allow files to be grouped
+      "explorer.fileNesting.expand" = false; # Don't expand grouped files by default
       "extensions.ignoreRecommendations" = true; # Silence recommended extension notifications
       "files.autoSave" = "afterDelay"; # Automatically save files after a delay
       "files.eol" = "\n"; # Always use Unix newline characters

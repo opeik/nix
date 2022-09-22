@@ -3,6 +3,5 @@
   imports = [
     ./alias-apps.nix
     ./shell.nix
-    ./terminal.nix
   ];
 }

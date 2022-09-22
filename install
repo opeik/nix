@@ -24,9 +24,6 @@ help() {
         '    -v, --verbose             Enable all logs; alias of `--log trace`' \
         '' \
         '    --config                  Set the Nix config [default: $user-$arch]' \
-        '    --username                Set the user username' \
-        '    --name                    Set the user name' \
-        '    --email                   Set the user email' \
         '    --no-install-xcode        Do not install Xcode cli tools' \
         '    --no-install-nix          Do not install Nix' \
         '    --no-install-nix-darwin   Do not install nix-darwin' \
@@ -50,12 +47,9 @@ cpu_arch() {
 init_options() {
     CONFIG_USERNAME="$(id -un)"
     CONFIG_HOME="/Users/$CONFIG_USERNAME"
-    CONFIG_NAME="$(id -F)"
-    CONFIG_EMAIL=""
     INSTALL_XCODE=true
     INSTALL_NIX=true
     INSTALL_NIX_DARWIN=true
-    MAKE_CONFIG=true
     SHOULD_BOOTSTRAP=true
     FORCE_BOOTSTRAP=false
     SRC_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)"
@@ -90,18 +84,6 @@ parse_args() {
             if [ -z "${2:-}" ]; then error "expected config" && exit "$NO_PANIC"; fi
             CONFIG="$2" && shift && shift
             ;;
-        --username)
-            if [ -z "${2:-}" ]; then error "expected username" && exit "$NO_PANIC"; fi
-            CONFIG_USERNAME="$2" && shift && shift
-            ;;
-        --name)
-            if [ -z "${2:-}" ]; then error "expected name" && exit "$NO_PANIC"; fi
-            CONFIG_NAME="$2" && shift && shift
-            ;;
-        --email)
-            if [ -z "${2:-}" ]; then error "expected email" && exit "$NO_PANIC"; fi
-            CONFIG_EMAIL="$2" && shift && shift
-            ;;
         --no-install-xcode)
             INSTALL_XCODE=false && shift
             ;;
@@ -116,9 +98,6 @@ parse_args() {
             ;;
         --force-bootstrap)
             FORCE_BOOTSTRAP=true && shift
-            ;;
-        --no-config)
-            MAKE_CONFIG=false && shift
             ;;
         --* | -*)
             error "unknown option '$1'" && help && exit "$NO_PANIC"
@@ -142,11 +121,7 @@ parse_args() {
     debug "parsed command line arguments"
     trace "log=$LOG"
     trace "config='$CONFIG'"
-    trace "username='$CONFIG_USERNAME'"
     trace "home='$CONFIG_HOME'"
-    trace "name='$CONFIG_NAME'"
-    trace "email='$CONFIG_EMAIL'"
-    trace "make_config=$MAKE_CONFIG"
     trace "should_bootstrap=$SHOULD_BOOTSTRAP"
     trace "force_bootstrap=$FORCE_BOOTSTRAP"
     trace "src_path='$SRC_PATH'"
@@ -241,31 +216,6 @@ install_nix_darwin() {
     debug "nix-darwin sourced profile='$profile' PATH='$PATH'"
 }
 
-# Creates the system config file
-make_config() {
-    local username="$1"
-    local name="$2"
-    local email="$3"
-    local path="$SRC_PATH/user/$username"
-
-    run "mkdir -p '$path'"
-
-    if [ -s "$path/config.toml" ]; then
-        debug 'config.toml exists, skipping'
-    else
-        info "generating \`$path/config.toml\`"
-        run "cat <<EOF > '$path/config.toml'
-username = \"$username\" # Your username
-name = \"$name\" # Your name
-email = \"$email\" # Your email
-vim.enable = false # Use vim style modal editing
-EOF"
-        nano "$path/config.toml"
-    fi
-
-    run "git -C '$SRC_PATH' add 'user/${username}'"
-}
-
 # Bootstraps the system
 bootstrap_system() {
     if ! $FORCE_BOOTSTRAP && [ -d "/etc/profiles/per-user/$CONFIG_USERNAME" ]; then
@@ -299,10 +249,6 @@ main() {
 
     if $INSTALL_NIX_DARWIN; then
         install_nix_darwin
-    fi
-
-    if $MAKE_CONFIG; then
-        make_config "$CONFIG_USERNAME" "$CONFIG_NAME" "$CONFIG_EMAIL"
     fi
 
     if $SHOULD_BOOTSTRAP; then

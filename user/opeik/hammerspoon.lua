@@ -1,3 +1,4 @@
+-- See: <https://www.hammerspoon.org/docs/hs.caffeinate.watcher.html>
 local watcher = hs.caffeinate.watcher
 
 local function execute(cmd, error_msg)
@@ -20,7 +21,11 @@ end
 
 local function power_callback(event)
     local callback = ({
+        [watcher.screensDidUnlock] = wake,
+        [watcher.screensDidWake] = wake,
         [watcher.systemDidWake] = wake,
+
+        [watcher.screensDidSleep] = sleep,
         [watcher.systemWillSleep] = sleep,
         [watcher.systemWillPowerOff] = sleep,
     })[event]
