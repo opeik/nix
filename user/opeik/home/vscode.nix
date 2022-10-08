@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true; # Install VSCode, a cross platform text editor
     package = pkgs.unstable.vscode; # Use the latest version of VSCode
-    # mutableExtensionsDir = true; # Make the extensions dir immutable, fixing weird eval behavior
+    mutableExtensionsDir = false; # Make the extensions dir immutable, fixing weird eval behavior
 
     # Install extensions, see: <https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions>
     extensions = with pkgs.unstable.vscode-extensions; [
