@@ -45,7 +45,7 @@ jobs:
 
   build-installer:
     name: Build installer
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     defaults: { run: { working-directory: installer } }
     steps:
       - name: Checkout repository
