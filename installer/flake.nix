@@ -20,7 +20,6 @@
         buildInputs = [
           (rust-bin.stable.latest.default.override {
             extensions = [ "rust-src" ];
-            targets = [ "aarch64-apple-darwin" ];
           })
         ];
       };

@@ -51,11 +51,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v15
+      - name: Install Rust nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
 
       - name: Build
-        run: nix develop --command bash -c 'cargo build --release --target aarch64-apple-darwin'
+        run: cargo build --frozen --release --target aarch64-apple-darwin
 
       - name: Upload
         uses: actions/upload-artifact@v3
