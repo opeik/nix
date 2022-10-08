@@ -33,13 +33,6 @@
         version = "1.1.20";
         sha256 = "0ddwqsvsqdjblmb0xlad17czy2837g27ymwvzissz4b9r111xyhx";
       }
-      # Lua support
-      # {
-      #   name = "lua";
-      #   publisher = "sumneko";
-      #   version = "3.5.3";
-      #   sha256 = "toMcBXpKa/ik4TOy8st53k7B6RD2R7Zf4Ukvc3VULS4=";
-      # }
     ];
 
     # VScode settings, see: <https://code.visualstudio.com/docs/getstarted/settings#_default-settings>
@@ -106,7 +99,7 @@
       "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp"; # Set the path to rnix-lsp language server
       "redhat.telemetry.enabled" = false; # Disable telemetry
       "rust-analyzer.checkOnSave.command" = "clippy"; # Run clippy on save
-      "shellcheck.exclude" = "SC2148"; # Ignore shell warning in direnv
+      "shellcheck.exclude" = [ "SC2148" ]; # Ignore shell warning in direnv
       "vim.sneak" = true; # Enable sneak feature
     };
   };

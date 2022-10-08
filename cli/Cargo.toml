@@ -1,9 +1,13 @@
 # Cargo crate manifest, see: <https://doc.rust-lang.org/cargo/reference/manifest.html>
 [package]
-name = "installer"
+name = "cli"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
 color-eyre = { version = "0.6", default-features = false }
+
+[[bin]]
+name = "install"
+path = "src/install.rs"
