@@ -62,10 +62,16 @@
       "editor.suggest.preview" = true; # Preview suggestion outcomes in the editor
       "explorer.fileNesting.enabled" = true; # Allow files to be grouped
       "explorer.fileNesting.expand" = false; # Don't expand grouped files by default
+      "explorer.fileNesting.patterns" = {
+        "flake.nix" = "flake.lock";
+        ".gitignore" = ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*";
+        "cargo.toml" = ".clippy.toml, .rustfmt.toml, cargo.lock, clippy.toml, cross.toml, rust-toolchain.toml, rustfmt.toml";
+        "readme*" = "authors, backers*, changelog*, citation*, code_of_conduct*, codeowners, contributing*, contributors, copying, credits, governance.md, history.md, license*, maintainers, readme*, security.md, sponsors*";
+      };
       "extensions.ignoreRecommendations" = true; # Silence recommended extension notifications
       "files.autoSave" = "afterDelay"; # Automatically save files after a delay
       "files.eol" = "\n"; # Always use Unix newline characters
-      "files.exclude" = { "**/.DS_Store" = true; "**/.git" = true; ".direnv" = true; }; # Ignore metadata files
+      "files.exclude" = { "**/.DS_Store" = true; "**/.git" = true; "**/.direnv" = true; }; # Ignore metadata files
       "files.insertFinalNewline" = true; # Ensure files end with a newline
       "files.trimFinalNewlines" = true; # Trim extraneous newlines at the end of files
       "files.trimTrailingWhitespace" = true; # Trim trailing whitespace
@@ -87,21 +93,21 @@
       # Extension settings
       "cSpell.allowCompoundWords" = true; # Enable compound words such as "arraylength"
       "cSpell.enableFiletypes" = [ "nix" "shellscript" ]; # Additional file types to spellcheck
-      # Common programming terms
-      "cSpell.ignoreWords" = [ "pkgs" "nixpkgs" "stdenv" " nixos" ];
+      "cSpell.ignoreWords" = [ "pkgs" "nixpkgs" "stdenv" " nixos" "aarch" "rustc" ]; # Common programming terms
       "evenBetterToml.formatter.alignComments" = false; # Disable TOML alignment against comments
       "git.enableStatusBarSync" = false; # Disable git sync status bar
       "gitlens.codeLens.enabled" = false; # Disables code block blame
       "gitlens.currentLine.enabled" = false; # Disables current line blame
       "gitlens.showWelcomeOnInstall" = false; # Disable welcome window
       "gitlens.showWhatsNewAfterUpgrades" = false; # Disable news window
+      "Lua.hint.enable" = true; # Enable Lua type inlays
+      "Lua.telemetry.enable" = false; # Disable Lua telemetry
       "nix.enableLanguageServer" = true; # Enable the rnix-lsp language server for Nix
       "nix.serverPath" = "${pkgs.rnix-lsp}/bin/rnix-lsp"; # Set the path to rnix-lsp language server
       "redhat.telemetry.enabled" = false; # Disable telemetry
       "rust-analyzer.checkOnSave.command" = "clippy"; # Run clippy on save
+      "shellcheck.exclude" = "SC2148"; # Ignore shell warning in direnv
       "vim.sneak" = true; # Enable sneak feature
-      "Lua.hint.enable" = true; # Enable Lua type inlays
-      "Lua.telemetry.enable" = false;
     };
   };
 }

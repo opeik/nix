@@ -56,9 +56,10 @@ in
   config.system.activationScripts.extraActivation.text =
     let
       pamFile = "/etc/pam.d/sudo";
+      pamPath = "/usr/local/lib/pam";
       touchIdOption = "options.macos.enableSudoTouchIdAuth";
       watchOption = "options.macos.enableSudoWatchAuth";
-      watchPath = "/usr/local/lib/pam/pam_watchid.so.2";
+      watchPath = "${pamPath}/pam_watchid.so.2";
       sed = "${pkgs.gnused}/bin/sed";
     in
     ''
@@ -78,6 +79,7 @@ in
       echo "setting up sudo apple watch authentication"
       ${if config.macos.enableSudoWatchAuth then ''
         if ! grep 'pam_watchid.so' ${pamFile} > /dev/null; then
+          $DRY_RUN_CMD sudo mkdir --parents ${pamPath}
           $DRY_RUN_CMD sudo install -o root -g wheel -m 444 ${watch-lib}/lib/pam_watchid.so ${watchPath}
           $DRY_RUN_CMD ${sed} -i '2i\
         auth       sufficient     pam_watchid.so "reason=execute a command as root" # enabled by nix-darwin: `${watchOption}`

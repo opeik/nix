@@ -40,3 +40,22 @@ jobs:
 
       - name: Evaluate x86_64 macOS system for ${{ matrix.user }}
         run: nix eval --show-trace --json .#darwinConfigurations.${{ matrix.user }}-x86_64.config.system.build.toplevel.drvPath | json_pp
+
+  build-installer:
+    name: Build installer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v15
+
+      - name: Build
+        run: nix develop --command bash -c 'cargo build --release --target aarch64-apple-darwin'
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer
+          path: target/aarch64-apple-darwin/release/installer
