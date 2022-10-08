@@ -67,4 +67,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: installer
-          path: ./target/aarch64-apple-darwin/release/installer
+          path: installer/target/aarch64-apple-darwin/release/installer
