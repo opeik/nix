@@ -51,7 +51,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Rust nightly
+      - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -61,8 +61,10 @@ jobs:
       - name: Build
         run: cargo build --locked --release --target aarch64-apple-darwin
 
+      - run: ls -al; tree
+
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
           name: installer
-          path: target/aarch64-apple-darwin/release/installer
+          path: ./target/aarch64-apple-darwin/release/installer
