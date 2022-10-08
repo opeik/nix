@@ -1,7 +1,9 @@
 name: CI
+
 on:
   push: { branches: [main] }
   pull_request: { branches: [main] }
+
 permissions:
   contents: read
 
@@ -44,6 +46,7 @@ jobs:
   build-installer:
     name: Build installer
     runs-on: ubuntu-latest
+    defaults: { run: { working-directory: installer } }
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
