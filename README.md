@@ -7,5 +7,5 @@ My nixOS and macOS configurations.
 Run:
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/opeik/nix/main/cli/install.sh | sh
+curl --proto '=https' --tlsv1.2 -sSLf https://nix.stikic.com | sh
 ```

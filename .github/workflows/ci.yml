@@ -43,10 +43,10 @@ jobs:
       - name: Evaluate x86_64 macOS system for ${{ matrix.user }}
         run: nix eval --show-trace --json .#darwinConfigurations.${{ matrix.user }}-x86_64.config.system.build.toplevel.drvPath | json_pp
 
-  build-installer:
-    name: Build installer
+  build-cli:
+    name: Build cli
     runs-on: macos-latest
-    defaults: { run: { working-directory: installer } }
+    defaults: { run: { working-directory: cli } }
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -65,4 +65,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: install-aarch64-apple-darwin
-          path: install/target/aarch64-apple-darwin/release/install
+          path: cli/target/aarch64-apple-darwin/release/install
