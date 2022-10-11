@@ -61,7 +61,7 @@ jobs:
         run: cargo build --locked --release --manifest-path cli/Cargo.toml --target aarch64-apple-darwin
 
       - name: Compress
-        run: tar -czvf nix-cli.tar.gz cli/target/aarch64-apple-darwin/release/nix-cli
+        run: tar -czvf cli/nix-cli.tar.gz cli/target/aarch64-apple-darwin/release/nix-cli
 
       - name: Upload
         uses: actions/upload-artifact@v3
