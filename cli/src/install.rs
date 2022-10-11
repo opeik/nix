@@ -1,40 +1,8 @@
+use color_eyre::eyre::{eyre, Context, Result};
 use std::process::Command;
 
-use clap::Parser;
-use color_eyre::eyre::{eyre, Context, Result};
-
-/// Simple program to greet a person
-#[derive(Parser, Debug)]
-#[command(author, version, about, long_about = None)]
-struct Args {
-    /// Nix configuration attribute
-    #[arg(long, default_value = "foo")]
-    config: String,
-    /// Install XCode?
-    #[arg(long, default_value_t = true)]
-    install_xcode: bool,
-    /// Install Nix?
-    #[arg(long, default_value_t = true)]
-    install_nix: bool,
-    /// Install nix-darwin?
-    #[arg(long, default_value_t = true)]
-    install_nix_darwin: bool,
-    /// Should bootstrap?
-    #[arg(long, default_value_t = true)]
-    should_bootstrap: bool,
-    /// Force bootstrap?
-    #[arg(long, default_value_t = false)]
-    force_bootstrap: bool,
-}
-
-fn main() -> Result<()> {
-    color_eyre::install()?;
-    let _args = Args::parse();
-    install_xcode_cli_tools()?;
-    Ok(())
-}
-
-fn install_xcode_cli_tools() -> Result<()> {
+/// Installs XCode CLI tools.
+pub fn install_xcode_cli_tools() -> Result<()> {
     let xcode_cli_tools_installed = Command::new("xcode-select")
         .arg("-p")
         .stdout(std::process::Stdio::null())

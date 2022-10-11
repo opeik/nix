@@ -46,7 +46,6 @@ jobs:
   build-cli:
     name: Build cli
     runs-on: macos-latest
-    defaults: { run: { working-directory: cli } }
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -59,10 +58,13 @@ jobs:
           override: true
 
       - name: Build
-        run: cargo build --locked --release --target aarch64-apple-darwin
+        run: cargo build --locked --release --manifest-path cli/Cargo.toml --target aarch64-apple-darwin
+
+      - name: Compress
+        run: tar -czvf nix-cli.tar.gz cli/target/aarch64-apple-darwin/release/nix-cli
 
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
-          name: install-aarch64-apple-darwin
-          path: cli/target/aarch64-apple-darwin/release/install
+          name: nix-cli-aarch64-apple-darwin
+          path: cli/nix-cli.tar.gz

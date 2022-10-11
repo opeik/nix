@@ -1,6 +1,6 @@
 # Cargo crate manifest, see: <https://doc.rust-lang.org/cargo/reference/manifest.html>
 [package]
-name = "cli"
+name = "nix-cli"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,6 +8,7 @@ edition = "2021"
 clap = { version = "4.0", features = ["derive"] }
 color-eyre = { version = "0.6", default-features = false }
 
-[[bin]]
-name = "install"
-path = "src/install.rs"
+[profile.release]
+strip = true # Strip debug symbols.
+opt-level = "z" # Optimize for binary size.
+lto = true # Enable link time optimisation.
