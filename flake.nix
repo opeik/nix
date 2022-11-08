@@ -5,11 +5,12 @@
     unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
     cachix.url = "github:jonascarpay/declarative-cachix"; # Cachix support, a Nix binary cache
     nix-darwin = { url = "github:lnl7/nix-darwin"; inputs.nixpkgs.follows = "nixpkgs"; }; # macOS support
+    flake-utils.url = "github:numtide/flake-utils"; # Flake utils
     # User environment management
     home-manager = { url = "github:nix-community/home-manager/release-22.05"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  outputs = flake-inputs @ { self, nixpkgs, unstable, cachix, nix-darwin, home-manager, ... }:
+  outputs = flake-inputs @ { self, nixpkgs, unstable, cachix, nix-darwin, home-manager, flake-utils, ... }:
     let
       # macOS and nixOS modules
       modules = {
@@ -23,5 +24,12 @@
     in
     {
       darwinConfigurations = systems.darwinConfigurations;
-    };
+    } // flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = import nixpkgs { inherit system; }; in
+      {
+        devShell = with pkgs; mkShell {
+          buildInputs = [ rnix-lsp ];
+        };
+      }
+    );
 }

@@ -21,7 +21,5 @@
       type = lib.types.str;
       description = "user email address";
     };
-
-    vim.enable = (import "${root}/lib/home/vim.nix" { inherit pkgs lib config; }).options.vim.enable;
   };
 }

@@ -19,6 +19,8 @@ in
     interactiveShellInit = ''
       # Disable welcome message
       set fish_greeting;
+      # Enable vim bindings.
+      fish_vi_key_bindings;
       # Fix path priority, see: <https://github.com/LnL7/nix-darwin/issues/122>
       fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin \
         /etc/profiles/per-user/${osConfig.username}/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin;

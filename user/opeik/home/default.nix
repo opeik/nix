@@ -5,11 +5,10 @@
     ./direnv.nix
     ./fish.nix
     ./git.nix
+    ./ssh.nix
     ./starship.nix
     ./vscode.nix
   ];
-
-  vim.enable = osConfig.vim.enable; # Enable vim mode if applicable
 
   home = {
     # Install packages
@@ -18,6 +17,7 @@
       docker-compose # Docker container orchestrator
       git-town # Git workflow automation
       iosevka-bin # Pretty font
+      ripgrep
     ] ++ (with pkgs.macos-apps; [
       docker-desktop # Docker macOS host
       mos # Mouse tweaks
