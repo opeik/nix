@@ -1,11 +1,16 @@
 # git configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.git.enable>
-{ pkgs, lib, osConfig, ... }: {
+{
+  pkgs,
+  lib,
+  osConfig,
+  ...
+}: {
   programs.git = {
     enable = true; # Enable git, the stupid content tracker
     package = pkgs.unstable.git; # Use the latest git version.
     userName = osConfig.name; # Set the git user name
     userEmail = osConfig.email; # Set the git user email
-    ignores = [ ".DS_Store" ]; # Global file ignore list
+    ignores = [".DS_Store"]; # Global file ignore list
 
     # git settings, see: <https://git-scm.com/docs/git-config#_variables>
     extraConfig = {
@@ -30,18 +35,19 @@
     };
 
     # Setup git-town aliases.
-    aliases = lib.genAttrs [
-      "append"
-      "hack"
-      "kill"
-      "new-pull-request"
-      "prepend"
-      "append"
-      "prune-branch"
-      "repo"
-      "ship"
-      "sync"
-    ]
+    aliases =
+      lib.genAttrs [
+        "append"
+        "hack"
+        "kill"
+        "new-pull-request"
+        "prepend"
+        "append"
+        "prune-branch"
+        "repo"
+        "ship"
+        "sync"
+      ]
       (name: "town ${name}");
   };
 }

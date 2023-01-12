@@ -1,5 +1,5 @@
 # starship configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.starship.enable>
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.starship = {
     enable = true; # Enable starship, the cross-shell prompt
     # starship settings, see: <https://starship.rs/config>
@@ -10,5 +10,7 @@
   };
 
   # Install powerline fonts for starship
-  home.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+  home.packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
+  # Show helpful command-not-found messages.
+  programs.nix-index.enable = true;
 }

@@ -36,3 +36,4 @@ local function power_callback(event)
 end
 
 watcher.new(power_callback):start()
+wake()

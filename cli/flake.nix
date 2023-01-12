@@ -6,23 +6,28 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
-  outputs = { nixpkgs, rust-overlay, flake-utils, ... }: flake-utils.lib.eachDefaultSystem (system:
-    let
-      overlays = [ (import rust-overlay) ];
-      pkgs = import nixpkgs {
-        inherit system overlays;
-      };
-    in
-    with pkgs;
-    {
-      # `nix develop`
-      devShells.default = mkShell {
-        buildInputs = [
-          (rust-bin.stable.latest.default.override {
-            extensions = [ "rust-src" ];
-          })
-        ];
-      };
-    }
-  );
+  outputs = {
+    nixpkgs,
+    rust-overlay,
+    flake-utils,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        overlays = [(import rust-overlay)];
+        pkgs = import nixpkgs {
+          inherit system overlays;
+        };
+      in
+        with pkgs; {
+          # `nix develop`
+          devShells.default = mkShell {
+            buildInputs = [
+              (rust-bin.stable.latest.default.override {
+                extensions = ["rust-src"];
+              })
+            ];
+          };
+        }
+    );
 }
