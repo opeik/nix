@@ -40,47 +40,14 @@ in {
     '';
   };
 
-  options.macos.enableSudoTouchIdAuth = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = ''
-      Enable sudo authentication with Touch ID. When enabled, this option adds the following line
-      to /etc/pam.d/sudo:
-
-          auth sufficient pam_tid.so
-
-      Note that macOS resets this file when doing a system update. As such, sudo
-      authentication with Touch ID won't work after a system update until the nix-darwin
-      configuration is reapplied.
-    '';
-  };
-
   config.system.activationScripts.extraActivation.text = let
     pamFile = "/etc/pam.d/sudo";
     pamPath = "/usr/local/lib/pam";
-    touchIdOption = "options.macos.enableSudoTouchIdAuth";
     watchOption = "options.macos.enableSudoWatchAuth";
     watchPath = "${pamPath}/pam_watchid.so.2";
     sed = "${pkgs.gnused}/bin/sed";
   in ''
-    echo "setting up sudo touch id authentication"
-    ${
-      if config.macos.enableSudoTouchIdAuth
-      then ''
-        if ! grep 'pam_tid.so' ${pamFile} > /dev/null; then
-          $DRY_RUN_CMD ${sed} -i '2i\
-        auth       sufficient     pam_tid.so # enabled by nix-darwin: `${touchIdOption}`
-          ' ${pamFile}
-        fi
-      ''
-      else ''
-        if grep '${touchIdOption}' ${pamFile} > /dev/null; then
-          $DRY_RUN_CMD ${sed} -i '/${touchIdOption}/d' ${pamFile}
-        fi
-      ''
-    }
-
-    echo "setting up sudo apple watch authentication"
+    echo "setting up sudo watchid authentication"
     ${
       if config.macos.enableSudoWatchAuth
       then ''
