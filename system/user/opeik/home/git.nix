@@ -32,6 +32,10 @@
       init.defaultBranch = "main"; # Use `main` as the default branch name
       pull.rebase = true; # Always rebase instead of merge
       rebase.autoStash = true; # Automatically stash unstaged changes then reapply after an action
+
+      # If signing code, use 1Password.
+      gpg.format = "ssh";
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
 
     # Setup git-town aliases.

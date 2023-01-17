@@ -16,7 +16,7 @@
     shell = config.macos.shell;
   in {
     setShell = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD sudo chsh -s "${shell}" "${osConfig.username}" &>/dev/null
+      PATH=$PATH:/usr/bin $DRY_RUN_CMD sudo chsh -s "${shell}" "${osConfig.username}" 2>&1 > /dev/null
     '';
   };
 }

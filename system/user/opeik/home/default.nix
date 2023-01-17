@@ -13,7 +13,6 @@
     ./git.nix
     ./ssh.nix
     ./starship.nix
-    ./vscode.nix
   ];
 
   home = {
@@ -32,7 +31,7 @@
         nil # Nix LSP.
       ]);
 
-    file.".hammerspoon/init.lua".source = "${root}/user/opeik/hammerspoon.lua";
+    file.".hammerspoon/init.lua".source = "${root}/user/${osConfig.username}/hammerspoon.lua";
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {

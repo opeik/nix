@@ -28,7 +28,7 @@
   }: let
     # macOS and nixOS modules
     modules = {
-      macos = [./os/macos home-manager.darwinModules.home-manager];
+      macos = [./src/macos home-manager.darwinModules.home-manager];
       shared = [./lib/options.nix overlays cachix.nixosModules.declarative-cachix];
     };
     # Additional package overlays
