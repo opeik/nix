@@ -30,8 +30,6 @@
       ++ (with pkgs.unstable; [
         nil # Nix LSP.
       ]);
-
-    file.".hammerspoon/init.lua".source = "${root}/user/${osConfig.username}/hammerspoon.lua";
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
