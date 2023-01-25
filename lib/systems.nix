@@ -35,11 +35,11 @@
         home-manager.users.${config.username} = {};
       })
     ]
-    ++ lib.optional (builtins.pathExists "${dir}/home.nix") ({config, ...}: {
-      home-manager.users.${config.username}.imports = ["${dir}/home.nix"];
+    ++ lib.optional (builtins.pathExists "${dir}/home-manager.nix") ({config, ...}: {
+      home-manager.users.${config.username}.imports = ["${dir}/home-manager.nix"];
     })
-    ++ lib.optional (builtins.pathExists "${dir}/home") ({config, ...}: {
-      home-manager.users.${config.username}.imports = ["${dir}/home"];
+    ++ lib.optional (builtins.pathExists "${dir}/home-manager") ({config, ...}: {
+      home-manager.users.${config.username}.imports = ["${dir}/home-manager"];
     })
     ++ lib.optional (builtins.pathExists "${dir}/${os}.nix") {
       imports = ["${dir}/${os}.nix"];
@@ -50,11 +50,11 @@
     dir = machineDir machine;
   in
     lib.optional (builtins.pathExists "${dir}/config.toml") ({config, ...}: (lib.mkForce (builtins.fromTOML (builtins.readFile "${dir}/config.toml"))))
-    ++ lib.optional (builtins.pathExists "${dir}/home.nix") ({config, ...}: {
-      home-manager.users.${config.username}.imports = ["${dir}/home.nix"];
+    ++ lib.optional (builtins.pathExists "${dir}/home-manager.nix") ({config, ...}: {
+      home-manager.users.${config.username}.imports = ["${dir}/home-manager.nix"];
     })
-    ++ lib.optional (builtins.pathExists "${dir}/home") ({config, ...}: {
-      home-manager.users.${config.username}.imports = ["${dir}/home"];
+    ++ lib.optional (builtins.pathExists "${dir}/home-manager") ({config, ...}: {
+      home-manager.users.${config.username}.imports = ["${dir}/home-manager"];
     })
     ++ lib.optional (builtins.pathExists "${dir}/${machine}.nix") {
       imports = ["${dir}/${machine}.nix"];

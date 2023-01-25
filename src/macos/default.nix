@@ -41,7 +41,7 @@
   home-manager = {
     useGlobalPkgs = true; # Use the system's nixpkgs
     useUserPackages = true; # Enable user-local packages
-    sharedModules = [./home.nix "${root}/lib/home/macos"]; # Shared modules for all users
+    sharedModules = [./home-manager.nix "${root}/lib/home-manager/macos"]; # Shared modules for all users
     extraSpecialArgs = {inherit root;}; # Provide the flake root directory to home-manager modules
   };
 }
