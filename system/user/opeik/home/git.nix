@@ -36,6 +36,9 @@
       # If signing code, use 1Password.
       gpg.format = "ssh";
       gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      # Set the signing key.
+      commit.gpgsign = true;
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIecOpIZJm2t6IPK/FBsNN26eoIAKVHt/IP+8irtjXs4";
     };
 
     # Setup git-town aliases.

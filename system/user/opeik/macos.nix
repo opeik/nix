@@ -1,6 +1,9 @@
 # nix-darwin extra configuration, see: <https://lnl7.github.io/nix-darwin/manual>
 {...}: {
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam = {
+    enableSudoTouchIdAuth = true;
+    enableSudoWatchIdAuth = true;
+  };
 
   # Install homebrew apps.
   homebrew = {
@@ -12,15 +15,26 @@
     taps = ["homebrew/cask" "homebrew/cask-drivers"];
     casks = [
       "1password"
+      "appcleaner"
+      "cameracontroller"
+      "chiaki"
+      "discord"
       "docker"
       "firefox"
-      "postman"
+      "hammerspoon"
+      "iina"
+      "keka"
+      "loopback"
+      "lunar"
+      "obs"
       "rectangle"
-      "slack"
+      "selfcontrol"
+      "soundsource"
       "stats"
       "visual-studio-code"
       "wireshark"
       "yubico-authenticator"
+      "zsa-wally"
     ];
   };
 }

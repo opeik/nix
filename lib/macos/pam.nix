@@ -25,7 +25,7 @@
     meta.platforms = lib.platforms.darwin;
   };
 in {
-  options.macos.enableSudoWatchAuth = lib.mkOption {
+  options.security.pam.enableSudoWatchIdAuth = lib.mkOption {
     type = lib.types.bool;
     default = false;
     description = ''
@@ -43,13 +43,13 @@ in {
   config.system.activationScripts.extraActivation.text = let
     pamFile = "/etc/pam.d/sudo";
     pamPath = "/usr/local/lib/pam";
-    watchOption = "options.macos.enableSudoWatchAuth";
+    watchOption = "security.pam.enableSudoWatchIdAuth";
     watchPath = "${pamPath}/pam_watchid.so.2";
     sed = "${pkgs.gnused}/bin/sed";
   in ''
     echo "setting up sudo watchid authentication"
     ${
-      if config.macos.enableSudoWatchAuth
+      if config.security.pam.enableSudoWatchIdAuth
       then ''
         if ! grep 'pam_watchid.so' ${pamFile} > /dev/null; then
           $DRY_RUN_CMD sudo mkdir --parents ${pamPath}
