@@ -45,6 +45,7 @@
         "rnix",
         "setenv",
         "stdenv",
+        "substituters",
         "tamasfe",
         "tlsv",
         "TOTP",

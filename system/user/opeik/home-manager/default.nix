@@ -23,13 +23,25 @@
         docker-compose # Docker container orchestrator
         git-town # Git workflow automation
         iosevka-bin # Pretty font
-        ripgrep # Grep (in Rust)!
+        ripgrep # grep (in Rust!)
+        du-dust # du (in Rust!)
+        bat # cat (in Rust!)
+        exa # ls (in Rust!)
+        fd # find (in Rust!)
+        procs # ps (in Rust!)
+        sd # sed (in Rust!)
+        bottom # top (in Rust!)
         jq # JSON swiss army knife.
-        alejandra # Nix formatting.
+        google-cloud-sdk # Google cloud
       ])
       ++ (with pkgs.unstable; [
         nil # Nix LSP.
       ]);
+
+    sessionVariables = {
+      DIRENV_LOG_FORMAT = ""; # Silence direnv output.
+      SSH_AUTH_SOCK = "/Users/opeik/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"; # Setup git auth.
+    };
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
