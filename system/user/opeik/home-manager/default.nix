@@ -42,6 +42,11 @@
       DIRENV_LOG_FORMAT = ""; # Silence direnv output.
       SSH_AUTH_SOCK = "/Users/opeik/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"; # Setup git auth.
     };
+
+    shellAliases = with pkgs; {
+      ls = "${exa}/bin/exa";
+      cat = "${bat}/bin/bat";
+    };
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {

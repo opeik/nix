@@ -44,6 +44,7 @@
       "wireshark"
       "yubico-authenticator"
       "zsa-wally"
+      "mos"
     ];
   };
 }
