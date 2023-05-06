@@ -34,17 +34,18 @@
       "loopback"
       "lulu"
       "lunar"
+      "mos"
       "obs"
       "rectangle"
       "selfcontrol"
       "slack"
       "soundsource"
       "stats"
+      "tailscale"
       "visual-studio-code"
       "wireshark"
       "yubico-authenticator"
       "zsa-wally"
-      "mos"
     ];
   };
 }

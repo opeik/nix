@@ -42,29 +42,3 @@ jobs:
 
       - name: Evaluate x86_64 macOS system for ${{ matrix.user }}
         run: nix eval --show-trace --json .#darwinConfigurations.${{ matrix.user }}-x86_64.config.system.build.toplevel.drvPath | json_pp
-
-  build-cli:
-    name: Build cli
-    runs-on: macos-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
-          override: true
-
-      - name: Build
-        run: cargo build --locked --release --manifest-path cli/Cargo.toml --target aarch64-apple-darwin
-
-      - name: Compress
-        run: cd cli/target/aarch64-apple-darwin/release && tar -czvf nix-cli.tar.gz nix-cli
-
-      - name: Upload
-        uses: actions/upload-artifact@v3
-        with:
-          name: nix-cli-aarch64-apple-darwin
-          path: cli/target/aarch64-apple-darwin/release/nix-cli.tar.gz

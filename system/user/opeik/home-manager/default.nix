@@ -19,20 +19,21 @@
     # Install packages
     packages =
       (with pkgs; [
+        bat # cat (in Rust!)
+        bottom # top (in Rust!)
         docker # Docker container cli tools
         docker-compose # Docker container orchestrator
-        git-town # Git workflow automation
-        iosevka-bin # Pretty font
-        ripgrep # grep (in Rust!)
         du-dust # du (in Rust!)
-        bat # cat (in Rust!)
         exa # ls (in Rust!)
         fd # find (in Rust!)
-        procs # ps (in Rust!)
-        sd # sed (in Rust!)
-        bottom # top (in Rust!)
-        jq # JSON swiss army knife.
+        git-town # Git workflow automation
         google-cloud-sdk # Google cloud
+        iosevka-bin # Pretty font
+        jq # JSON swiss army knife.
+        procs # ps (in Rust!)
+        ripgrep # grep (in Rust!)
+        sd # sed (in Rust!)
+        tealdeer # Manpages, but readable (in Rust!)
       ])
       ++ (with pkgs.unstable; [
         nil # Nix LSP.
