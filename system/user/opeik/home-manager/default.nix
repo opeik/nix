@@ -40,8 +40,8 @@
       ]);
 
     sessionVariables = {
-      DIRENV_LOG_FORMAT = ""; # Silence direnv output.
       SSH_AUTH_SOCK = "/Users/opeik/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"; # Setup git auth.
+      DIRENV_LOG_FORMAT = "";
     };
 
     shellAliases = with pkgs; {
