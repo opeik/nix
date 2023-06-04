@@ -36,6 +36,7 @@
         tealdeer # Manpages, but readable (in Rust!)
       ])
       ++ (with pkgs.unstable; [
+        colima # Docker daemon.
         nil # Nix LSP.
       ]);
 

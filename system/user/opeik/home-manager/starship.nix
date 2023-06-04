@@ -100,14 +100,20 @@
         style = "bold cyan";
         format = "via [$symbol nix( $output)]($style) ";
         command = ''
+          RESULT=""
+
           if [ -n "$IN_NIX_SHELL" ]; then
-            printf "develop"
-          elif ( printf "%s" "$PATH" | grep --quiet --fixed-strings "/nix/store" ); then
-            printf "shell"
+              RESULT="''${RESULT:+''${RESULT}, }develop"
           fi
+
+          if ( printf '%s' "$PATH" | rg --quiet --fixed-strings "/nix/store" ); then
+              RESULT="''${RESULT:+''${RESULT}, }shell"
+          fi
+
+          printf '%s\n' "$RESULT"
         '';
-        when = ''[ -n "$IN_NIX_SHELL" ] || ( echo "$PATH" | grep --quiet --fixed-strings "/nix/store" )'';
-        shell = "bash";
+        when = ''[ -n "$IN_NIX_SHELL" ] || ( echo "$PATH" | ${pkgs.ripgrep} --quiet --fixed-strings "/nix/store" )'';
+        shell = ["sh" "--norc"];
       };
     };
   };
