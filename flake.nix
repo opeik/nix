@@ -1,8 +1,8 @@
 # Nix flake, see: <https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake>
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11"; # Nix packages
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05"; # Nix packages
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
     cachix.url = "github:jonascarpay/declarative-cachix"; # Cachix support, a Nix binary cache
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
@@ -11,7 +11,7 @@
     flake-utils.url = "github:numtide/flake-utils"; # Flake utils
     # User environment management
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -19,7 +19,6 @@
   outputs = flake-inputs @ {
     self,
     nixpkgs,
-    unstable,
     cachix,
     nix-darwin,
     home-manager,
@@ -29,10 +28,10 @@
     # macOS and nixOS modules
     modules = {
       macos = [./src/macos home-manager.darwinModules.home-manager];
-      shared = [./lib/options.nix overlays cachix.nixosModules.declarative-cachix];
+      shared = [./lib/options.nix cachix.nixosModules.declarative-cachix];
     };
     # Additional package overlays
-    overlays.nixpkgs.overlays = import ./lib/overlay {inherit unstable;};
+    # overlays.nixpkgs.overlays = import ./lib/overlay {inherit unstable;};
     # macOS and nixOS systems
     systems = import ./lib/systems.nix {inherit modules flake-inputs;};
   in
@@ -41,7 +40,10 @@
     }
     // flake-utils.lib.eachDefaultSystem (
       system: let
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true; # Enable proprietary packages
+        };
       in {
         formatter = pkgs.alejandra;
         devShell = with pkgs;

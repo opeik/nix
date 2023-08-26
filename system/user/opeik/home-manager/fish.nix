@@ -28,6 +28,7 @@ in {
         /etc/profiles/per-user/${osConfig.username}/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin
       fish_add_path --append --path /opt/homebrew/bin # Add homebrew binaries to the path.
       source ${monokai}/set_colors.fish # Use the monokai theme.
+      set -x DIRENV_LOG_FORMAT "" # Silence direnv.
     '';
     plugins = [merge-history];
   };

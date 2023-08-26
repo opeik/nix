@@ -23,7 +23,6 @@
       "1password"
       "appcleaner"
       "cameracontroller"
-      "chiaki"
       "dbeaver-community"
       "discord"
       "docker"
@@ -45,7 +44,6 @@
       "visual-studio-code"
       "wireshark"
       "yubico-authenticator"
-      "zsa-wally"
     ];
   };
 }

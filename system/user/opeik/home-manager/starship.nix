@@ -95,24 +95,18 @@
         "$character"
       ];
 
+      battery.disabled = true;
+
       custom.nix = {
         symbol = "❄️️️ ";
         style = "bold cyan";
         format = "via [$symbol nix( $output)]($style) ";
         command = ''
-          RESULT=""
-
           if [ -n "$IN_NIX_SHELL" ]; then
-              RESULT="''${RESULT:+''${RESULT}, }develop"
+            printf 'develop\n'
           fi
-
-          if ( printf '%s' "$PATH" | rg --quiet --fixed-strings "/nix/store" ); then
-              RESULT="''${RESULT:+''${RESULT}, }shell"
-          fi
-
-          printf '%s\n' "$RESULT"
         '';
-        when = ''[ -n "$IN_NIX_SHELL" ] || ( echo "$PATH" | ${pkgs.ripgrep} --quiet --fixed-strings "/nix/store" )'';
+        when = ''[ -n "$IN_NIX_SHELL" ]'';
         shell = ["sh" "--norc"];
       };
     };

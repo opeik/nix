@@ -7,7 +7,6 @@
 }: {
   programs.git = {
     enable = true; # Enable git, the stupid content tracker
-    package = pkgs.unstable.git; # Use the latest git version.
     userName = osConfig.name; # Set the git user name
     userEmail = osConfig.email; # Set the git user email
     ignores = [".DS_Store"]; # Global file ignore list
