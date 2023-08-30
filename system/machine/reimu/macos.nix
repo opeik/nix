@@ -1,8 +1,7 @@
 {...}: {
+  networking.hostName = "reimu";
   # Install homebrew apps.
-  networking.hostname = "reimu";
   homebrew = {
-    taps = ["homebrew/cask"];
     casks = [
       "1password"
       "appcleaner"
@@ -20,6 +19,7 @@
       "mos"
       "obs"
       "rectangle"
+      "saleae-logic"
       "selfcontrol"
       "slack"
       "soundsource"

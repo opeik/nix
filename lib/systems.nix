@@ -46,7 +46,7 @@
     };
 
   # Returns a list of modules for the specified machine
-  getMachineModules = machine: let
+  getMachineModules = machine: os: let
     dir = machineDir machine;
   in
     lib.optional (builtins.pathExists "${dir}/config.toml") ({config, ...}: (lib.mkForce (builtins.fromTOML (builtins.readFile "${dir}/config.toml"))))
@@ -56,8 +56,8 @@
     ++ lib.optional (builtins.pathExists "${dir}/home-manager") ({config, ...}: {
       home-manager.users.${config.username}.imports = ["${dir}/home-manager"];
     })
-    ++ lib.optional (builtins.pathExists "${dir}/${machine}.nix") {
-      imports = ["${dir}/${machine}.nix"];
+    ++ lib.optional (builtins.pathExists "${dir}/${os}.nix") {
+      imports = ["${dir}/${os}.nix"];
     };
 
   # Returns a set of all macOS and nixOS systems for the specified user
@@ -73,7 +73,7 @@
             };
             "${user}-${machine}-${system}" = macosSystem {
               inherit user system;
-              extraModules = getMachineModules machine;
+              extraModules = getMachineModules machine "macos";
             };
           };
         })
