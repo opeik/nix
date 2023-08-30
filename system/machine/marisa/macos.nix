@@ -1,4 +1,5 @@
 {...}: {
+  networking.hostname = "marisa";
   # Install homebrew apps.
   homebrew = {
     taps = ["homebrew/cask"];

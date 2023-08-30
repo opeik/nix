@@ -61,22 +61,23 @@
     };
 
   # Returns a set of all macOS and nixOS systems for the specified user
-  userSystems = user:
-    lib.foldl (x: y: lib.recursiveUpdate x y) {} (builtins.map
-      (machine: {
-        darwinConfigurations = {
-          "${user}-aarch64" = macosSystem {
-            inherit user;
-            system = "aarch64-darwin";
+  userSystems = let
+    system = "aarch64-darwin";
+  in
+    user:
+      lib.foldl (x: y: lib.recursiveUpdate x y) {} (builtins.map
+        (machine: {
+          darwinConfigurations = {
+            "${user}-${system}" = macosSystem {
+              inherit user system;
+            };
+            "${user}-${machine}-${system}" = macosSystem {
+              inherit user system;
+              extraModules = getMachineModules machine;
+            };
           };
-          "${user}-${machine}-aarch64" = macosSystem {
-            inherit user;
-            extraModules = getMachineModules machine;
-            system = "aarch64-darwin";
-          };
-        };
-      })
-      machines);
+        })
+        machines);
 
   # Returns the macOS system for the specified user
   macosSystem = {

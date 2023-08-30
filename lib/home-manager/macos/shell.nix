@@ -22,7 +22,7 @@
       fi
 
       if ! ${shell} --command true; then
-        echo 'shell `${shell}` failed the sanity check'
+        echo 'shell `${shell}` failed the vibe check'
         exit 1
       fi
 

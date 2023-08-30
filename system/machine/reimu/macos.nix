@@ -1,5 +1,6 @@
 {...}: {
   # Install homebrew apps.
+  networking.hostname = "reimu";
   homebrew = {
     taps = ["homebrew/cask"];
     casks = [

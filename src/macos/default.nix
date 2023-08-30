@@ -6,7 +6,26 @@
   config,
   root,
   ...
-}: {
+}: let
+  nixos-rebuild = pkgs.writeShellScriptBin "nixos-rebuild" ''
+    main() {
+      local target="$1"
+
+      if [ -z "$target" ]; then
+        local user="$(whoami)"
+        local host="$(hostname)"
+        local system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
+        target="$user-$host-$system"
+      fi
+
+      cd /Users/${config.username}/Development/nix
+      nix build ".#darwinConfigurations.$target.system"
+      ./result/sw/bin/darwin-rebuild switch --flake ".#$target"
+    }
+
+    main "$1"
+  '';
+in {
   imports = ["${root}/lib/macos"]; # Import macOS modules
   system.stateVersion = 4; # nix-darwin version, do not touch
   services.nix-daemon.enable = true; # Enable the Nix build daemon
@@ -44,4 +63,6 @@
     sharedModules = [./home-manager.nix "${root}/lib/home-manager/macos"]; # Shared modules for all users
     extraSpecialArgs = {inherit root;}; # Provide the flake root directory to home-manager modules
   };
+
+  environment.systemPackages = [nixos-rebuild];
 }
