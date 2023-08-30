@@ -10,40 +10,11 @@
   # Install homebrew apps.
   homebrew = {
     enable = true;
-    global = {
-      brewfile = true;
-    };
+    global.brewfile = true;
     onActivation = {
-      cleanup = "zap";
+      # cleanup = "zap";
       autoUpdate = true;
       upgrade = true;
     };
-    taps = ["homebrew/cask" "homebrew/cask-drivers"];
-    casks = [
-      "1password"
-      "appcleaner"
-      "cameracontroller"
-      "dbeaver-community"
-      "discord"
-      "docker"
-      "firefox"
-      "hammerspoon"
-      "iina"
-      "keka"
-      "loopback"
-      "lulu"
-      "lunar"
-      "mos"
-      "obs"
-      "rectangle"
-      "selfcontrol"
-      "slack"
-      "soundsource"
-      "stats"
-      "tailscale"
-      "visual-studio-code"
-      "wireshark"
-      "yubico-authenticator"
-    ];
   };
 }

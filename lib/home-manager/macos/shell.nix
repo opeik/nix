@@ -16,6 +16,16 @@
     shell = config.macos.shell;
   in {
     setShell = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ ! -e "${shell}" ]; then
+        echo 'shell `${shell}` does not exist'
+        exit 1
+      fi
+
+      if ! ${shell} --command true; then
+        echo 'shell `${shell}` failed the sanity check'
+        exit 1
+      fi
+
       PATH=$PATH:/usr/bin $DRY_RUN_CMD sudo chsh -s "${shell}" "${osConfig.username}" 2>&1 > /dev/null
     '';
   };
