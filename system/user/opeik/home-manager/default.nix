@@ -39,6 +39,7 @@
       tealdeer # Manpages, but readable (in Rust!)
       colima # Docker daemon
       nil # Nix LSP
+      difftastic # git diffs that don't suck
     ];
 
     sessionVariables = {

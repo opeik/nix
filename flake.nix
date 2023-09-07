@@ -11,7 +11,7 @@
     flake-utils.url = "github:numtide/flake-utils"; # Flake utils
     # User environment management
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
