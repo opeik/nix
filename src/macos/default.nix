@@ -64,5 +64,8 @@ in {
     extraSpecialArgs = {inherit root;}; # Provide the flake root directory to home-manager modules
   };
 
-  environment.systemPackages = [nixos-rebuild];
+  environment = {
+    systemPackages = [nixos-rebuild pkgs.nushell];
+    shells = with pkgs; [fish nushell];
+  };
 }

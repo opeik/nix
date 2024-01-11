@@ -1,7 +1,6 @@
 # Nix flake, see: <https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake>
 {
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05"; # Nix packages
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
     cachix.url = "github:jonascarpay/declarative-cachix"; # Cachix support, a Nix binary cache
     nix-darwin = {

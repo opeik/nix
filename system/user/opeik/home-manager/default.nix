@@ -25,7 +25,7 @@
       docker-compose # Docker container orchestrator
       terraform # Terraform CLI tools
       du-dust # du (in Rust!)
-      exa # ls (in Rust!)
+      eza # ls (in Rust!)
       fd # find (in Rust!)
       git-town # Git workflow automation
       # Google cloud
@@ -47,12 +47,12 @@
     };
 
     shellAliases = with pkgs; {
-      ls = "${exa}/bin/exa";
+      ls = "${eza}/bin/eza";
       cat = "${bat}/bin/bat";
     };
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
-    shell = "/etc/profiles/per-user/${osConfig.username}/bin/fish"; # Set the user shell to fish
+    shell = pkgs.fish; # Set the user shell to fish
   };
 }

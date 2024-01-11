@@ -25,9 +25,12 @@
         autoSetupRemote = true;
       };
 
+      diff.external = "${pkgs.difftastic}/bin/difft";
+      diff.tool = "difftastic";
+      difftool.difftastic.cmd = ''${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"''; # Setup VSCode diffing
+      difftool.prompt = false;
       merge.tool = "vscode"; # Use VSCode as the merge tool
-      diff.tool = "vscode"; # Use VSCode as the diff tool
-      difftool.vscode.cmd = "code --wait --diff $LOCAL $REMOTE"; # Setup VSCode diffing
+      pager.difftastic = true;
       init.defaultBranch = "main"; # Use `main` as the default branch name
       pull.rebase = true; # Always rebase instead of merge
       rebase.autoStash = true; # Automatically stash unstaged changes then reapply after an action
@@ -42,16 +45,26 @@
     # Setup git-town aliases.
     aliases =
       lib.genAttrs [
-        "append"
+        # Basic workflow
         "hack"
-        "kill"
-        "new-pull-request"
-        "prepend"
-        "append"
-        "prune-branch"
-        "repo"
-        "ship"
         "sync"
+        "switch"
+        "propose"
+        "ship"
+        # Additional commands
+        "kill"
+        "rename-branch"
+        "repo"
+        # Nested feature branches
+        "append"
+        "prepend"
+        "set-parent"
+        "diff-parent"
+        # Dealing with errors
+        "continue"
+        "skip"
+        "status"
+        "undo"
       ]
       (name: "town ${name}");
   };

@@ -2,9 +2,9 @@
 {pkgs, ...}: {
   config.programs.nushell = {
     enable = true; # Enable fish, the new shell
-    extraConfig = ''
-      let $config = {
-        show_banner: false
+    configFile.text = ''
+      $env.config = {
+        show_banner: false,
       }
     '';
   };
