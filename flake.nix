@@ -60,7 +60,7 @@
           arch = "aarch64-darwin";
           config = readConfig ./user/opeik/config.toml;
           osModules = [./user/opeik/macos.nix ./machine/marisa/macos.nix];
-          homeModules = [./user/opeik/home-manager ./machine/marisa/home-manager.nix];
+          homeModules = [./user/opeik/home-manager];
         };
 
         reimu = macosSystem {
