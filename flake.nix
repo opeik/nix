@@ -89,7 +89,7 @@
         formatter = pkgs.alejandra;
         devShell = with pkgs;
           mkShell {
-            buildInputs = [nil alejandra];
+            buildInputs = [nil self.formatter.${system}];
           };
       }
     );
