@@ -9,3 +9,4 @@ Run:
 ```sh
 curl -sSLf https://sh.stikic.com/nix | sh -s -- install
 ```
+

@@ -1,13 +1,12 @@
 # Nix flake, see: <https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake>
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; # macOS support
-    flake-utils.url = "github:numtide/flake-utils"; # Flake utils
-    # User environment management
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
