@@ -9,8 +9,11 @@ permissions:
 
 jobs:
   eval:
-    name: Evaluate
-    runs-on: macos-14
+    name: Evaluate systems
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macos-14]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
