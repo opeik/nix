@@ -12,10 +12,7 @@
       local target="$1"
 
       if [ -z "$target" ]; then
-        local user="$(whoami)"
-        local host="$(hostname)"
-        local system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
-        target="$user-$host-$system"
+        target="$(hostname)"
       fi
 
       cd /Users/${config.username}/Development/nix
@@ -32,14 +29,6 @@ in {
   nixpkgs.config.allowUnfree = true; # Enable proprietary packages
   system.activationScripts.applications.text = lib.mkForce ""; # Disable nix-darwin ~/Applications management
   users.users.${config.username}.home = config.home; # Define system user
-
-  # Use the nix-community binary cache to speed up builds
-  cachix = [
-    {
-      name = "nix-community";
-      sha256 = "0m6kb0a0m3pr6bbzqz54x37h5ri121sraj1idfmsrr6prknc7q3x";
-    }
-  ];
 
   nix = {
     package = pkgs.nixVersions.stable; # Use the latest Nix version.

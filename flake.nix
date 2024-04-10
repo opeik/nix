@@ -2,7 +2,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # Nix unstable packages
-    cachix.url = "github:jonascarpay/declarative-cachix"; # Cachix support, a Nix binary cache
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +17,6 @@
   outputs = flake-inputs @ {
     self,
     nixpkgs,
-    cachix,
     nix-darwin,
     home-manager,
     flake-utils,
@@ -27,15 +25,59 @@
     # macOS and nixOS modules
     modules = {
       macos = [./src/macos home-manager.darwinModules.home-manager];
-      shared = [./lib/options.nix cachix.nixosModules.declarative-cachix];
+      shared = [./lib/options.nix];
     };
-    # Additional package overlays
-    # overlays.nixpkgs.overlays = import ./lib/overlay {inherit unstable;};
-    # macOS and nixOS systems
-    systems = import ./lib/systems.nix {inherit modules flake-inputs;};
+
+    readConfig = path: builtins.fromTOML (builtins.readFile path);
+
+    macosSystem = {
+      arch,
+      config,
+      osModules,
+      homeModules,
+    }: let
+      systemConfig = config;
+    in
+      nix-darwin.lib.darwinSystem {
+        system = arch;
+        modules =
+          modules.macos
+          ++ modules.shared
+          ++ osModules
+          ++ [
+            ({config, ...}: systemConfig)
+            ({config, ...}: {home-manager.users.${config.username}.imports = homeModules;})
+          ];
+
+        specialArgs = {
+          inherit flake-inputs;
+          root = ./.;
+        };
+      };
   in
     {
-      darwinConfigurations = systems.darwinConfigurations;
+      darwinConfigurations = {
+        marisa = macosSystem {
+          arch = "aarch64-darwin";
+          config = readConfig ./user/opeik/config.toml;
+          osModules = [./user/opeik/macos.nix ./machine/marisa/macos.nix];
+          homeModules = [./user/opeik/home-manager ./machine/marisa/home-manager.nix];
+        };
+
+        reimu = macosSystem {
+          arch = "aarch64-darwin";
+          config = readConfig ./user/opeik/config.toml;
+          osModules = [./user/opeik/macos.nix ./machine/reimu/macos.nix];
+          homeModules = [./user/opeik/home-manager ./machine/reimu/home-manager.nix];
+        };
+
+        work = macosSystem {
+          arch = "aarch64-darwin";
+          config = readConfig ./user/opeik/config.toml // readConfig ./machine/work/config.toml;
+          osModules = [./user/opeik/macos.nix];
+          homeModules = [./user/opeik/home-manager];
+        };
+      };
     }
     // flake-utils.lib.eachDefaultSystem (
       system: let

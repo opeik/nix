@@ -12,7 +12,6 @@
         "autocrlf",
         "azuretools",
         "builtins",
-        "cachix",
         "chsh",
         "clippy",
         "dasel",

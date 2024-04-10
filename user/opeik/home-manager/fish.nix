@@ -1,11 +1,5 @@
 # fish configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.fish.enable>
-{
-  pkgs,
-  lib,
-  config,
-  osConfig,
-  ...
-}: let
+{osConfig, ...}: let
   monokai = builtins.fetchGit {
     url = "https://github.com/benmarten/Monokai_Fish_OSX.git";
     rev = "c665d9e45a7a0ec92be336deab5ac35eabfc8a8c";

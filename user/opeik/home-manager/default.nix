@@ -2,8 +2,6 @@
 {
   pkgs,
   lib,
-  osConfig,
-  root,
   ...
 }: {
   # Import home-manager modules
