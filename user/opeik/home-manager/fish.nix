@@ -13,7 +13,7 @@
   };
 in {
   config.programs.fish = {
-    enable = true; # Enable fish, the user friendly shell
+    enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable welcome message.
       fish_vi_key_bindings # Enable vim bindings.

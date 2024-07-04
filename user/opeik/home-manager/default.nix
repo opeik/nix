@@ -11,7 +11,8 @@
     ./git.nix
     ./ssh.nix
     ./starship.nix
-    ./nushell.nix
+    ./atuin.nix
+    ./nushell
   ];
 
   home = {
@@ -38,6 +39,7 @@
       colima # Docker daemon
       nil # Nix LSP
       difftastic # git diffs that don't suck
+      atuin
     ];
 
     sessionVariables = {
@@ -51,6 +53,6 @@
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
-    shell = pkgs.fish; # Set the user shell to fish
+    shell = pkgs.nushell; # Set the user shell to fish
   };
 }

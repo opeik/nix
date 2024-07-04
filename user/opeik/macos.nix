@@ -15,7 +15,6 @@
       cleanup = "uninstall";
       autoUpdate = true;
     };
-    taps = ["homebrew/cask-drivers"];
     casks = [
       "1password"
       "appcleaner"
@@ -26,19 +25,20 @@
       "hammerspoon"
       "iina"
       "keka"
+      "kicad"
       "loopback"
       "lulu"
       "lunar"
       "mos"
       "obs"
       "rectangle"
+      "saleae-logic"
       "selfcontrol"
-      "slack"
       "soundsource"
       "stats"
       "tailscale"
-      "wireshark"
       "visual-studio-code"
+      "wireshark"
       "yubico-authenticator"
     ];
   };

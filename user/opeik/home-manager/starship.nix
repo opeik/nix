@@ -1,7 +1,7 @@
 # starship configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.starship.enable>
 {pkgs, ...}: {
   programs.starship = {
-    enable = true; # Enable starship, the cross-shell prompt
+    enable = true;
     # starship settings, see: <https://starship.rs/config>
     settings = {
       username.show_always = true; # Always show username in prompt

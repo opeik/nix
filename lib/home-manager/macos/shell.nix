@@ -22,7 +22,7 @@
         exit 1
       fi
 
-      if ! ${shell} --command true; then
+      if ! ${shell} -c true; then
         echo 'shell `${shell}` failed the vibe check'
         exit 1
       fi

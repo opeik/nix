@@ -41,8 +41,7 @@ in {
   };
 
   programs = {
-    fish.enable = true; # Enable fish support
-    zsh.enable = true; # Enable zsh support
+    zsh.enable = true;
   };
 
   # Setup home-manager, which manages your user
