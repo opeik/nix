@@ -1,5 +1,6 @@
 # home-manager extra configuration, see: https://nix-community.github.io/home-manager/options
 {
+  osConfig,
   pkgs,
   lib,
   ...
@@ -43,7 +44,8 @@
     ];
 
     sessionVariables = {
-      SSH_AUTH_SOCK = "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"; # Setup git auth
+      # Authenticate git via 1Password.
+      SSH_AUTH_SOCK = "/Users/${osConfig.username}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
     };
 
     shellAliases = with pkgs; {
