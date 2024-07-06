@@ -6,11 +6,11 @@
 }: let
   # Nushell encourages you to use the default config and apply your changes on top of it.
   defaults = {
-    "config.nu" = builtins.fetchurl {
+    config = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_config.nu";
       sha256 = "02qqjlhgyv4rcjzk8zvgk9q58fjykvrjkymi84gmnbhxw0j2pcrp";
     };
-    "env.nu" = builtins.fetchurl {
+    env = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_env.nu";
       sha256 = "03r7jinb2b0qgnycddibbspblf6h4136f0d3nn3x5kkir2ij0nhl";
     };
@@ -52,14 +52,14 @@ in {
     enable = true;
     configFile.text = (
       builtins.concatStringsSep "\n\n" [
-        (configSection "default config.nu" (builtins.readFile defaults."config.nu"))
+        (configSection "default config.nu" (builtins.readFile defaults.config))
         (configSection "user config.nu" (builtins.readFile ./config.nu))
       ]
     );
 
     envFile.text = (
       builtins.concatStringsSep "\n\n" [
-        (configSection "default env.nu" (builtins.readFile defaults."env.nu"))
+        (configSection "default env.nu" (builtins.readFile defaults.env))
         (configSection "nix paths" "${pathConfig}")
         (configSection "user env.nu" (builtins.readFile ./env.nu))
       ]
