@@ -31,7 +31,7 @@ in {
   users.users.${config.username}.home = config.home; # Define system user
 
   nix = {
-    package = pkgs.nixVersions.stable; # Use the latest Nix version.
+    package = pkgs.nixVersions.latest; # Use the latest Nix version.
     extraOptions = ''
       experimental-features = flakes nix-command # Enable flakes and the new cli
       keep-derivations = true # Keep derivations to speed up direnv

@@ -26,9 +26,9 @@
         | append '/usr/local/bin'
         # Add Nix paths.
         | append ($env.HOME | path join '.nix-profile/bin')
+        | append '/run/current-system/sw/bin'
         | append '/etc/profiles/per-user/${osConfig.username}/bin'
         | append '/nix/var/nix/profiles/default/bin'
-        | append '/run/current-system/sw/bin'
         # Add homebrew paths.
         | append '/opt/homebrew/bin'
         # Add application paths.
