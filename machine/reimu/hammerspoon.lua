@@ -1,4 +1,4 @@
--- See: <https://www.hammerspoon.org/docs/hs.caffeinate.watcher.html>
+-- See: https://www.hammerspoon.org/docs/hs.caffeinate.watcher.html
 local watcher = hs.caffeinate.watcher
 
 local function execute(cmd, error_msg)

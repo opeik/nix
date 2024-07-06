@@ -1,4 +1,4 @@
-# direnv configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.direnv.enable>
+# direnv configuration, see: https://nix-community.github.io/home-manager/options#opt-programs.direnv.enable
 {...}: {
   programs.direnv = {
     enable = true;

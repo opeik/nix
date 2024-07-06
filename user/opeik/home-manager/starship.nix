@@ -1,8 +1,8 @@
-# starship configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.starship.enable>
+# starship configuration, see: https://nix-community.github.io/home-manager/options#opt-programs.starship.enable
 {pkgs, ...}: {
   programs.starship = {
     enable = true;
-    # starship settings, see: <https://starship.rs/config>
+    # starship settings, see: https://starship.rs/config
     settings = {
       username.show_always = true; # Always show username in prompt
       username.style_user = "bold bright-yellow"; # Improve contrast of username

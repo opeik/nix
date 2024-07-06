@@ -1,4 +1,4 @@
-# macOS (nix-darwin) configuration, see: <https://lnl7.github.io/nix-darwin/manual>
+# macOS (nix-darwin) configuration, see: https://lnl7.github.io/nix-darwin/manual
 {
   flake-inputs,
   pkgs,
@@ -54,6 +54,6 @@ in {
 
   environment = {
     systemPackages = [nixos-rebuild pkgs.nushell];
-    shells = with pkgs; [fish nushell];
+    shells = with pkgs; [nushell];
   };
 }

@@ -1,4 +1,4 @@
-# Nix flake, see: <https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake>
+# Nix flake, see: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

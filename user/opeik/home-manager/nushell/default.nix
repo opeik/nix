@@ -1,4 +1,4 @@
-# fish configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.fish.enable>
+# nushell configuration, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
 {
   config,
   osConfig,
@@ -6,11 +6,11 @@
 }: let
   defaults = {
     "config.nu" = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_config.nu";
+      url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_config.nu";
       sha256 = "02qqjlhgyv4rcjzk8zvgk9q58fjykvrjkymi84gmnbhxw0j2pcrp";
     };
     "env.nu" = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/main/crates/nu-utils/src/sample_config/default_env.nu";
+      url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_env.nu";
       sha256 = "03r7jinb2b0qgnycddibbspblf6h4136f0d3nn3x5kkir2ij0nhl";
     };
   };
@@ -58,7 +58,7 @@ in {
       )
 
       # sessionVariables aren't respected yet, set it manually.
-      # See: <https://github.com/nix-community/home-manager/issues/4620>
+      # See: https://github.com/nix-community/home-manager/issues/4620
       $env.SSH_AUTH_SOCK = '${config.home.sessionVariables.SSH_AUTH_SOCK}'
     '';
   };

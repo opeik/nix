@@ -1,4 +1,4 @@
-# git configuration, see: <https://nix-community.github.io/home-manager/options#opt-programs.git.enable>
+# git configuration, see: https://nix-community.github.io/home-manager/options#opt-programs.git.enable
 {
   pkgs,
   lib,
@@ -11,7 +11,7 @@
     userEmail = osConfig.email; # Set the git user email
     ignores = [".DS_Store"]; # Global file ignore list
 
-    # git settings, see: <https://git-scm.com/docs/git-config#_variables>
+    # git settings, see: https://git-scm.com/docs/git-config#_variables
     extraConfig = {
       core = {
         eol = "lf"; # Always use Unix line endings

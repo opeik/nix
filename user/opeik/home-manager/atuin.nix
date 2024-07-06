@@ -1,10 +1,10 @@
-# atuin configuration, see: <https://nix-community.github.io/home-manager/options.xhtml#opt-programs.atuin.enable>
+# atuin configuration, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.atuin.enable
 {...}: {
   programs.atuin = {
     enable = true;
     settings = {
-      # Upon hitting enter Atuin will immediately execute the command. Press tab to return to the shell and edit.
-      enter_accept = true;
+      enter_accept = true; # Upon hitting enter the command runs, press tab to return to the shell and edit.
+
       stats = {
         # Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
         common_subcommands = [
@@ -29,10 +29,8 @@
       };
 
       sync = {
-        # Enable sync v2
-        records = true;
-        ## How often the daemon should sync in seconds
-        sync_frequency = "1m";
+        records = true; # Enable sync v2
+        sync_frequency = "1m"; # How often the daemon should sync in seconds
       };
     };
   };

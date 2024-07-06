@@ -1,4 +1,4 @@
-# nix-darwin extra configuration, see: <https://lnl7.github.io/nix-darwin/manual>
+# nix-darwin extra configuration, see: https://lnl7.github.io/nix-darwin/manual
 {lib, ...}: {
   nix.settings.substituters = lib.mkBefore ["https://aseipp-nix-cache.freetls.fastly.net"];
 

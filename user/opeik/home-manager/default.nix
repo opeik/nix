@@ -8,7 +8,6 @@
   # Import home-manager modules
   imports = [
     ./direnv.nix
-    ./fish.nix
     ./git.nix
     ./ssh.nix
     ./starship.nix
