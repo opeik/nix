@@ -16,6 +16,7 @@
       fi
 
       cd /Users/${config.username}/Development/nix
+      ${pkgs.git}/bin/git add .
       nix build ".#darwinConfigurations.$target.system"
       ./result/sw/bin/darwin-rebuild switch --flake ".#$target"
     }

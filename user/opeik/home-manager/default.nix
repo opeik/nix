@@ -7,12 +7,13 @@
 }: {
   # Import home-manager modules
   imports = [
+    ./atuin.nix
     ./direnv.nix
+    ./firefox.nix
     ./git.nix
+    ./nushell
     ./ssh.nix
     ./starship.nix
-    ./atuin.nix
-    ./nushell
   ];
 
   home = {
