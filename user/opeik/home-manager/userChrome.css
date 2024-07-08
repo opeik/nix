@@ -6,7 +6,10 @@
 }
 
 /* Add transitions for moving elements. */
-#main-window #nav-bar, #TabsToolbar, #titlebar, #nav-bar-customization-target,
+#main-window #nav-bar,
+#TabsToolbar,
+#titlebar,
+#nav-bar-customization-target,
 .titlebar-buttonbox-container {
     transition: all 0.3s ease !important;
 }
@@ -16,11 +19,9 @@
     height: var(--sideberry-tabs-height);
 }
 
-
 #main-window[titlepreface*="​"] #titlebar {
     height: 0px;
 }
-
 
 /* Move the window controls down when the vertical tab bar is enabled. */
 #main-window .titlebar-buttonbox-container {
@@ -43,7 +44,8 @@
 }
 
 /* Hide the vertical tab bar header. */
-#main-window #sidebar-header, #sidebar-splitter {
+#main-window #sidebar-header,
+#sidebar-splitter {
     display: none;
 }
 
