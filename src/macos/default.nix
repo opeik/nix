@@ -57,4 +57,7 @@ in {
     systemPackages = [nixos-rebuild pkgs.nushell];
     shells = with pkgs; [nushell];
   };
+
+  # Start the atuin daemon.
+  launchd.user.agents.atuin.command = "${pkgs.atuin}/bin/atuin daemon";
 }

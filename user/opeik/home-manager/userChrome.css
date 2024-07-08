@@ -1,23 +1,17 @@
 :root {
     --sideberry-tabs-height: 44px;
     --sideberry-navbar-height: 41px;
-    --sideberry-controls-margin: 64px;
+    --sideberry-controls-margin: 96px;
     --sideberry-window-controls-margin: 10px;
 }
 
-#main-window #nav-bar,
-#TabsToolbar,
-#titlebar,
-#nav-bar-customization-target,
+/* Add transitions for moving elements. */
+#main-window #nav-bar, #TabsToolbar, #titlebar, #nav-bar-customization-target,
 .titlebar-buttonbox-container {
-    transition: all 0.3s !important;
+    transition: all 0.3s ease !important;
 }
 
-#sidebar-header {
-    display: none;
-}
-
-
+/* Hide the horizontal tab bar when vertical tab bar is enabled. */
 #main-window #titlebar {
     height: var(--sideberry-tabs-height);
 }
@@ -28,22 +22,47 @@
 }
 
 
+/* Move the window controls down when the vertical tab bar is enabled. */
 #main-window .titlebar-buttonbox-container {
     margin-top: revert;
     height: revert;
 }
-
 
 #main-window[titlepreface*="​"] .titlebar-buttonbox-container {
     margin-top: var(--sideberry-window-controls-margin);
     height: var(--sideberry-navbar-height);
 }
 
-
+/* Make room for the window controls when the vertical tab bar is enabled. */
 #main-window #nav-bar-customization-target {
     margin-left: revert;
 }
 
 #main-window[titlepreface*="​"] #nav-bar-customization-target {
     margin-left: var(--sideberry-controls-margin);
+}
+
+/* Hide the vertical tab bar header. */
+#main-window #sidebar-header, #sidebar-splitter {
+    display: none;
+}
+
+/* Hide the vertical tab bar by default. */
+#main-window #sidebar-box {
+    --bar-width-hidden: 35px;
+    z-index: 1;
+    position: relative !important;
+    overflow-x: hidden !important;
+    min-width: var(--bar-width-hidden) !important;
+    max-width: var(--bar-width-hidden) !important;
+    border-right: 1px solid var(--sidebar-border-color);
+    transition: all 0.2s ease;
+}
+
+/* Show the vertical tab bar on hover. */
+#main-window #sidebar-box:hover {
+    --bar-width-shown: 300px;
+    margin-right: calc(calc(var(--bar-width-shown) - var(--bar-width-hidden)) * -1) !important;
+    min-width: var(--bar-width-shown) !important;
+    max-width: var(--bar-width-shown) !important;
 }

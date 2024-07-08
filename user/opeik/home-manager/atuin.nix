@@ -32,6 +32,10 @@
         records = true; # Enable sync v2
         sync_frequency = "1m"; # How often the daemon should sync in seconds
       };
+
+      daemon = {
+        enabled = true; # Enable the background daemon
+      };
     };
   };
 }
