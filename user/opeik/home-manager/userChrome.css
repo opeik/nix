@@ -1,0 +1,49 @@
+:root {
+    --sideberry-tabs-height: 44px;
+    --sideberry-navbar-height: 41px;
+    --sideberry-controls-margin: 64px;
+    --sideberry-window-controls-margin: 10px;
+}
+
+#main-window #nav-bar,
+#TabsToolbar,
+#titlebar,
+#nav-bar-customization-target,
+.titlebar-buttonbox-container {
+    transition: all 0.3s !important;
+}
+
+#sidebar-header {
+    display: none;
+}
+
+
+#main-window #titlebar {
+    height: var(--sideberry-tabs-height);
+}
+
+
+#main-window[titlepreface*="​"] #titlebar {
+    height: 0px;
+}
+
+
+#main-window .titlebar-buttonbox-container {
+    margin-top: revert;
+    height: revert;
+}
+
+
+#main-window[titlepreface*="​"] .titlebar-buttonbox-container {
+    margin-top: var(--sideberry-window-controls-margin);
+    height: var(--sideberry-navbar-height);
+}
+
+
+#main-window #nav-bar-customization-target {
+    margin-left: revert;
+}
+
+#main-window[titlepreface*="​"] #nav-bar-customization-target {
+    margin-left: var(--sideberry-controls-margin);
+}
