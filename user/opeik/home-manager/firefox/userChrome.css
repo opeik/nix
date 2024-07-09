@@ -1,8 +1,9 @@
 :root {
     --sideberry-tabs-height: 44px;
-    --sideberry-navbar-height: 41px;
+    --sideberry-navbar-height: 40px;
     --sideberry-controls-margin: 96px;
-    --sideberry-window-controls-margin: 10px;
+    --sideberry-window-controls-height: 16px;
+    --sideberry-window-controls-margin: calc(var(--sideberry-window-controls-height) + (var(--sideberry-navbar-height) / 4) + (var(--sideberry-window-controls-height) / 4));
 }
 
 /* Add transitions for moving elements. */
@@ -26,12 +27,10 @@
 /* Move the window controls down when the vertical tab bar is enabled. */
 #main-window .titlebar-buttonbox-container {
     margin-top: revert;
-    height: revert;
 }
 
 #main-window[titlepreface*="​"] .titlebar-buttonbox-container {
     margin-top: var(--sideberry-window-controls-margin);
-    height: var(--sideberry-navbar-height);
 }
 
 /* Make room for the window controls when the vertical tab bar is enabled. */
