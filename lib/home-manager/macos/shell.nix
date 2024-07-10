@@ -1,4 +1,4 @@
-# Implements shell configuration
+# macOS home-manager module allowing users to set their shell.
 {
   config,
   osConfig,

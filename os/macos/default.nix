@@ -6,24 +6,7 @@
   config,
   root,
   ...
-}: let
-  nixos-rebuild = pkgs.writeShellScriptBin "nixos-rebuild" ''
-    main() {
-      local target="$1"
-
-      if [ -z "$target" ]; then
-        target="$(hostname)"
-      fi
-
-      cd /Users/${config.username}/Development/nix
-      ${pkgs.git}/bin/git add .
-      nix build ".#darwinConfigurations.$target.system"
-      ./result/sw/bin/darwin-rebuild switch --flake ".#$target"
-    }
-
-    main "$1"
-  '';
-in {
+}: {
   imports = ["${root}/lib/macos"]; # Import macOS modules
   system.stateVersion = 4; # nix-darwin version, do not touch
   services.nix-daemon.enable = true; # Enable the Nix build daemon
@@ -41,9 +24,8 @@ in {
     registry.nixpkgs.flake = flake-inputs.nixpkgs; # Pin `nixpkgs` to the system version
   };
 
-  programs = {
-    zsh.enable = true;
-  };
+  # Enable Nix integration with the default shell (zsh) as a fallback in case something goes haywire.
+  programs.zsh.enable = true;
 
   # Setup home-manager, which manages your user
   home-manager = {
@@ -52,12 +34,4 @@ in {
     sharedModules = [./home-manager.nix "${root}/lib/home-manager/macos"]; # Shared modules for all users
     extraSpecialArgs = {inherit root;}; # Provide the flake root directory to home-manager modules
   };
-
-  environment = {
-    systemPackages = [nixos-rebuild pkgs.nushell];
-    shells = with pkgs; [nushell];
-  };
-
-  # Start the atuin daemon.
-  launchd.user.agents.atuin.command = "${pkgs.atuin}/bin/atuin daemon";
 }

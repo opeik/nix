@@ -3,7 +3,8 @@
   osConfig,
   ...
 }: {
-  home.activation.firefox-chrome = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  # Install our custom user chrome style.
+  home.activation.firefox-user-chrome = lib.hm.dag.entryAfter ["writeBoundary"] ''
     set -x
     run find '/Users/${osConfig.username}/Library/Application Support/Firefox/Profiles' -name '*.default-release' \
       -exec mkdir -p '{}/chrome' \; \

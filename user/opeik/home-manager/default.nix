@@ -1,4 +1,6 @@
-# home-manager extra configuration, see: https://nix-community.github.io/home-manager/options
+# Extra home-manager configuration, see:
+# https://nix-community.github.io/home-manager/options
+# LINK: os/macos/home-manager.nix
 {
   osConfig,
   pkgs,
@@ -9,7 +11,7 @@
   imports = [
     ./atuin.nix
     ./direnv.nix
-    ./firefox.nix
+    ./firefox
     ./git.nix
     ./nushell
     ./ssh.nix

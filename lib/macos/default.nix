@@ -1,4 +1,4 @@
-# Additional macOS features implemented as optional modules
+# Custom macOS (nix-darwin) modules.
 {...}: {
   imports = [
     ./pam.nix

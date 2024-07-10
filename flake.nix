@@ -23,7 +23,7 @@
   }: let
     # macOS and nixOS modules
     modules = {
-      macos = [./src/macos home-manager.darwinModules.home-manager];
+      macos = [./os/macos home-manager.darwinModules.home-manager];
       shared = [./lib/options.nix];
     };
 
@@ -59,21 +59,21 @@
         marisa = macosSystem {
           arch = "aarch64-darwin";
           config = readConfig ./user/opeik/config.toml;
-          osModules = [./user/opeik/macos.nix ./machine/marisa/macos.nix];
+          osModules = [./user/opeik/macos ./machine/marisa/macos.nix];
           homeModules = [./user/opeik/home-manager];
         };
 
         reimu = macosSystem {
           arch = "aarch64-darwin";
           config = readConfig ./user/opeik/config.toml;
-          osModules = [./user/opeik/macos.nix ./machine/reimu/macos.nix];
+          osModules = [./user/opeik/macos ./machine/reimu/macos.nix];
           homeModules = [./user/opeik/home-manager ./machine/reimu/home-manager.nix];
         };
 
         work = macosSystem {
           arch = "aarch64-darwin";
           config = readConfig ./user/opeik/config.toml // readConfig ./machine/work/config.toml;
-          osModules = [./user/opeik/macos.nix];
+          osModules = [./user/opeik/macos];
           homeModules = [./user/opeik/home-manager];
         };
       };

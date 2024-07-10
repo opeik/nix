@@ -1,4 +1,4 @@
-# Implements additional PAM configuration
+# macOS (nix-darwin) module that allows sudo auth via Apple Watch (WatchID).
 {
   config,
   lib,

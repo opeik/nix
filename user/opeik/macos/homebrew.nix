@@ -1,19 +1,11 @@
-# nix-darwin extra configuration, see: https://lnl7.github.io/nix-darwin/manual
-{lib, ...}: {
-  nix.settings.substituters = lib.mkBefore ["https://aseipp-nix-cache.freetls.fastly.net"];
-
-  security.pam = {
-    enableSudoTouchIdAuth = true;
-    enableSudoWatchIdAuth = true;
-  };
-
-  # Install homebrew apps.
+# macOS (nix-darwin) homebrew configuration, see: https://daiderd.com/nix-darwin/manual/#opt-homebrew.enable
+{...}: {
   homebrew = {
     enable = true;
-    global.brewfile = true;
+    # global.brewfile = true;
     onActivation = {
-      cleanup = "uninstall";
-      autoUpdate = true;
+      # autoUpdate = true;
+      cleanup = "uninstall"; # When an app is deleted from the cask list, remove it but leave its config intact.
     };
     casks = [
       "1password"

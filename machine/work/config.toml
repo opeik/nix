@@ -1,1 +1,3 @@
-username = "sandrostikic" # Your username
+# User configuration for my work machine, see:
+# LINK: lib/options.nix
+username = "sandrostikic"

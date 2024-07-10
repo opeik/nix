@@ -1,4 +1,4 @@
-# Additional macOS home-manager features implemented as optional modules
+# Custom macOS home-manager modules.
 {...}: {
   imports = [
     ./shell.nix

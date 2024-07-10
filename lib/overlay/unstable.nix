@@ -1,4 +1,4 @@
-# Unstable package overlay
+# nixpkgs unstable package overlay.
 {unstable}: final: prev: {
   unstable = import unstable {
     system = prev.system; # Use the system's architecture

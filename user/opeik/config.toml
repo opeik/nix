@@ -1,3 +1,5 @@
-username = "opeik" # Your username
-name = "Sandro Stikić" # Your name
-email = "sandro@stikic.com" # Your email
+# My default user configuration, see:
+# LINK - lib/options.nix
+username = "opeik"
+name = "Sandro Stikić"
+email = "sandro@stikic.com"

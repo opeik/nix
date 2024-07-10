@@ -1,4 +1,4 @@
-# System options
+# System options, used to configure both nix-darwin and home-manager.
 {
   pkgs,
   config,
