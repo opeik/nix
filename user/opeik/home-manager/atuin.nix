@@ -4,6 +4,8 @@
     enable = true;
     settings = {
       enter_accept = true; # Upon hitting enter the command runs, press tab to return to the shell and edit.
+      style = "compact";
+      inline_height = 40;
 
       stats = {
         # Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
@@ -18,14 +20,8 @@
           "brew"
         ];
 
-        # Set commands that should be totally stripped and ignored from stats
         common_prefix = ["sudo"];
-
-        # Set commands that will be completely ignored from stats
-        ignored_commands = [
-          "cd"
-          "ls"
-        ];
+        ignored_commands = [ "cd" "ls" ];
       };
 
       sync = {
