@@ -1,3 +1,4 @@
+# Firefox config.
 {
   lib,
   osConfig,

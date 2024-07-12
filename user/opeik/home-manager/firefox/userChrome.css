@@ -1,3 +1,10 @@
+/*
+Firefox custom UI styles. Makes the following changes:
+- When Sidebery is enabled:
+    - the native horizontal tab bar is hidden
+    - the Sidebery vertical tab bar is compact by default and expanded on hover
+*/
+
 :root {
     --sideberry-tabs-height: 44px;
     --sideberry-navbar-height: 40px;
