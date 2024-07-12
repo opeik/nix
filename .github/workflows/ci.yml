@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   push: { branches: [main] }
@@ -9,13 +9,12 @@ permissions:
 
 jobs:
   eval:
-    name: Evaluate systems
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
         system: [reimu, marisa, work]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout
