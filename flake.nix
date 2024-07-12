@@ -80,10 +80,7 @@
     }
     // flake-utils.lib.eachDefaultSystem (
       system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true; # Enable proprietary packages
-        };
+        pkgs = nixpkgs.legacyPackages.${system};
       in {
         formatter = pkgs.alejandra;
         devShell = with pkgs;
