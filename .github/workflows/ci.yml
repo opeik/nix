@@ -10,13 +10,16 @@ permissions:
 jobs:
   eval:
     name: Evaluate systems
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+        system: [reimu, marisa, work]
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -24,11 +27,5 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Evaluate system `reimu`
-        run: nix eval --show-trace --json .#darwinConfigurations.reimu.config.system.build.toplevel.drvPath | json_pp
-
-      - name: Evaluate system `marisa`
-        run: nix eval --show-trace --json .#darwinConfigurations.marisa.config.system.build.toplevel.drvPath | json_pp
-
-      - name: Evaluate system `work`
-        run: nix eval --show-trace --json .#darwinConfigurations.work.config.system.build.toplevel.drvPath | json_pp
+      - name: Evaluate system `${{ matrix.system }}`
+        run: nix eval --show-trace --json .#darwinConfigurations.${{ matrix.system }}.config.system.build.toplevel.drvPath | json_pp
