@@ -1,4 +1,4 @@
-# macOS (nix-darwin) configuration, see: https://lnl7.github.io/nix-darwin/manual
+# macOS (nix-darwin) config, see: https://lnl7.github.io/nix-darwin/manual
 {
   flake-inputs,
   pkgs,

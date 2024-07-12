@@ -1,4 +1,4 @@
-# macOS home-manager configuration, see: https://nix-community.github.io/home-manager/options
+# macOS home-manager config, see: https://nix-community.github.io/home-manager/options
 {...}: {
   programs.home-manager.enable = true; # Enable home-manager
   fonts.fontconfig.enable = true; # Enable font management

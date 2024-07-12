@@ -1,4 +1,4 @@
-# Extra home-manager configuration, see:
+# Extra home-manager config, see:
 # https://nix-community.github.io/home-manager/options
 # LINK: os/macos/home-manager.nix
 {

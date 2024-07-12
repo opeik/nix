@@ -1,4 +1,4 @@
-# nushell configuration, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
+# nushell config, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
 {
   config,
   osConfig,
@@ -18,21 +18,18 @@
 
   pathConfig = ''
     $env.PATH = (
-        $env.PATH
-        | split row (char esep)
-        # Add macOS system paths.
-        | append '/sbin'
-        | append '/usr/sbin'
-        | append '/usr/local/bin'
         # Add Nix paths.
-        | append ($env.HOME | path join '.nix-profile/bin')
+        append ($env.HOME | path join '.nix-profile/bin')
         | append '/run/current-system/sw/bin'
         | append '/etc/profiles/per-user/${osConfig.username}/bin'
         | append '/nix/var/nix/profiles/default/bin'
-        # Add homebrew paths.
+        # Add Homebrew paths.
         | append '/opt/homebrew/bin'
         # Add application paths.
         | append '/Applications/Wireshark.app/Contents/MacOS'
+        # Add existing paths.
+        | append ($env.PATH | split row (char esep))
+        # Remove any duplicate paths.
         | uniq
     )
 

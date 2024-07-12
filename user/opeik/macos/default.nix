@@ -1,4 +1,4 @@
-# Extra macOS (nix-darwin) configuration, see:
+# Extra macOS (nix-darwin) config, see:
 # https://lnl7.github.io/nix-darwin/manual
 # LINK: os/macos/default.nix
 {
@@ -7,7 +7,7 @@
   config,
   ...
 }: let
-  # Convenience command that rebuilds and applies the system configuration.
+  # Convenience command that rebuilds and applies the system config.
   nixos-rebuild = pkgs.writeShellScriptBin "nixos-rebuild" ''
     main() {
       local target="$1"

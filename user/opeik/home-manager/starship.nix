@@ -1,4 +1,4 @@
-# starship configuration, see: https://nix-community.github.io/home-manager/options#opt-programs.starship.enable
+# starship config, see: https://nix-community.github.io/home-manager/options#opt-programs.starship.enable
 {pkgs, ...}: {
   programs.starship = {
     enable = true;

@@ -1,3 +1,4 @@
+# ssh client config, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
 {...}: {
   programs.ssh = {
     enable = true;

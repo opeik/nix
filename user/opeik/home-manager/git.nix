@@ -1,4 +1,4 @@
-# git configuration, see: https://nix-community.github.io/home-manager/options#opt-programs.git.enable
+# git config, see: https://nix-community.github.io/home-manager/options#opt-programs.git.enable
 {
   pkgs,
   lib,
