@@ -29,16 +29,22 @@ Once installed, simply run `nixos-rebuild` to update the Nix config.
     - `macos`: macOS-specific custom home-manager modules
   - `macos`: custom macOS modules
   - `overlay`: Nix package overlays
-  - `options.nix`: system options
+  - `options.nix`: system option definitions
 - `machine`: machine-specific config, each machine is a physical computer
   - `{machine_name}`
     - `home-manager`: extra home-manager config for `{machine_name}`
     - `macos`: extra macOS config for `{machine_name}`
     - `config.toml`: extra system options for `{machine_name}`
 - `os`: os-specific base config
-  - `macos`: base macOS config—customizations don't go here, try `user/{user_name}/macos` or `machine/{machine_name}/macos` instead
+  - `macos`: base macOS config
 - `user`: user-specific config
   - `{user_name}`
     - `home-manager`: extra user-specific home-manager config
     - `macos`: extra user-specific macOS config
     - `config.toml`: extra user-specific system options
+
+### Notes
+- Don't add extra config to `os`, it's only supposed to initialize the environment
+- Scope extra config to either:
+  - a user: `user/{user_name}/macos`, or
+  - a machine: `machine/{machine_name}/macos`
