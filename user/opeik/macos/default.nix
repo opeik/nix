@@ -83,6 +83,7 @@ in {
     command = "${pkgs.atuin}/bin/atuin daemon";
     serviceConfig = {
       RunAtLoad = true;
+      StandardOutPath = "/tmp/atuin.log";
     };
   };
 }
