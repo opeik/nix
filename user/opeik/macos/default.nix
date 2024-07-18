@@ -79,5 +79,10 @@ in {
   };
 
   # Start the atuin daemon.
-  launchd.user.agents.atuin.command = "${pkgs.atuin}/bin/atuin daemon";
+  launchd.user.agents.atuin = {
+    command = "${pkgs.atuin}/bin/atuin daemon";
+    serviceConfig = {
+      RunAtLoad = true;
+    };
+  };
 }
