@@ -44,32 +44,6 @@ in {
       cleanup = "uninstall";
       autoUpdate = true;
     };
-    casks = [
-      "1password"
-      "appcleaner"
-      "cameracontroller"
-      "dbeaver-community"
-      "discord"
-      "firefox"
-      "hammerspoon"
-      "iina"
-      "keka"
-      "kicad"
-      "loopback"
-      "lulu"
-      "lunar"
-      "mos"
-      "obs"
-      "rectangle"
-      "saleae-logic"
-      "selfcontrol"
-      "soundsource"
-      "stats"
-      "tailscale"
-      "visual-studio-code"
-      "wireshark"
-      "yubico-authenticator"
-    ];
   };
 
   # Add nushell as a valid login shell.
