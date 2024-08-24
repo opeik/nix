@@ -7,11 +7,11 @@
   # Nushell encourages you to use the default config and apply your changes on top of it.
   defaults = {
     config = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_config.nu";
+      url = "https://raw.githubusercontent.com/nushell/nushell/0.96.1/crates/nu-utils/src/sample_config/default_config.nu";
       sha256 = "0q5dqczjfdzzjfr53656ih3dkp18qyibm8cs489pc5da588bngxl";
     };
     env = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/0.95.0/crates/nu-utils/src/sample_config/default_env.nu";
+      url = "https://raw.githubusercontent.com/nushell/nushell/0.96.1/crates/nu-utils/src/sample_config/default_env.nu";
       sha256 = "1xb609h01an36g14g5g9yji2agrqzvz9q5i1hh14bq0z6w9qjb48";
     };
   };
