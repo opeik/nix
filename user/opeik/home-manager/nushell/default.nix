@@ -8,11 +8,11 @@
   defaults = {
     config = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/nushell/nushell/0.96.1/crates/nu-utils/src/sample_config/default_config.nu";
-      sha256 = "0q5dqczjfdzzjfr53656ih3dkp18qyibm8cs489pc5da588bngxl";
+      sha256 = "1mibr101b93g0vw09icvzcylkf6k8dl9zspljawr3v4zvlx28jqr";
     };
     env = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/nushell/nushell/0.96.1/crates/nu-utils/src/sample_config/default_env.nu";
-      sha256 = "1xb609h01an36g14g5g9yji2agrqzvz9q5i1hh14bq0z6w9qjb48";
+      sha256 = "1gsyg29knmdl63fc01rn6bf8v5w7g3lk2md1sb68ccqriv25kpj6";
     };
   };
 
