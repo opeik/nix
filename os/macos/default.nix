@@ -11,7 +11,6 @@
   system = {
     stateVersion = 4; # nix-darwin version, do not touch
     activationScripts.applications.text = lib.mkForce ""; # Disable nix-darwin ~/Applications management
-    configurationRevision = flake-inputs.self.rev or flake-inputs.self.dirtyRev or null;
   };
 
   services.nix-daemon.enable = true; # Enable the Nix build daemon
