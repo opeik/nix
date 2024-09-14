@@ -8,7 +8,7 @@
   ...
 }: let
   # Convenience command that rebuilds and applies the system config.
-  nixos-rebuild = pkgs.writeShellScriptBin "nixos-rebuild" ''
+  nixy = pkgs.writeShellScriptBin "nixy" ''
     main() {
       local target="$1"
 
@@ -18,8 +18,7 @@
 
       cd /Users/${config.username}/Development/nix
       ${pkgs.git}/bin/git add .
-      nix build ".#darwinConfigurations.$target.system" --show-trace
-      ./result/sw/bin/darwin-rebuild switch --flake ".#$target"
+      nix run nix-darwin -- switch --flake ".#$target"
     }
 
     main "$1"
@@ -48,7 +47,7 @@ in {
 
   # Add nushell as a valid login shell.
   environment = {
-    systemPackages = [nixos-rebuild pkgs.nushell];
+    systemPackages = [nixy pkgs.nushell];
     shells = with pkgs; [nushell];
   };
 

@@ -3,6 +3,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,15 +20,16 @@
   outputs = flake-inputs @ {
     self,
     nixpkgs,
+    flake-utils,
+    lix-module,
     nix-darwin,
     home-manager,
-    flake-utils,
     ...
   }: let
     # macOS and nixOS modules
     modules = {
       macos = [./os/macos home-manager.darwinModules.home-manager];
-      shared = [./lib/options.nix];
+      shared = [./lib/options.nix lix-module.nixosModules.default];
     };
 
     readConfig = path: builtins.fromTOML (builtins.readFile path);
