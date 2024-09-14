@@ -15,18 +15,24 @@ in {
   };
 
   config.home.activation.set-shell = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    set -x
     if [ ! -e "${shell}" ]; then
-      echo 'shell `${shell}` does not exist'
+      echo 'shell "${shell}" does not exist'
       exit 1
     fi
 
     if ! ${shell} -c true; then
-      echo 'shell `${shell}` failed the vibe check'
+      echo 'shell "${shell}" failed the vibe check'
       exit 1
+    else
+      echo 'shell "${shell}" passed the vibe check'
     fi
 
-    PATH=$PATH:/usr/bin run sudo chsh -s "${shell}" "${osConfig.username}" 2>&1 > /dev/null
-    set +x
+    current_shell="$(/usr/bin/dscl . -read /Users/${osConfig.username} UserShell | sed 's/UserShell: //')"
+
+    if [ "$current_shell" != '${shell}' ]; then
+      PATH=$PATH:/usr/bin run sudo chsh -s "${shell}" "${osConfig.username}" 2>&1 > /dev/null
+    else
+      echo 'shell for ${osConfig.username} is already "${shell}", skipping...'
+    fi
   '';
 }

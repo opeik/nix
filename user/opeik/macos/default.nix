@@ -16,9 +16,11 @@
         target="$(hostname)"
       fi
 
+      set -x
       cd /Users/${config.username}/Development/nix
       ${pkgs.git}/bin/git add .
-      nix run nix-darwin -- switch --flake ".#$target"
+      darwin-rebuild switch --flake ".#$target"
+      set +x
     }
 
     main "$1"
