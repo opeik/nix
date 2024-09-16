@@ -1,6 +1,6 @@
 # nixpkgs unstable package overlay.
-{unstable}: final: prev: {
-  unstable = import unstable {
+{nixpkgs-unstable}: final: prev: {
+  unstable = import nixpkgs-unstable {
     system = prev.system; # Use the system's architecture
     config.allowUnfree = true; # Enable proprietary packages
   };

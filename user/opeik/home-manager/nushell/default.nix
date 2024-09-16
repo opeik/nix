@@ -1,5 +1,6 @@
 # nushell config, see: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
 {
+  pkgs,
   config,
   osConfig,
   ...
@@ -46,6 +47,8 @@
     ];
 in {
   config.programs.nushell = {
+    package = pkgs.unstable.nushell;
+
     enable = true;
     configFile.text = (
       builtins.concatStringsSep "\n\n" [
