@@ -49,8 +49,8 @@ in {
 
   # Add nushell as a valid login shell.
   environment = {
-    systemPackages = [nixy pkgs.nushell];
-    shells = with pkgs; [nushell];
+    systemPackages = [nixy pkgs.unstable.nushell];
+    shells = [pkgs.unstable.nushell];
   };
 
   # Start the atuin daemon.

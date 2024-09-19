@@ -28,6 +28,7 @@
         | append '/opt/homebrew/bin'
         # Add application paths.
         | append '/Applications/Wireshark.app/Contents/MacOS'
+        | append '/Applications/Docker.app/Contents/Resources/bin'
         # Add existing paths.
         | append ($env.PATH | split row (char esep))
         # Remove any duplicate paths.

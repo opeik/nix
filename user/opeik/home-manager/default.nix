@@ -57,6 +57,6 @@
   };
 
   macos = lib.mkIf pkgs.stdenv.isDarwin {
-    shell = pkgs.nushell; # Set the user shell to fish
+    shell = pkgs.unstable.nushell; # Set the user shell to fish
   };
 }
