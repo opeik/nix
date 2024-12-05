@@ -55,7 +55,7 @@ in {
           $DRY_RUN_CMD sudo mkdir --parents ${pamPath}
           $DRY_RUN_CMD sudo install -o root -g wheel -m 444 ${watch-lib}/lib/pam_watchid.so ${watchPath}
           $DRY_RUN_CMD ${sed} -i '2i\
-        auth       sufficient     pam_watchid.so "reason=execute a command as root" # enabled by nix-darwin: `${watchOption}`
+        auth       sufficient     pam_watchid.so "reason=execute a command as root" # enabled by nix-darwin: ${watchOption}
           ' ${pamFile}
         fi
       ''

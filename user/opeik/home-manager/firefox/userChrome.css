@@ -2,7 +2,6 @@
 Firefox custom UI styles. Makes the following changes:
 - When Sidebery is enabled:
     - the native horizontal tab bar is hidden
-    - the Sidebery vertical tab bar is compact by default and expanded on hover
 */
 
 :root {
@@ -11,43 +10,90 @@ Firefox custom UI styles. Makes the following changes:
     --sideberry-controls-margin: 96px;
     --sideberry-window-controls-height: 16px;
     --sideberry-window-controls-margin: calc(var(--sideberry-window-controls-height) + (var(--sideberry-navbar-height) / 4) + (var(--sideberry-window-controls-height) / 4));
+    --uc-tabs-hide-animation-duration: 48ms;
+    --uc-tabs-hide-animation-delay: 200ms;
 }
 
-/* Add transitions for moving elements. */
-#main-window #nav-bar,
-#TabsToolbar,
-#titlebar,
-#nav-bar-customization-target,
-.titlebar-buttonbox-container {
-    transition: all 0.3s ease !important;
+@media (-moz-bool-pref: "sidebar.verticalTabs") {
+    #sidebar-main:has(>[expanded]) {
+        overflow: visible !important;
+        max-width: var(--tab-collapsed-width);
+        z-index: var(--browser-area-z-index-toolbox-while-animating);
+        transition: z-index 0s linear var(--uc-tabs-hide-duration);
+    }
+
+    #sidebar-main>[expanded] {
+        --tab-pinned-horizontal-count: 5;
+        /* This needs to match whatever is used in sidebar-main.css - currently 5 */
+        background: inherit;
+        overflow: hidden;
+        min-width: var(--tab-collapsed-width);
+        transition: min-width var(--uc-tabs-hide-animation-duration) ease-out var(--uc-tabs-hide-animation-delay);
+        border-inline: 0.01px solid var(--chrome-content-separator-color);
+        border-inline-width: 0 0.01px;
+
+        &[positionend] {
+            transition-property: min-width, transform;
+            border-inline-width: 0.01px 0;
+        }
+    }
 }
 
-/* Hide the horizontal tab bar when vertical tab bar is enabled. */
-#main-window #titlebar {
-    height: var(--sideberry-tabs-height);
+@media not (-moz-bool-pref: "sidebar.verticalTabs") {
+    :root:not([customizing], [chromehidden~="menubar"]) #TabsToolbar {
+        margin-bottom: calc(0px - 2 * var(--tab-block-margin) - var(--tab-min-height));
+    }
+
+    #navigator-toolbox {
+        transition: margin-bottom var(--uc-tabs-hide-animation-duration) ease-out var(--uc-tabs-hide-animation-delay) !important;
+        --browser-area-z-index-toolbox: 3;
+    }
+
+    #TabsToolbar:not([customizing]) {
+        visibility: hidden;
+        transition: visibility 0ms linear var(--uc-tabs-hide-animation-delay),
+            margin-bottom var(--uc-tabs-hide-animation-duration) ease-out var(--uc-tabs-hide-animation-delay) !important;
+    }
+
+    #main-window[titlepreface*="​"] #urlbar-container {
+        margin-top: 3px;
+    }
+
+    #main-window:not([titlepreface*="​"]) #navigator-toolbox {
+        transition-delay: 0s !important;
+
+        >#TabsToolbar {
+            visibility: visible;
+            margin-bottom: 0px;
+            transition-delay: 18ms, 0ms !important;
+        }
+    }
+
+    @media (-moz-bool-pref: "userchrome.autohidetabs.show-while-inactive.enabled") {
+        #navigator-toolbox:-moz-window-inactive {
+            margin-bottom: calc(0px - 2 * var(--tab-block-margin) - var(--tab-min-height));
+
+            >#TabsToolbar {
+                visibility: visible;
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    /* These rules make sure that height of tabs toolbar doesn't exceed tab-min-height */
+    #tabbrowser-tabs:not([secondarytext-unsupported]) .tab-label-container {
+        max-height: var(--tab-min-height);
+    }
+
+    .tab-label {
+        line-height: 20px !important;
+    }
+
+    :root[uidensity="compact"] .tab-label {
+        line-height: 18px !important;
+    }
 }
 
-#main-window[titlepreface*="​"] #titlebar {
-    height: 0px;
-}
-
-/* Move the window controls down when the vertical tab bar is enabled. */
-#main-window .titlebar-buttonbox-container {
-    margin-top: revert;
-}
-
-#main-window[titlepreface*="​"] .titlebar-buttonbox-container {
-    margin-top: var(--sideberry-window-controls-margin);
-}
-
-/* Make room for the window controls when the vertical tab bar is enabled. */
-#main-window #nav-bar-customization-target {
-    margin-left: revert;
-}
-
-#main-window[titlepreface*="​"] #nav-bar-customization-target {
-    margin-left: var(--sideberry-controls-margin);
-}
 
 /* Hide the vertical tab bar header. */
 #main-window #sidebar-header,
@@ -58,7 +104,7 @@ Firefox custom UI styles. Makes the following changes:
 /* Hide the vertical tab bar by default. */
 #main-window #sidebar-box {
     --bar-width-hidden: 35px;
-    z-index: 1;
+    z-index: 999;
     position: relative !important;
     overflow-x: hidden !important;
     min-width: var(--bar-width-hidden) !important;
