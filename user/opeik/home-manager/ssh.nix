@@ -5,7 +5,7 @@
     forwardAgent = true;
     matchBlocks = {
       "marisa.local".user = "opeik";
-      "pi-1.local".user = "pi";
+      "pi-1.internal".user = "pi";
       "mister" = {
         hostname = "10.0.1.3";
         user = "root";

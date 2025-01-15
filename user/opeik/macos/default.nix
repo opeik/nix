@@ -5,6 +5,7 @@
   pkgs,
   lib,
   config,
+  root,
   ...
 }: let
   # Convenience command that rebuilds and applies the system config.
@@ -29,7 +30,10 @@ in {
   imports = [./homebrew.nix];
 
   # Use the new Nix binary cache.
-  nix.settings.substituters = lib.mkBefore ["https://aseipp-nix-cache.freetls.fastly.net"];
+  nix = {
+    settings.substituters = lib.mkBefore ["https://aseipp-nix-cache.freetls.fastly.net"];
+  };
+
 
   # Enable Apple TouchID and WatchID sudo auth.
   security.pam = {
@@ -54,11 +58,22 @@ in {
   };
 
   # Start the atuin daemon.
-  launchd.user.agents.atuin = {
-    command = "${pkgs.atuin}/bin/atuin daemon";
-    serviceConfig = {
-      RunAtLoad = true;
-      StandardOutPath = "/tmp/atuin.log";
+  launchd = {
+    user.agents.atuin = {
+      command = "${pkgs.atuin}/bin/atuin daemon";
+      serviceConfig = {
+        RunAtLoad = true;
+        StandardOutPath = "/tmp/atuin.log";
+      };
+    };
+
+    daemons.nix-cleanup = {
+      command = "${./nix-cleanup.sh} 2>&1";
+      serviceConfig = {
+        RunAtLoad = true;
+        StandardOutPath = "/tmp/nix-cleanup.log";
+        StartInterval = 60 * 60 * 24; # In seconds.
+      };
     };
   };
 }
