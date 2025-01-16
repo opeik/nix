@@ -24,8 +24,5 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
       - name: Evaluate system `${{ matrix.system }}`
         run: nix eval --show-trace --json .#darwinConfigurations.${{ matrix.system }}.config.system.build.toplevel.drvPath | json_pp
