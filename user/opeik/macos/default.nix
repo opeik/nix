@@ -34,11 +34,9 @@ in {
     settings.substituters = lib.mkBefore ["https://aseipp-nix-cache.freetls.fastly.net"];
   };
 
-
   # Enable Apple TouchID and WatchID sudo auth.
   security.pam = {
     enableSudoTouchIdAuth = true;
-    enableSudoWatchIdAuth = true;
   };
 
   # Install homebrew apps.

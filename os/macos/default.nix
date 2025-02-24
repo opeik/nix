@@ -7,7 +7,7 @@
 }: {
   imports = ["${root}/lib/macos"]; # Import macOS modules
   system = {
-    stateVersion = 4; # nix-darwin version, do not touch
+    stateVersion = 5; # nix-darwin version, do not touch
     activationScripts.applications.text = lib.mkForce ""; # Disable nix-darwin ~/Applications management
   };
 

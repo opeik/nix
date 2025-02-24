@@ -7,6 +7,7 @@
       username.show_always = true; # Always show username in prompt
       username.style_user = "bold bright-yellow"; # Improve contrast of username
       nix_shell.disabled = true;
+      command_timeout = 100;
 
       format = builtins.concatStringsSep "" [
         "$username"
