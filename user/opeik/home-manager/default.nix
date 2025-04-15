@@ -34,6 +34,8 @@
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
       kubectl # Kubernetes utilities
       iosevka-bin # Pretty font
+      source-code-pro
+      font-awesome
       jq # JSON swiss army knife
       procs # ps (in Rust!)
       ripgrep # grep (in Rust!)
