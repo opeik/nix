@@ -4,7 +4,8 @@
     enable = true;
     # global.brewfile = true;
     onActivation = {
-      # autoUpdate = true;
+      autoUpdate = false;
+      upgrade = false;
       cleanup = "uninstall"; # When an app is removed from the cask list, remove it but leave its config intact.
     };
     casks = [

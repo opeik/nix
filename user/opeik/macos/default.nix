@@ -39,16 +39,6 @@ in {
     enableSudoTouchIdAuth = true;
   };
 
-  # Install homebrew apps.
-  homebrew = {
-    enable = true;
-    global.brewfile = true;
-    onActivation = {
-      cleanup = "uninstall";
-      autoUpdate = true;
-    };
-  };
-
   # Add nushell as a valid login shell.
   environment = {
     systemPackages = [nixy pkgs.unstable.nushell];

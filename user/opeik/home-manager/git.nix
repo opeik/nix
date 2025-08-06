@@ -34,6 +34,7 @@
       init.defaultBranch = "main"; # Use `main` as the default branch name
       pull.rebase = true; # Always rebase instead of merge
       rebase.autoStash = true; # Automatically stash unstaged changes then reapply after an action
+      merge.autoStash = true; # Automatically stash unstaged changes then reapply after an action
       rerere.enabled = true; # Store merge conflict resolutions for later reuse.
 
       # If signing code, use 1Password.
