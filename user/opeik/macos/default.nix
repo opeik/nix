@@ -20,7 +20,7 @@
       set -x
       cd /Users/${config.username}/Development/nix
       ${pkgs.git}/bin/git add .
-      darwin-rebuild switch --flake ".#$target"
+      sudo darwin-rebuild switch --flake ".#$target"
       set +x
     }
 
@@ -36,13 +36,13 @@ in {
 
   # Enable Apple TouchID and WatchID sudo auth.
   security.pam = {
-    enableSudoTouchIdAuth = true;
+    services.sudo_local.touchIdAuth = true;
   };
 
   # Add nushell as a valid login shell.
   environment = {
-    systemPackages = [nixy pkgs.unstable.nushell];
-    shells = [pkgs.unstable.nushell];
+    systemPackages = [nixy pkgs.nushell];
+    shells = [pkgs.nushell];
   };
 
   # Start the atuin daemon.

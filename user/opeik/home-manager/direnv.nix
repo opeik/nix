@@ -3,5 +3,6 @@
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true; # Use the nix-direnv fork
+    silent = true;
   };
 }

@@ -8,12 +8,12 @@
   # Nushell encourages you to use the default config and apply your changes on top of it.
   defaults = {
     config = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/refs/tags/0.102.0/crates/nu-utils/src/default_files/default_config.nu";
-      sha256 = "1szvvsk158026jvfqd8cjza7fdxgsnhbvri06x01fql456r527kd";
+      url = "https://raw.githubusercontent.com/nushell/nushell/refs/tags/0.104.0/crates/nu-utils/src/default_files/default_config.nu";
+      sha256 = "JiEGuVJycoEQoFZUoGS7tB03evpSak7j8e8bPPN3vS8=";
     };
     env = builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/nushell/nushell/refs/tags/0.102.0/crates/nu-utils/src/default_files/default_env.nu";
-      sha256 = "0v3zhvxp0m664r11y7n4inkq7ngahwasxgs0zl80z70g2z77sm6d";
+      url = "https://raw.githubusercontent.com/nushell/nushell/refs/tags/0.104.0/crates/nu-utils/src/default_files/default_env.nu";
+      sha256 = "QrmNdYKQ/NBVLYJ+nL+27+Em+O/hPsCaRyvWveGYFJc=";
     };
   };
 
@@ -48,7 +48,7 @@
     ];
 in {
   config.programs.nushell = {
-    package = pkgs.unstable.nushell;
+    # package = pkgs.unstable.nushell;
 
     enable = true;
     configFile.text = (

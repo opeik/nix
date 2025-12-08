@@ -7,11 +7,11 @@
 }: {
   imports = ["${root}/lib/macos"]; # Import macOS modules
   system = {
-    stateVersion = 5; # nix-darwin version, do not touch
+    stateVersion = 6; # nix-darwin version, do not touch
     activationScripts.applications.text = lib.mkForce ""; # Disable nix-darwin ~/Applications management
+    primaryUser = config.username;
   };
 
-  services.nix-daemon.enable = true; # Enable the Nix build daemon
   nixpkgs.config.allowUnfree = true; # Enable proprietary packages
   users.users.${config.username}.home = config.home; # Define system user
 

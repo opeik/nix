@@ -114,7 +114,7 @@
   };
 
   # Install powerline fonts for starship
-  home.packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];})];
+  home.packages = with pkgs; [nerd-fonts.fira-code];
   # Show helpful command-not-found messages.
   programs.nix-index.enable = true;
 }
