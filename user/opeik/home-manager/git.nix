@@ -7,12 +7,13 @@
 }: {
   programs.git = {
     enable = true;
-    userName = osConfig.name; # Set the git user name
-    userEmail = osConfig.email; # Set the git user email
     ignores = [".DS_Store"]; # Global file ignore list
 
     # git settings, see: https://git-scm.com/docs/git-config#_variables
-    extraConfig = {
+    settings = {
+      user.name = osConfig.name; # Set the git user name
+      user.email = osConfig.email; # Set the git user email
+
       core = {
         eol = "lf"; # Always use Unix line endings
         autocrlf = false; # Don't automatically convert line endings
@@ -43,31 +44,5 @@
       commit.gpgsign = true;
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIecOpIZJm2t6IPK/FBsNN26eoIAKVHt/IP+8irtjXs4";
     };
-
-    # Setup git-town aliases.
-    aliases =
-      lib.genAttrs [
-        # Basic workflow
-        "hack"
-        "sync"
-        "switch"
-        "propose"
-        "ship"
-        # Additional commands
-        "kill"
-        "rename-branch"
-        "repo"
-        # Nested feature branches
-        "append"
-        "prepend"
-        "set-parent"
-        "diff-parent"
-        # Dealing with errors
-        "continue"
-        "skip"
-        "status"
-        "undo"
-      ]
-      (name: "town ${name}");
   };
 }

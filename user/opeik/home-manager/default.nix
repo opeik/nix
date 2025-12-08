@@ -26,7 +26,7 @@
       docker # Docker container CLI tools
       docker-compose # Docker container orchestrator
       terraform # Terraform CLI tools
-      du-dust # du (in Rust!)
+      dust # du (in Rust!)
       eza # ls (in Rust!)
       fd # find (in Rust!)
       git-town # Git workflow automation

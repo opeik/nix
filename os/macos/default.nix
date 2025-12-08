@@ -1,5 +1,6 @@
 # macOS (nix-darwin) config, see: https://lnl7.github.io/nix-darwin/manual
 {
+  pkgs,
   lib,
   config,
   root,
@@ -16,6 +17,7 @@
   users.users.${config.username}.home = config.home; # Define system user
 
   nix = {
+    package = pkgs.lixPackageSets.stable.lix;
     # package = pkgs.nixVersions.latest; # Use the latest Nix version.
     extraOptions = ''
       experimental-features = flakes nix-command # Enable flakes and the new cli
@@ -23,9 +25,6 @@
       keep-outputs = true # Keep derivation outputs to speed up direnv
     '';
   };
-
-  # Enable Nix integration with the default shell (zsh) as a fallback in case something goes haywire.
-  programs.zsh.enable = true;
 
   # Setup home-manager, which manages your user
   home-manager = {

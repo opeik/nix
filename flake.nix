@@ -1,19 +1,15 @@
 # Nix flake, see: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-25.05";
+      url = "github:lnl7/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -23,7 +19,6 @@
     nixpkgs,
     nixpkgs-unstable,
     flake-utils,
-    lix-module,
     nix-darwin,
     home-manager,
     ...
@@ -33,7 +28,7 @@
     # macOS and nixOS modules
     modules = {
       macos = [./os/macos home-manager.darwinModules.home-manager];
-      shared = [./lib/options.nix overlays lix-module.nixosModules.default];
+      shared = [./lib/options.nix overlays];
     };
 
     readConfig = path: builtins.fromTOML (builtins.readFile path);

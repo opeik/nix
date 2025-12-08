@@ -48,7 +48,11 @@ in {
   # Start the atuin daemon.
   launchd = {
     user.agents.atuin = {
-      command = "${pkgs.atuin}/bin/atuin daemon";
+      script = ''
+        rm -f "$HOME"/.local/share/atuin/atuin.sock
+        ${pkgs.atuin}/bin/atuin daemon
+      '';
+
       serviceConfig = {
         RunAtLoad = true;
         StandardOutPath = "/tmp/atuin.log";
