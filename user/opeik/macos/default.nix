@@ -60,7 +60,20 @@ in {
     };
 
     daemons.nix-cleanup = {
-      command = "${./nix-cleanup.sh} 2>&1";
+      script = ''
+        function log {
+            local timestamp; timestamp="$(date +"%Y-%m-%dT%H:%M:%S")"
+            printf '[%s] %s\n' "''${timestamp}" "''${1}"
+        }
+
+        PATH="$PATH:/run/current-system/sw/bin"
+        log 'nix cleanup job starting!'
+        log "collecting nix garbage as ${config.username}..."; sudo --user ${config.username} nix-collect-garbage --delete-old 2>&1
+        log 'collecting nix garbage as root...'; nix-collect-garbage --delete-old 2>&1
+        log 'optimizing nix store...'; nix-store --optimise 2>&1
+        log 'nix cleanup job done!'
+      '';
+
       serviceConfig = {
         RunAtLoad = true;
         StandardOutPath = "/tmp/nix-cleanup.log";
