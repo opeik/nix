@@ -24,6 +24,7 @@
         | append '/run/current-system/sw/bin'
         | append '/etc/profiles/per-user/${osConfig.username}/bin'
         | append '/nix/var/nix/profiles/default/bin'
+        | append ($env.HOME | path join '.bin')
         # Add Homebrew paths.
         | append '/opt/homebrew/bin'
         # Add application paths.

@@ -14,6 +14,7 @@
       "cameracontroller"
       "discord"
       "docker"
+      "dbeaver-community"
       "firefox"
       "hammerspoon"
       "iina"
