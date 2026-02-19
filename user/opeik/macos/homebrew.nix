@@ -12,12 +12,13 @@
       "1password"
       "appcleaner"
       "cameracontroller"
-      "discord"
-      "docker"
       "dbeaver-community"
+      "discord"
+      "docker-desktop"
       "firefox"
       "hammerspoon"
       "iina"
+      "iterm2"
       "keka"
       "kicad"
       "loopback"
@@ -28,10 +29,15 @@
       "selfcontrol"
       "soundsource"
       "stats"
-      "tailscale"
+      "tailscale-app"
       "visual-studio-code"
-      "wireshark"
+      "wireshark-app"
       "yubico-authenticator"
     ];
+
+    # App Store apps.
+    masApps = {
+      "Wireguard" = 1451685025;
+    };
   };
 }

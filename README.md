@@ -11,7 +11,7 @@ See [`./flake.nix`](./flake.nix) for valid systems, run:
 ```sh
 export SYSTEM=reimu
 # Install Nix.
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+curl --proto '=https' --tlsv1.2 -sSf -L https://nixos.org/nix/install | sh -s -- install
 # Fetch Nix configs.
 git clone https://github.com/opeik/nix && cd nix
 # Apply the system config.
@@ -20,7 +20,7 @@ nix build ".#darwinConfigurations.$SYSTEM.system" && ./result/sw/bin/darwin-rebu
 
 ## Usage
 
-Once installed, simply run `nixos-rebuild` to update the Nix config.
+Once installed, simply run `nixy` to update the Nix config.
 
 ## Structure
 

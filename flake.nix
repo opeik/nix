@@ -73,7 +73,7 @@
           homeModules = [./user/opeik/home-manager ./machine/reimu/home-manager.nix];
         };
 
-        AU-L-0215.local = macosSystem {
+        AU-L-FP4HCR7XNN = macosSystem {
           arch = "aarch64-darwin";
           config = readConfig ./user/opeik/config.toml // readConfig ./machine/work/config.toml;
           osModules = [./user/opeik/macos];
