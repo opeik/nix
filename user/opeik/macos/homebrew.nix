@@ -2,12 +2,14 @@
 {...}: {
   homebrew = {
     enable = true;
+
     # global.brewfile = true;
     onActivation = {
       autoUpdate = false;
       upgrade = false;
       cleanup = "uninstall"; # When an app is removed from the cask list, remove it but leave its config intact.
     };
+
     casks = [
       "1password"
       "appcleaner"
@@ -23,8 +25,9 @@
       "kicad"
       "loopback"
       "lulu"
-      "mos"
+      "mac-mouse-fix"
       "obs"
+      "obsidian"
       "saleae-logic"
       "selfcontrol"
       "soundsource"
